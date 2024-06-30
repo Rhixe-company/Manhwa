@@ -1,0 +1,45 @@
+{% extends "base.html" %} {% load static i18n widget_tweaks %}
+<!-- Modal footer -->
+{% block title %}New Category {% endblock title %}
+<!-- content -->
+{% block content %}
+<div>
+  <div class="mb-2"><h2 class="text-2xl font-bold">New Category</h2></div>
+  <div>
+    <form action="" method="post">
+      {% for hidden_field in form.hidden_fields %}
+      <!-- for -->
+      {{ hidden_field.errors }} {{ hidden_field }}
+      <!-- endfor -->
+      {% endfor %}
+      <!-- csrf -->
+      {% csrf_token %}
+      <!-- ss -->
+      {% for field in form %}
+      <div>
+        <div class="ml-3 text-xs text-red-400">{{ field.errors }}</div>
+        <label for="{{field.label}}" class="form-label">{{field.label}}</label>
+        {% render_field field %}
+        <span class="ml-3 text-sm text-gray-400"> {{ field.help_text }} </span>
+      </div>
+      {% endfor %}
+      <div class="pt-2">
+        <button
+          class="w-100 btn btn-primary mb-2"
+          type="submit"
+          value="Add Category"
+        >
+          Add Category
+        </button>
+        <a
+          role="button"
+          href="{% url 'category:list' %}"
+          class="w-100 btn btn-secondary mb-2"
+          >Cancel</a
+        >
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,78 @@
+{
+  "name": "rhixe_scans",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "alpinejs": "^3.14.0",
+    "highlight.js": "^11.9.0",
+    "htmx.org": "^1.9.12",
+    "hyperscript.org": "^0.9.12",
+    "jquery": "^3.7.1",
+    "select2": "^4.1.0-rc.0",
+    "sortablejs": "^1.15.2",
+    "tw-elements": "^2.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.5",
+    "@babel/preset-env": "^7.16.5",
+    "@fortawesome/fontawesome-free": "^6.5.2",
+    "@popperjs/core": "^2.10.2",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
+    "@types/alpinejs": "^3.13.10",
+    "@types/jquery": "^3.5.30",
+    "@types/select2": "^4.0.63",
+    "autoprefixer": "^10.4.19",
+    "babel-loader": "^9.1.2",
+    "bootstrap": "^5.2.3",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.5.1",
+    "daisyui": "^4.11.1",
+    "flowbite": "^2.3.0",
+    "flowbite-typography": "^1.0.3",
+    "globals": "^15.6.0",
+    "mini-css-extract-plugin": "^2.4.5",
+    "node-sass-tilde-importer": "^1.0.2",
+    "pixrem": "^5.0.0",
+    "postcss": "^8.4.38",
+    "postcss-import": "^15.1.0",
+    "postcss-loader": "^8.0.0",
+    "postcss-nested": "^6.0.1",
+    "postcss-preset-env": "^9.0.0",
+    "postcss-simple-vars": "^7.0.1",
+    "prettier": "^3.3.2",
+    "prettier-plugin-organize-imports": "^3.2.4",
+    "prettier-plugin-tailwindcss": "^0.6.5",
+    "rimraf": "^5.0.7",
+    "sass": "^1.43.4",
+    "sass-loader": "^14.0.0",
+    "tailwindcss": "^3.4.3",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.4.5",
+    "webpack": "^5.65.0",
+    "webpack-bundle-tracker": "^3.0.1",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^5.0.2",
+    "webpack-merge": "^5.8.0",
+    "windicss": "^3.5.6",
+    "windicss-webpack-plugin": "^1.8.0"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "not dead",
+    "not op_mini all"
+  ],
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development webpack serve --config webpack/dev.config.js",
+    "build": "cross-env NODE_ENV=production webpack --config webpack/prod.config.js",
+    "clean": "rimraf  dist",
+    "lint": "prettier --write ./rhixe_scans/templates/**/*.html ./components/**/*.html "
+  },
+  "files": [
+    "dist"
+  ]
+}

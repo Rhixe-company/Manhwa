@@ -1,0 +1,58 @@
+{% load django_tables2 static i18n %}
+<div>
+  <table
+    class="table table-xs w-full text-left text-sm text-gray-500 dark:text-gray-400"
+    {%
+    render_attrs
+    table.attrs
+    %}
+  >
+    {% if table.show_header %}
+    <thead
+      class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400"
+      {{table.attrs.thead.as_html}}
+    >
+      <tr>
+        {% for column in table.columns %}
+        <th scope="col" class="px-1 py-1" {{column.attrs.th.as_html }}>
+          {% if column.orderable %}
+          <a
+            hx-get="{% querystring table.prefixed_order_by_field=column.order_by_alias.next %}"
+            hx-target="#comic-container"
+          >
+            {{ column.header }}
+          </a>
+          {% else %} {{ column.header }} {% endif %}
+        </th>
+        {% endfor %}
+      </tr>
+    </thead>
+    {% endif %}
+    <!-- block table.body -->
+
+    <tbody {{table.attrs.tbody.as_html }}>
+      {% for row in table.paginated_rows %}
+      <tr class="border-b dark:border-gray-700" {{row.attrs.as_html}}>
+        {% for column, cell in row.items %}
+        <td
+          scope="row"
+          class="px-1 py-1 font-medium text-gray-900 dark:text-white"
+          {{column.attrs.td.as_html}}
+        >
+          {% if column.localize == None %}
+          <!-- loclize ==None -->
+          {{cell}} {% else %} {% if column.localize %}
+          <!-- localize -->
+          {{cell|localize}} {% else %}
+          <!-- unlocalize -->
+          {{cell|unlocalize}} {% endif %} {% endif %}
+          <!-- s -->
+        </td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+      <!--  -->
+    </tbody>
+  </table>
+</div>
+<!-- pagination -->

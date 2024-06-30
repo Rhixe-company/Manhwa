@@ -1,0 +1,9 @@
+{% load allauth %}
+<form method="{{ attrs.method }}" action="{{ attrs.action }}" class="mt-4 space-y-3" enctype="multipart/form-data">
+  <!-- dd -->
+  {% slot body %}
+  <!-- dd -->
+  {% endslot %}
+  <!-- dd -->
+  {% slot actions %} {% endslot %}
+</form>

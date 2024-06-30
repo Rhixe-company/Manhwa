@@ -1,0 +1,4 @@
+/* In a file called [project root]/components/card/style.css */
+.card-bg-gradient {
+  background: linear-gradient(rgb(66, 12, 53), rgb(141, 89, 121));
+}

@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=192.169.0.4
+POSTGRES_PORT=5432
+POSTGRES_DB=rhixe_scans
+POSTGRES_USER=JKTkZMytkTOsKYzlvqMaRELTQwndFZWf
+POSTGRES_PASSWORD=nwP6zjuieRajae1apYsmb9WMOqIQJfJ54BFS8ZnyWdM1uGQM2QC3ndEC5LtYatx5

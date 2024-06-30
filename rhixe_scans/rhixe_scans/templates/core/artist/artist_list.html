@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% load static i18n widget_tweaks %}
+<!-- Modal footer -->
+{% block title %}Artist List{% endblock title %}
+<!-- content -->
+{% block content %}
+<div>
+  <div class="mb-2"><h2 class="text-2xl font-bold">Artist</h2></div>
+  <div class="mt-2">
+    {% if artist_list %}
+    <ul class="items-center justify-between">
+      {% for cat in artist_list %}
+      <li class="list-item">
+        <a href="{{cat.get_absolute_url}}" class="btn btn-outline"
+          >{{cat.name}}</a
+        >
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>There are no artists to display</p>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock content %}

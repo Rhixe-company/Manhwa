@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+exec watchfiles --filter python celery.__main__.main --args '-A config.celery_app worker -Q normal -l info'
+
+# exec watchfiles --filter python celery.__main__.main --args '-A config.celery_app worker -l INFO'
+# celery -A config.celery_app worker -l info --pool=solo
+# celery -A config.celery_app worker -Q normal -l info

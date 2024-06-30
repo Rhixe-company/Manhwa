@@ -1,0 +1,89 @@
+.select2.select2-container {
+  @apply w-full;
+}
+
+.select2.select2-container .select2-selection {
+  @apply border border-gray-800 rounded h-8 mb-4 outline-none transition-all ease-in-out duration-150;
+}
+
+.select2.select2-container .select2-selection .select2-selection__rendered {
+  @apply text-gray-800 leading-8 pr-8;
+}
+
+.select2.select2-container .select2-selection .select2-selection__arrow {
+  @apply bg-gray-200 border-l border-gray-300 rounded-r h-8 w-8;
+}
+
+.select2.select2-container.select2-container--open
+  .select2-selection.select2-selection--single {
+  @apply bg-gray-200;
+}
+
+.select2.select2-container.select2-container--open
+  .select2-selection.select2-selection--single
+  .select2-selection__arrow {
+  @apply rounded-t;
+}
+
+.select2.select2-container.select2-container--open
+  .select2-selection.select2-selection--multiple {
+  @apply border border-gray-800;
+}
+
+.select2.select2-container .select2-selection--multiple {
+  @apply h-auto min-h-8;
+}
+
+.select2.select2-container
+  .select2-selection--multiple
+  .select2-search--inline
+  .select2-search__field {
+  @apply mt-0 h-8;
+}
+
+.select2.select2-container
+  .select2-selection--multiple
+  .select2-selection__rendered {
+  @apply block px-1 leading-7;
+}
+
+.select2.select2-container
+  .select2-selection--multiple
+  .select2-selection__choice {
+  @apply bg-gray-200 border border-gray-300 rounded mt-1 ml-1 p-1 h-6 leading-6 text-xs relative;
+}
+
+.select2.select2-container
+  .select2-selection--multiple
+  .select2-selection__choice
+  .select2-selection__choice__remove {
+  @apply absolute top-0 left-0 h-6 w-6 text-center text-red-600 font-bold text-lg;
+}
+
+.select2-container .select2-dropdown {
+  @apply bg-transparent border-none mt-0;
+}
+
+.select2-container .select2-dropdown .select2-search {
+  @apply p-0;
+}
+
+.select2-container .select2-dropdown .select2-search input {
+  @apply outline-none border border-gray-800 border-b-0 p-1;
+}
+
+.select2-container .select2-dropdown .select2-results {
+  @apply p-0;
+}
+
+.select2-container .select2-dropdown .select2-results ul {
+  @apply bg-gray-800 border border-gray-800;
+}
+
+.select2-container
+  .select2-dropdown
+  .select2-results
+  ul
+  .select2-results__option--highlighted[aria-selected] {
+  @apply bg-blue-500;
+}

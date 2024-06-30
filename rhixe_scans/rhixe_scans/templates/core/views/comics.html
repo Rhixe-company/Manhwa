@@ -1,0 +1,51 @@
+{% extends "base.html" %} Comics {% block title %}Comics{% endblock title %}
+<!-- content -->
+{% block content %} {% load static %}
+
+<div class="container mx-auto py-3 sm:px-1 lg:px-1">
+  <!-- Search and Filter Section -->
+  <div class="mb-4">
+    <input
+      type="text"
+      placeholder="Search"
+      class="w-full rounded border bg-gray-400 px-4 py-2 dark:bg-gray-900"
+    />
+  </div>
+  <!-- Comics List -->
+  <div
+    class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+  >
+    {% for comic in comics %}
+    <div
+      class="card grid grid-cols-2 overflow-hidden rounded-lg bg-gray-500 shadow-md dark:bg-gray-900"
+    >
+      <div class="mr-3">
+        <a href="{{comic.get_absolute_url}}">
+          <img
+            src="{{ comic.images.url}}"
+            alt="Comic Title"
+            class="h-48 w-full object-cover"
+        /></a>
+      </div>
+      <div class="flex flex-col items-center justify-around">
+        <div class="flex flex-col">
+          <a href="{{comic.get_absolute_url}}"
+            ><h3 class="text-sm font-bold">{{comic.title}}</h3></a
+          >
+
+          <time>{{comic.created_at|timesince}}</time>
+        </div>
+        <div class="mb-2 flex flex-col">
+          {% for chapter in comic.chapter_set.all %}
+          <a href="{{chapter.get_absolute_url}}" class="btn btn-ghost btn-sm"
+            >{{chapter.name}}</a
+          >
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock content %}

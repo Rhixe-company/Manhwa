@@ -1,0 +1,19 @@
+# General
+# ------------------------------------------------------------------------------
+USE_DOCKER=yes
+IPYTHONDIR=/app/.ipython
+DJANGO_DEBUG=True
+# Redis
+# ------------------------------------------------------------------------------
+REDIS_URL=redis://default:OVSWlRJxTzm5syLZGb5iM3Wq1Rhqw5LY0bYftI5qw1prTI0crMsOFQLZZavIlcqQ@192.169.0.5:6379/0
+REDIS_PASSWORD =
+REDIS_HOST = localhost
+REDIS_PORT = 6379
+REDIS_DB = 3
+# Celery
+# ------------------------------------------------------------------------------
+CELERY_BROKER_URL=redis://default:OVSWlRJxTzm5syLZGb5iM3Wq1Rhqw5LY0bYftI5qw1prTI0crMsOFQLZZavIlcqQ@192.169.0.5:6379/0
+
+# Flower
+CELERY_FLOWER_USER=PmoGvuSyamLnkkAtIAQGmCsquUiGKCYH
+CELERY_FLOWER_PASSWORD=iS40c0v7Gxoslmbu6bSfD1iHikT1iMkhLfwebdNSTcbLz7qwtbUBZWK5nHf4JuBh

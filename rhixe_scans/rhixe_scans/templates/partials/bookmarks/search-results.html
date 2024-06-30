@@ -1,0 +1,21 @@
+{% if results %}
+<ul>
+  {% for comic in results %}
+  <li class="flex items-center justify-between p-4">
+    {{comic.title}}
+    <span
+      class="badge badge-primary badge-success"
+      style="cursor: pointer"
+      hx-post="{% url 'bookmarks:add-comic' %}"
+      hx-vals='{"comictitle": "{{comic.title}}"}'
+      hx-target="#comic-list"
+      hx-trigger="click"
+      hx-swap="outerHTML"
+      >add</span
+    >
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No Search results</p>
+{% endif %}

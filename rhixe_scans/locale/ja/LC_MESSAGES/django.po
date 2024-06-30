@@ -1,0 +1,1877 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-29 11:59+0100\n"
+"PO-Revision-Date: 2024-04-20 21:57+0200\n"
+"Last-Translator: SATOH Fumiyasu <fumiyas@osstech.co.jp>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/django-allauth/"
+"django-allauth/ja/>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.5-dev\n"
+
+#: .\core\forms.py:47 .\core\forms.py:150
+msgid "Enter  Title"
+msgstr ""
+
+#: .\core\forms.py:51 .\core\forms.py:154
+#, fuzzy
+#| msgid "Alternative options"
+msgid "Enter Alternative Title"
+msgstr "そのほかの方法"
+
+#: .\core\forms.py:56 .\core\forms.py:118 .\core\forms.py:159
+msgid "Enter  Slug"
+msgstr ""
+
+#: .\core\forms.py:69 .\core\forms.py:174
+msgid "Enter  Released"
+msgstr ""
+
+#: .\core\forms.py:73 .\core\forms.py:178
+msgid "Enter  Description"
+msgstr ""
+
+#: .\core\forms.py:117 .\core\forms.py:211
+msgid "Enter  Name"
+msgstr ""
+
+#: .\core\models.py:67 .\core\models.py:80 .\core\models.py:93
+#: .\core\models.py:106 .\core\models.py:238 .\core\models.py:312
+msgid "Name"
+msgstr ""
+
+#: .\core\models.py:128
+msgid "Title"
+msgstr ""
+
+#: .\core\models.py:129 .\core\models.py:239
+msgid "Slug"
+msgstr ""
+
+#: .\core\models.py:131 .\core\models.py:287 .\rhixe_scans\users\forms.py:179
+#: .\rhixe_scans\users\models.py:42
+msgid "Images"
+msgstr ""
+
+#: .\core\models.py:140
+msgid "Description"
+msgstr ""
+
+#: .\core\models.py:141
+msgid "Status"
+msgstr ""
+
+#: .\core\models.py:142
+msgid "Rating"
+msgstr ""
+
+#: .\core\models.py:144
+#, fuzzy
+#| msgid "Alternative options"
+msgid "Alternative Title"
+msgstr "そのほかの方法"
+
+#: .\core\models.py:160
+msgid "Released"
+msgstr ""
+
+#: .\core\models.py:165
+msgid "Serialization"
+msgstr ""
+
+#: .\core\models.py:167
+msgid "Posted by"
+msgstr ""
+
+#: .\core\models.py:168
+msgid "Total Chapters"
+msgstr ""
+
+#: .\core\models.py:169 .\core\models.py:241
+msgid "Url"
+msgstr ""
+
+#: .\core\models.py:171 .\core\models.py:246
+msgid "Updated"
+msgstr ""
+
+#: .\core\models.py:172 .\core\models.py:240
+#, fuzzy
+#| msgid "Download"
+msgid "Downloaded"
+msgstr "ダウンロード"
+
+#: .\core\models.py:173 .\core\models.py:247
+msgid "Published"
+msgstr ""
+
+#: .\core\models.py:242
+msgid "Total Pages"
+msgstr ""
+
+#: .\core\models.py:314
+msgid "Body"
+msgstr ""
+
+#: .\rhixe_scans\templates\403.html:16 .\rhixe_scans\templates\403_csrf.html:16
+msgid "Forbidden (403)"
+msgstr ""
+
+#: .\rhixe_scans\templates\404.html:16
+msgid "Page not found"
+msgstr ""
+
+#: .\rhixe_scans\templates\500.html:16
+msgid "Server Error"
+msgstr ""
+
+#: .\rhixe_scans\templates\account-bak\login.html:5
+#: .\rhixe_scans\templates\account\confirm_login_code.html:5
+#: .\rhixe_scans\templates\account\confirm_login_code.html:27
+#: .\rhixe_scans\templates\account\login.html:5
+#: .\rhixe_scans\templates\account\login.html:9
+#: .\rhixe_scans\templates\account\login.html:31
+#: .\rhixe_scans\templates\account\request_login_code.html:5
+#: .\rhixe_scans\templates\allauth-bak\layouts\entrance.html:8
+#: .\rhixe_scans\templates\allauth\layouts\base.html:62
+#: .\rhixe_scans\templates\mfa\authenticate.html:6
+#: .\rhixe_scans\templates\mfa\authenticate.html:24
+#: .\rhixe_scans\templates\socialaccount\login.html:5
+#: .\rhixe_scans\templates\socialaccount\login_redirect.html:5
+msgid "Sign In"
+msgstr "ログイン"
+
+#: .\rhixe_scans\templates\account-bak\login.html:27
+msgid " Sign in to platform"
+msgstr ""
+
+#: .\rhixe_scans\templates\account-bak\login.html:33
+#, fuzzy, python-format
+#| msgid ""
+#| "Please sign in with one\n"
+#| "of your existing third party accounts. Or, <a href=\"%(signup_url)s"
+#| "\">sign up</a>\n"
+#| "for a %(site_name)s account and sign in below:"
+msgid ""
+"Please sign in with one of\n"
+"        your existing third party accounts. Or,\n"
+"        <a href=\"%(signup_url)s\">sign up</a> for a %(site_name)s account "
+"and\n"
+"        sign in below:"
+msgstr ""
+"お持ちの外部アカウントでログインするか、%(site_name)sに <a href="
+"\"%(signup_url)s\">ユーザー登録</a> してログインしてください。"
+
+#: .\rhixe_scans\templates\account-bak\login.html:45
+msgid "or"
+msgstr "または"
+
+#: .\rhixe_scans\templates\account-bak\login.html:50
+#, python-format
+msgid ""
+"If you have not created an account yet, then please\n"
+"        <a\n"
+"          class=\"font-medium text-blue-600 dark:text-blue-500 hover:"
+"underline\"\n"
+"          href=\"%(signup_url)s\"\n"
+"          >sign up</a\n"
+"        >\n"
+"        first."
+msgstr ""
+
+#: .\rhixe_scans\templates\account-bak\login.html:127
+msgid " Login to your account"
+msgstr ""
+
+#: .\rhixe_scans\templates\account-bak\login.html:130
+#, python-format
+msgid ""
+" Not registered?\n"
+"          <a\n"
+"            class=\"text-primary-700 hover:underline dark:text-"
+"primary-500\"\n"
+"            href=\"%(signup_url)s\"\n"
+"            >Create account</a\n"
+"          >\n"
+"          "
+msgstr ""
+
+#: .\rhixe_scans\templates\account-bak\signup.html:4
+#: .\rhixe_scans\templates\account\signup.html:4
+#: .\rhixe_scans\templates\socialaccount\signup.html:5
+msgid "Signup"
+msgstr "ユーザー登録"
+
+#: .\rhixe_scans\templates\account-bak\signup.html:27
+msgid "Create a Free Account"
+msgstr ""
+
+#: .\rhixe_scans\templates\account-bak\signup.html:141
+#, fuzzy
+#| msgid "social account"
+msgid "Create account"
+msgstr "ソーシャルアカウント"
+
+#: .\rhixe_scans\templates\account-bak\signup.html:144
+#, python-format
+msgid ""
+" Already have an account? Then please\n"
+"          <a\n"
+"            href=\"%(login_url)s\"\n"
+"            class=\"text-primary-700 hover:underline dark:text-"
+"primary-500\"\n"
+"            >sign in</a\n"
+"          >\n"
+"          . "
+msgstr ""
+
+#: .\rhixe_scans\templates\account\account_inactive.html:5
+#: .\rhixe_scans\templates\account\account_inactive.html:9
+msgid "Account Inactive"
+msgstr "無効なアカウント"
+
+#: .\rhixe_scans\templates\account\account_inactive.html:12
+msgid "This account is inactive."
+msgstr "このアカウントは無効です。"
+
+#: .\rhixe_scans\templates\account\base_reauthenticate.html:5
+#: .\rhixe_scans\templates\account\base_reauthenticate.html:9
+msgid "Confirm Access"
+msgstr "アクセス確認"
+
+#: .\rhixe_scans\templates\account\base_reauthenticate.html:12
+msgid "Please reauthenticate to safeguard your account."
+msgstr "アカウントを保護するために再認証してください。"
+
+#: .\rhixe_scans\templates\account\base_reauthenticate.html:19
+#: .\rhixe_scans\templates\mfa\authenticate.html:31
+msgid "Alternative options"
+msgstr "そのほかの方法"
+
+#: .\rhixe_scans\templates\account\confirm_login_code.html:9
+msgid "Enter Sign-In Code"
+msgstr "ログインコードを入力"
+
+#: .\rhixe_scans\templates\account\confirm_login_code.html:15
+#, python-format
+msgid ""
+"We’ve sent a code to %(email_link)s. The code expires shortly, so please "
+"enter it soon."
+msgstr ""
+"コードを %(email_link)s に送信しました。コードの有効期限はまもなく切れますの"
+"で、お早めにご入力ください。"
+
+#: .\rhixe_scans\templates\account\confirm_login_code.html:34
+#: .\rhixe_scans\templates\account\request_login_code.html:31
+#, fuzzy
+#| msgid "Alternative options"
+msgid "Other sign-in options"
+msgstr "そのほかの方法"
+
+#: .\rhixe_scans\templates\account\email.html:4
+#: .\rhixe_scans\templates\account\email.html:8
+msgid "Email Addresses"
+msgstr "メールアドレス"
+
+#: .\rhixe_scans\templates\account\email.html:12
+msgid "The following email addresses are associated with your account:"
+msgstr "以下のメールアドレスがアカウントに登録されています:"
+
+#: .\rhixe_scans\templates\account\email.html:25
+msgid "Verified"
+msgstr "確認済み"
+
+#: .\rhixe_scans\templates\account\email.html:29
+msgid "Unverified"
+msgstr "未確認"
+
+#: .\rhixe_scans\templates\account\email.html:34
+msgid "Primary"
+msgstr "メイン"
+
+#: .\rhixe_scans\templates\account\email.html:44
+msgid "Make Primary"
+msgstr "メインにする"
+
+#: .\rhixe_scans\templates\account\email.html:47
+#: .\rhixe_scans\templates\account\email_change.html:37
+msgid "Re-send Verification"
+msgstr "確認メールを再送する"
+
+#: .\rhixe_scans\templates\account\email.html:50
+#: .\rhixe_scans\templates\mfa\webauthn\authenticator_confirm_delete.html:14
+#: .\rhixe_scans\templates\mfa\webauthn\authenticator_list.html:58
+#: .\rhixe_scans\templates\partials\chapter\comments.html:124
+#: .\rhixe_scans\templates\socialaccount\connections.html:40
+msgid "Remove"
+msgstr "削除"
+
+#: .\rhixe_scans\templates\account\email.html:59
+msgid "Add Email Address"
+msgstr "メールアドレスの登録"
+
+#: .\rhixe_scans\templates\account\email.html:70
+msgid "Add Email"
+msgstr "メールアドレスの登録"
+
+#: .\rhixe_scans\templates\account\email.html:79
+msgid "Do you really want to remove the selected email address?"
+msgstr "選択されたメールアドレスを削除してもよろしいですか?"
+
+#: .\rhixe_scans\templates\account\email\account_already_exists_message.txt:4
+#, python-format
+msgid ""
+"You are receiving this email because you or someone else tried to signup for "
+"an\n"
+"account using email address:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"However, an account using that email address already exists.  In case you "
+"have\n"
+"forgotten about this, please use the password forgotten procedure to "
+"recover\n"
+"your account:\n"
+"\n"
+"%(password_reset_url)s"
+msgstr ""
+"このメールを受信しているのは、あなたまたは誰かが次のメールアドレスを使用して"
+"アカウントのサインアップを試みたためです：\n"
+"\n"
+"%(email)s\n"
+"\n"
+"しかし、そのメールアドレスを使用したアカウントが既に存在しています。もしアカ"
+"ウントの存在を忘れていた場合は、パスワードを忘れた手続きを利用してアカウント"
+"を回復してください：\n"
+"\n"
+"%(password_reset_url)s"
+
+#: .\rhixe_scans\templates\account\email\account_already_exists_subject.txt:3
+msgid "Account Already Exists"
+msgstr "アカウントが既に存在"
+
+#: .\rhixe_scans\templates\account\email\base_message.txt:1
+#, python-format
+msgid "Hello from %(site_name)s!"
+msgstr "こんにちは、%(site_name)s!"
+
+#: .\rhixe_scans\templates\account\email\base_message.txt:5
+#, python-format
+msgid ""
+"Thank you for using %(site_name)s!\n"
+"%(site_domain)s"
+msgstr ""
+"%(site_name)s を利用いただきありがとうございます!\n"
+"%(site_domain)s"
+
+#: .\rhixe_scans\templates\account\email\base_notification.txt:5
+msgid ""
+"You are receiving this mail because the following change was made to your "
+"account:"
+msgstr ""
+"あなたのアカウントに以下の変更が加えられたため、このメールが届いています:"
+
+#: .\rhixe_scans\templates\account\email\base_notification.txt:10
+#, python-format
+msgid ""
+"If you do not recognize this change then please take proper security "
+"precautions immediately. The change to your account originates from:\n"
+"\n"
+"- IP address: %(ip)s\n"
+"- Browser: %(user_agent)s\n"
+"- Date: %(timestamp)s"
+msgstr ""
+"この変更が認識できない場合は、直ちに適切なセキュリティ対策を講じてください。"
+"あなたのアカウントに対するこの変更の起源は以下の通りです：\n"
+"\n"
+"- IPアドレス: %(ip)s\n"
+"- ブラウザ: %(user_agent)s\n"
+"- 日付: %(timestamp)s"
+
+#: .\rhixe_scans\templates\account\email\email_changed_message.txt:4
+#, python-format
+msgid "Your email has been changed from %(from_email)s to %(to_email)s."
+msgstr ""
+"あなたのメールアドレスは %(from_email)s から %(to_email)s に変更されました。"
+
+#: .\rhixe_scans\templates\account\email\email_changed_subject.txt:3
+msgid "Email Changed"
+msgstr "メールアドレスが変更されました"
+
+#: .\rhixe_scans\templates\account\email\email_confirm_message.txt:4
+msgid "Your email has been confirmed."
+msgstr "あなたのメールアドレスが確認されました。"
+
+#: .\rhixe_scans\templates\account\email\email_confirm_subject.txt:3
+msgid "Email Confirmation"
+msgstr "メールアドレスの確認"
+
+#: .\rhixe_scans\templates\account\email\email_confirmation_message.txt:5
+#, python-format
+msgid ""
+"You're receiving this email because user %(user_display)s has given your "
+"email address to register an account on %(site_domain)s.\n"
+"\n"
+"To confirm this is correct, go to %(activate_url)s"
+msgstr ""
+"%(user_display)s さんが %(site_domain)s にこのメールアドレスを登録しようとし"
+"ています。\n"
+"\n"
+"問題がなければ、確認のために下記の URL をクリックしてください。\n"
+"%(activate_url)s"
+
+#: .\rhixe_scans\templates\account\email\email_confirmation_subject.txt:3
+msgid "Please Confirm Your Email Address"
+msgstr "メールアドレスを確認してください"
+
+#: .\rhixe_scans\templates\account\email\email_deleted_message.txt:4
+#, python-format
+msgid "Email address %(deleted_email)s has been removed from your account."
+msgstr ""
+"メールアドレス %(deleted_email)s があなたのアカウントから削除されました。"
+
+#: .\rhixe_scans\templates\account\email\email_deleted_subject.txt:3
+msgid "Email Removed"
+msgstr "メールアドレスの削除"
+
+#: .\rhixe_scans\templates\account\email\login_code_message.txt:5
+msgid ""
+"Your sign-in code is listed below. Please enter it in your open browser "
+"window."
+msgstr ""
+"以下にあなたのログインコードが記載されています。開いているブラウザのウィンド"
+"ウに入力してください。"
+
+#: .\rhixe_scans\templates\account\email\login_code_message.txt:9
+#: .\rhixe_scans\templates\account\email\unknown_account_message.txt:6
+msgid "This mail can be safely ignored if you did not initiate this action."
+msgstr ""
+"この操作があなたによるものではない場合、このメールは無視しても差し支えありま"
+"せん。"
+
+#: .\rhixe_scans\templates\account\email\login_code_subject.txt:3
+#, fuzzy
+#| msgid "Sign In"
+msgid "Sign-In Code"
+msgstr "ログイン"
+
+#: .\rhixe_scans\templates\account\email\password_changed_message.txt:4
+msgid "Your password has been changed."
+msgstr "パスワードが変更されました。"
+
+#: .\rhixe_scans\templates\account\email\password_changed_subject.txt:3
+msgid "Password Changed"
+msgstr "パスワードが変更されました"
+
+#: .\rhixe_scans\templates\account\email\password_reset_key_message.txt:4
+msgid ""
+"You're receiving this email because you or someone else has requested a "
+"password reset for your user account.\n"
+"It can be safely ignored if you did not request a password reset. Click the "
+"link below to reset your password."
+msgstr ""
+"このメールは、あなた (もしくは別の誰か) がパスワードの再設定を行おうとしたた"
+"めに送られました。\n"
+"パスワードの再設定を要求したのがあなたではない場合、このメールは無視してくだ"
+"さい。\n"
+"パスワードを再設定するためには、以下のリンクをクリックしてください。"
+
+#: .\rhixe_scans\templates\account\email\password_reset_key_message.txt:9
+#, python-format
+msgid "In case you forgot, your username is %(username)s."
+msgstr "あなたのアカウントのユーザー名は %(username)s です。"
+
+#: .\rhixe_scans\templates\account\email\password_reset_key_subject.txt:3
+msgid "Password Reset Email"
+msgstr "パスワード再設定メール"
+
+#: .\rhixe_scans\templates\account\email\password_reset_message.txt:4
+msgid "Your password has been reset."
+msgstr "パスワードがリセットされました。"
+
+#: .\rhixe_scans\templates\account\email\password_reset_subject.txt:3
+#: .\rhixe_scans\templates\account\password_reset.html:4
+#: .\rhixe_scans\templates\account\password_reset.html:8
+#: .\rhixe_scans\templates\account\password_reset_done.html:6
+#: .\rhixe_scans\templates\account\password_reset_done.html:10
+msgid "Password Reset"
+msgstr "パスワード再設定"
+
+#: .\rhixe_scans\templates\account\email\password_set_message.txt:4
+msgid "Your password has been set."
+msgstr "パスワードが設定されました。"
+
+#: .\rhixe_scans\templates\account\email\password_set_subject.txt:3
+msgid "Password Set"
+msgstr "パスワード設定"
+
+#: .\rhixe_scans\templates\account\email\unknown_account_message.txt:4
+#, python-format
+msgid ""
+"You are receiving this email because you, or someone else, tried to access "
+"an account with email %(email)s. However, we do not have any record of such "
+"an account in our database."
+msgstr ""
+"このメールは、あなたまたは他の誰かが %(email)s のメールアドレスを持つアカウン"
+"トにアクセスしようとしたために送信されています。ただし、私たちのデータベース"
+"にはそのようなアカウントの記録はありません。"
+
+#: .\rhixe_scans\templates\account\email\unknown_account_message.txt:8
+msgid "If it was you, you can sign up for an account using the link below."
+msgstr ""
+"もしそれがあなたなら、以下のリンクからアカウントを登録することができます。"
+
+#: .\rhixe_scans\templates\account\email\unknown_account_subject.txt:3
+#, fuzzy
+#| msgid "Accounts"
+msgid "Unknown Account"
+msgstr "アカウント"
+
+#: .\rhixe_scans\templates\account\email_change.html:5
+#: .\rhixe_scans\templates\account\email_change.html:9
+msgid "Email Address"
+msgstr "メールアドレス"
+
+#: .\rhixe_scans\templates\account\email_change.html:21
+#: .\rhixe_scans\templates\account\email_change.html:29
+msgid "Current email"
+msgstr "現在のメールアドレス"
+
+#: .\rhixe_scans\templates\account\email_change.html:31
+msgid "Changing to"
+msgstr "変更中"
+
+#: .\rhixe_scans\templates\account\email_change.html:35
+msgid "Your email address is still pending verification."
+msgstr "あなたのメールアドレスはまだ確認されていません。"
+
+#: .\rhixe_scans\templates\account\email_change.html:41
+msgid "Cancel Change"
+msgstr "変更をキャンセル"
+
+#: .\rhixe_scans\templates\account\email_change.html:49
+msgid "Change to"
+msgstr "変更する"
+
+#: .\rhixe_scans\templates\account\email_change.html:55
+#: .\rhixe_scans\templates\allauth\layouts\base.html:31
+msgid "Change Email"
+msgstr "メールアドレス変更"
+
+#: .\rhixe_scans\templates\account\email_confirm.html:6
+#: .\rhixe_scans\templates\account\email_confirm.html:10
+msgid "Confirm Email Address"
+msgstr "メールアドレスの確認"
+
+#: .\rhixe_scans\templates\account\email_confirm.html:16
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an email "
+"address for user %(user_display)s."
+msgstr ""
+"メールアドレス <a href=\"mailto:%(email)s\">%(email)s</a> がユーザー "
+"%(user_display)s さんのものであることを確認してください。"
+
+#: .\rhixe_scans\templates\account\email_confirm.html:24
+#: .\rhixe_scans\templates\account\reauthenticate.html:18
+#: .\rhixe_scans\templates\mfa\reauthenticate.html:18
+msgid "Confirm"
+msgstr "確認する"
+
+#: .\rhixe_scans\templates\account\email_confirm.html:30
+#: .\rhixe_scans\templates\account\messages\email_confirmation_failed.txt:2
+#, python-format
+msgid ""
+"Unable to confirm %(email)s because it is already confirmed by a different "
+"account."
+msgstr "%(email)s はすでにほかのアカウントで確認済みです。"
+
+#: .\rhixe_scans\templates\account\email_confirm.html:36
+#, python-format
+msgid ""
+"This email confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new email confirmation request</a>."
+msgstr ""
+"メールアドレス確認用のリンクが不正か、期限が切れています。<a href="
+"\"%(email_url)s\">確認用のメールを再送</a>してください。"
+
+#: .\rhixe_scans\templates\account\login.html:19
+#, python-format
+msgid ""
+"If you have not created an account yet, then please %(link)ssign up"
+"%(end_link)s first."
+msgstr ""
+"アカウントをまだお持ちでなければ、 %(link)sこちらからユーザー登"
+"録%(end_link)s してください。"
+
+#: .\rhixe_scans\templates\account\login.html:42
+msgid "Sign in with a passkey"
+msgstr ""
+
+#: .\rhixe_scans\templates\account\login.html:47
+#: .\rhixe_scans\templates\account\request_login_code.html:9
+msgid "Mail me a sign-in code"
+msgstr "ログインコードをメールする"
+
+#: .\rhixe_scans\templates\account\logout.html:4
+#: .\rhixe_scans\templates\account\logout.html:8
+#: .\rhixe_scans\templates\account\logout.html:21
+#: .\rhixe_scans\templates\allauth\layouts\base.html:55
+#: .\rhixe_scans\templates\usersessions\usersession_list.html:64
+msgid "Sign Out"
+msgstr "ログアウト"
+
+#: .\rhixe_scans\templates\account\logout.html:11
+msgid "Are you sure you want to sign out?"
+msgstr "ログアウトしますか?"
+
+#: .\rhixe_scans\templates\account\messages\cannot_delete_primary_email.txt:2
+#, python-format
+msgid "You cannot remove your primary email address (%(email)s)."
+msgstr "メインのメールアドレス (%(email)s) を削除することはできません。"
+
+#: .\rhixe_scans\templates\account\messages\email_confirmation_sent.txt:2
+#, python-format
+msgid "Confirmation email sent to %(email)s."
+msgstr "確認メールを %(email)s へ送信しました。"
+
+#: .\rhixe_scans\templates\account\messages\email_confirmed.txt:2
+#, python-format
+msgid "You have confirmed %(email)s."
+msgstr "%(email)s が確認されました。"
+
+#: .\rhixe_scans\templates\account\messages\email_deleted.txt:2
+#, python-format
+msgid "Removed email address %(email)s."
+msgstr "メールアドレス %(email)s を削除しました。"
+
+#: .\rhixe_scans\templates\account\messages\logged_in.txt:4
+#, python-format
+msgid "Successfully signed in as %(name)s."
+msgstr "ユーザー %(name)s としてログインしました。"
+
+#: .\rhixe_scans\templates\account\messages\logged_out.txt:2
+msgid "You have signed out."
+msgstr "ログアウトしました。"
+
+#: .\rhixe_scans\templates\account\messages\login_code_sent.txt:2
+#, python-format
+msgid "A sign-in code has been mailed to %(email)s."
+msgstr "%(email)s にログインコードを送信しました。"
+
+#: .\rhixe_scans\templates\account\messages\password_changed.txt:2
+msgid "Password successfully changed."
+msgstr "パスワードが変更されました。"
+
+#: .\rhixe_scans\templates\account\messages\password_set.txt:2
+msgid "Password successfully set."
+msgstr "パスワードが設定されました。"
+
+#: .\rhixe_scans\templates\account\messages\primary_email_set.txt:2
+msgid "Primary email address set."
+msgstr "メインのメールアドレスが設定されました。"
+
+#: .\rhixe_scans\templates\account\messages\unverified_primary_email.txt:2
+msgid "Your primary email address must be verified."
+msgstr "メインのメールアドレスは確認済みでなければいけません。"
+
+#: .\rhixe_scans\templates\account\password_change.html:4
+#: .\rhixe_scans\templates\account\password_change.html:8
+#: .\rhixe_scans\templates\account\password_change.html:20
+#: .\rhixe_scans\templates\account\password_reset_from_key.html:5
+#: .\rhixe_scans\templates\account\password_reset_from_key.html:12
+#: .\rhixe_scans\templates\account\password_reset_from_key.html:30
+#: .\rhixe_scans\templates\account\password_reset_from_key_done.html:5
+#: .\rhixe_scans\templates\account\password_reset_from_key_done.html:9
+#: .\rhixe_scans\templates\allauth\layouts\base.html:37
+msgid "Change Password"
+msgstr "パスワード変更"
+
+#: .\rhixe_scans\templates\account\password_change.html:22
+msgid "Forgot Password?"
+msgstr "パスワードをお忘れですか?"
+
+#: .\rhixe_scans\templates\account\password_reset.html:14
+msgid ""
+"Forgotten your password? Enter your email address below, and we'll send you "
+"an email allowing you to reset it."
+msgstr ""
+"パスワードをお忘れですか? パスワードをリセットするために、メールアドレスを入"
+"力してください。"
+
+#: .\rhixe_scans\templates\account\password_reset.html:25
+msgid "Reset My Password"
+msgstr "パスワードをリセット"
+
+#: .\rhixe_scans\templates\account\password_reset.html:30
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr "パスワードの再設定に問題がある場合はご連絡ください。"
+
+#: .\rhixe_scans\templates\account\password_reset_done.html:16
+msgid ""
+"We have sent you an email. If you have not received it please check your "
+"spam folder. Otherwise contact us if you do not receive it in a few minutes."
+msgstr ""
+"確認のためのメールを送信しました。受信できない場合は、スパムフォルダをご確認"
+"ください。数分以内にメールが届かない場合はご連絡ください。"
+
+#: .\rhixe_scans\templates\account\password_reset_from_key.html:10
+msgid "Bad Token"
+msgstr "不正なトークン"
+
+#: .\rhixe_scans\templates\account\password_reset_from_key.html:18
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+"パスワード再設定用のリンクが不正です。すでに使用された可能性があります。もう"
+"一度 <a href=\"%(passwd_reset_url)s\">パスワードの再設定</a>をお試しくださ"
+"い。"
+
+#: .\rhixe_scans\templates\account\password_reset_from_key_done.html:12
+msgid "Your password is now changed."
+msgstr "パスワードが変更されました。"
+
+#: .\rhixe_scans\templates\account\password_set.html:5
+#: .\rhixe_scans\templates\account\password_set.html:9
+#: .\rhixe_scans\templates\account\password_set.html:21
+msgid "Set Password"
+msgstr "パスワード設定"
+
+#: .\rhixe_scans\templates\account\reauthenticate.html:6
+msgid "Enter your password:"
+msgstr "パスワードを入力してください。"
+
+#: .\rhixe_scans\templates\account\request_login_code.html:12
+msgid ""
+"You will receive an email containing a special code for a password-free sign-"
+"in."
+msgstr ""
+"パスワード不要のログイン用特別コードが記載されたEメールをお送りします。"
+
+#: .\rhixe_scans\templates\account\request_login_code.html:24
+#, fuzzy
+#| msgid "Recovery Codes"
+msgid "Request Code"
+msgstr "リカバリーコード"
+
+#: .\rhixe_scans\templates\account\signup.html:8
+#: .\rhixe_scans\templates\account\signup.html:30
+#: .\rhixe_scans\templates\allauth\layouts\base.html:68
+#: .\rhixe_scans\templates\socialaccount\signup.html:9
+#: .\rhixe_scans\templates\socialaccount\signup.html:25
+msgid "Sign Up"
+msgstr "ユーザー登録"
+
+#: .\rhixe_scans\templates\account\signup.html:17
+#, python-format
+msgid "Already have an account? Then please %(link)ssign in%(end_link)s."
+msgstr ""
+"すでにアカウントをお持ちであれば、こちらから %(link)sログイン%(end_link)s し"
+"てください。"
+
+#: .\rhixe_scans\templates\account\signup_closed.html:5
+#: .\rhixe_scans\templates\account\signup_closed.html:9
+msgid "Sign Up Closed"
+msgstr "ユーザー登録停止中"
+
+#: .\rhixe_scans\templates\account\signup_closed.html:12
+msgid "We are sorry, but the sign up is currently closed."
+msgstr "申し訳ありません、現在ユーザー登録を停止しています。"
+
+#: .\rhixe_scans\templates\account\snippets\already_logged_in.html:7
+msgid "Note"
+msgstr "注意"
+
+#: .\rhixe_scans\templates\account\snippets\already_logged_in.html:7
+#, python-format
+msgid "You are already logged in as %(user_display)s."
+msgstr "%(user_display)s さんとしてすでにログイン中です。"
+
+#: .\rhixe_scans\templates\account\snippets\warn_no_email.html:3
+msgid "Warning:"
+msgstr "注意:"
+
+#: .\rhixe_scans\templates\account\snippets\warn_no_email.html:3
+msgid ""
+"You currently do not have any email address set up. You should really add an "
+"email address so you can receive notifications, reset your password, etc."
+msgstr ""
+"メールアドレスが設定されていません。通知を受け取ったり、パスワードをリセット"
+"したりするためにはメールアドレスを登録する必要があります。"
+
+#: .\rhixe_scans\templates\account\verification_sent.html:5
+#: .\rhixe_scans\templates\account\verification_sent.html:9
+#: .\rhixe_scans\templates\account\verified_email_required.html:5
+#: .\rhixe_scans\templates\account\verified_email_required.html:9
+msgid "Verify Your Email Address"
+msgstr "メールアドレスを確認してください"
+
+#: .\rhixe_scans\templates\account\verification_sent.html:12
+msgid ""
+"We have sent an email to you for verification. Follow the link provided to "
+"finalize the signup process. If you do not see the verification email in "
+"your main inbox, check your spam folder. Please contact us if you do not "
+"receive the verification email within a few minutes."
+msgstr ""
+"確認のメールを送信しました。メールに記載されたリンクをクリックして、ユーザー"
+"登録を完了させてください。数分待っても確認のメールが届かない場合はご連絡くだ"
+"さい。"
+
+#: .\rhixe_scans\templates\account\verified_email_required.html:13
+msgid ""
+"This part of the site requires us to verify that\n"
+"you are who you claim to be. For this purpose, we require that you\n"
+"verify ownership of your email address. "
+msgstr ""
+"このページにアクセスするためには、本人確認が必要です。\n"
+"そのために、登録されているメールアドレスがご自身のものであることを確認してい"
+"ただきます。 "
+
+#: .\rhixe_scans\templates\account\verified_email_required.html:18
+msgid ""
+"We have sent an email to you for\n"
+"verification. Please click on the link inside that email. If you do not see "
+"the verification email in your main inbox, check your spam folder. "
+"Otherwise\n"
+"contact us if you do not receive it within a few minutes."
+msgstr ""
+"確認のためのメールを送信しました。メールに記載されたリンクをクリックしてくだ"
+"さい。\n"
+"確認メールが受信ボックスに見つからない場合は、迷惑メールフォルダをチェックし"
+"てください。\n"
+"数分以内にメールが届かない場合はご連絡ください。"
+
+#: .\rhixe_scans\templates\account\verified_email_required.html:23
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
+"email address</a>."
+msgstr ""
+"<strong>注意:</strong> <a href=\"%(email_url)s\">メールアドレスの変更</a>をし"
+"ていただくことも可能です。"
+
+#: .\rhixe_scans\templates\allauth\layouts\base.html:18
+msgid "Messages:"
+msgstr "メッセージ:"
+
+#: .\rhixe_scans\templates\allauth\layouts\base.html:25
+msgid "Menu:"
+msgstr "メニュー:"
+
+#: .\rhixe_scans\templates\allauth\layouts\base.html:43
+#: .\rhixe_scans\templates\mfa\authenticate.html:10
+#: .\rhixe_scans\templates\mfa\index.html:5
+#: .\rhixe_scans\templates\mfa\index.html:9
+msgid "Two-Factor Authentication"
+msgstr "二要素認証"
+
+#: .\rhixe_scans\templates\allauth\layouts\base.html:49
+#: .\rhixe_scans\templates\usersessions\usersession_list.html:6
+#: .\rhixe_scans\templates\usersessions\usersession_list.html:10
+msgid "Sessions"
+msgstr "セッション"
+
+#: .\rhixe_scans\templates\base.html:19
+msgid "Rhixescans"
+msgstr ""
+
+#: .\rhixe_scans\templates\core\comics\display_progress.html:3
+msgid "Display Progress"
+msgstr ""
+
+#: .\rhixe_scans\templates\core\views\index copy.html:3
+#: .\rhixe_scans\templates\core\views\index.html:3
+msgid "Index"
+msgstr ""
+
+#: .\rhixe_scans\templates\mfa\authenticate.html:13
+msgid ""
+"Your account is protected by two-factor authentication. Please enter an "
+"authenticator code:"
+msgstr ""
+"あなたのアカウントは二要素認証で保護されています。認証コードを入力してくださ"
+"い:"
+
+#: .\rhixe_scans\templates\mfa\authenticate.html:36
+#: .\rhixe_scans\templates\mfa\webauthn\reauthenticate.html:15
+msgid "Use security key or device"
+msgstr ""
+
+#: .\rhixe_scans\templates\mfa\authenticate.html:41
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: .\rhixe_scans\templates\mfa\email\recovery_codes_generated_message.txt:4
+msgid ""
+"A new set of Two-Factor Authentication recovery codes has been generated."
+msgstr "二要素認証用のリカバリーコードを新たに生成しました。"
+
+#: .\rhixe_scans\templates\mfa\email\recovery_codes_generated_subject.txt:3
+msgid "New Recovery Codes Generated"
+msgstr "二要素認証用のリカバリーコードを生成しました"
+
+#: .\rhixe_scans\templates\mfa\email\totp_activated_message.txt:4
+#: .\rhixe_scans\templates\mfa\messages\totp_activated.txt:2
+msgid "Authenticator app activated."
+msgstr "認証アプリが有効化されました。"
+
+#: .\rhixe_scans\templates\mfa\email\totp_activated_subject.txt:3
+msgid "Authenticator App Activated"
+msgstr "認証アプリが有効化されました"
+
+#: .\rhixe_scans\templates\mfa\email\totp_deactivated_message.txt:4
+#: .\rhixe_scans\templates\mfa\messages\totp_deactivated.txt:2
+msgid "Authenticator app deactivated."
+msgstr "認証アプリが無効化されました。"
+
+#: .\rhixe_scans\templates\mfa\email\totp_deactivated_subject.txt:3
+msgid "Authenticator App Deactivated"
+msgstr "認証アプリが無効化されました"
+
+#: .\rhixe_scans\templates\mfa\email\webauthn_added_message.txt:4
+#, fuzzy
+#| msgid "A new set of recovery codes has been generated."
+msgid "A new security key has been added."
+msgstr "新しいリカバリーコードセットが生成されました。"
+
+#: .\rhixe_scans\templates\mfa\email\webauthn_added_subject.txt:3
+msgid "Security Key Added"
+msgstr ""
+
+#: .\rhixe_scans\templates\mfa\email\webauthn_removed_message.txt:4
+#, fuzzy
+#| msgid "Your email has been confirmed."
+msgid "A security key has been removed."
+msgstr "あなたのメールアドレスが確認されました。"
+
+#: .\rhixe_scans\templates\mfa\email\webauthn_removed_subject.txt:3
+msgid "Security Key Removed"
+msgstr ""
+
+#: .\rhixe_scans\templates\mfa\index.html:14
+#: .\rhixe_scans\templates\mfa\totp\base.html:4
+msgid "Authenticator App"
+msgstr "認証アプリ"
+
+#: .\rhixe_scans\templates\mfa\index.html:19
+msgid "Authentication using an authenticator app is active."
+msgstr "認証アプリを使用した認証が有効です。"
+
+#: .\rhixe_scans\templates\mfa\index.html:23
+msgid "An authenticator app is not active."
+msgstr "認証アプリは有効ではありません。"
+
+#: .\rhixe_scans\templates\mfa\index.html:32
+#: .\rhixe_scans\templates\mfa\totp\deactivate_form.html:24
+msgid "Deactivate"
+msgstr "無効化する"
+
+#: .\rhixe_scans\templates\mfa\index.html:36
+#: .\rhixe_scans\templates\mfa\totp\activate_form.html:32
+msgid "Activate"
+msgstr "有効化する"
+
+#: .\rhixe_scans\templates\mfa\index.html:45
+#: .\rhixe_scans\templates\mfa\webauthn\base.html:4
+msgid "Security Keys"
+msgstr ""
+
+#: .\rhixe_scans\templates\mfa\index.html:50
+#, python-format
+msgid "You have added %(count)s security key/device."
+msgid_plural "You have added %(count)s security keys/devices."
+msgstr[0] ""
+
+#: .\rhixe_scans\templates\mfa\index.html:53
+msgid "No security keys have been added."
+msgstr ""
+
+#: .\rhixe_scans\templates\mfa\index.html:60
+msgid "Manage"
+msgstr ""
+
+#: .\rhixe_scans\templates\mfa\index.html:65
+#: .\rhixe_scans\templates\mfa\webauthn\authenticator_list.html:68
+msgid "Add"
+msgstr ""
+
+#: .\rhixe_scans\templates\mfa\index.html:75
+#: .\rhixe_scans\templates\mfa\recovery_codes\base.html:4
+#: .\rhixe_scans\templates\mfa\recovery_codes\generate.html:6
+#: .\rhixe_scans\templates\mfa\recovery_codes\index.html:6
+msgid "Recovery Codes"
+msgstr "リカバリーコード"
+
+#: .\rhixe_scans\templates\mfa\index.html:80
+#: .\rhixe_scans\templates\mfa\recovery_codes\index.html:9
+#, python-format
+msgid ""
+"There is %(unused_count)s out of %(total_count)s recovery codes available."
+msgid_plural ""
+"There are %(unused_count)s out of %(total_count)s recovery codes available."
+msgstr[0] ""
+"利用可能なリカバリーコードは %(total_count)s 個中 %(unused_count)s 個です。"
+
+#: .\rhixe_scans\templates\mfa\index.html:84
+msgid "No recovery codes set up."
+msgstr "リカバリーコードがセットアップされていません。"
+
+#: .\rhixe_scans\templates\mfa\index.html:94
+msgid "View"
+msgstr "表示"
+
+#: .\rhixe_scans\templates\mfa\index.html:100
+msgid "Download"
+msgstr "ダウンロード"
+
+#: .\rhixe_scans\templates\mfa\index.html:108
+#: .\rhixe_scans\templates\mfa\recovery_codes\generate.html:29
+msgid "Generate"
+msgstr "生成する"
+
+#: .\rhixe_scans\templates\mfa\messages\recovery_codes_generated.txt:2
+msgid "A new set of recovery codes has been generated."
+msgstr "新しいリカバリーコードセットが生成されました。"
+
+#: .\rhixe_scans\templates\mfa\messages\webauthn_added.txt:2
+msgid "Security key added."
+msgstr ""
+
+#: .\rhixe_scans\templates\mfa\messages\webauthn_removed.txt:2
+msgid "Security key removed."
+msgstr ""
+
+#: .\rhixe_scans\templates\mfa\reauthenticate.html:6
+msgid "Enter an authenticator code:"
+msgstr "認証アプリのコードを入力:"
+
+#: .\rhixe_scans\templates\mfa\recovery_codes\generate.html:9
+msgid "You are about to generate a new set of recovery codes for your account."
+msgstr "新しいリカバリーコードセットを生成しようとしています。"
+
+#: .\rhixe_scans\templates\mfa\recovery_codes\generate.html:11
+msgid "This action will invalidate your existing codes."
+msgstr "この操作により、現在のコードが無効になります。"
+
+#: .\rhixe_scans\templates\mfa\recovery_codes\generate.html:13
+msgid "Are you sure?"
+msgstr "本当によろしいですか?"
+
+#: .\rhixe_scans\templates\mfa\recovery_codes\index.html:13
+msgid "Unused codes"
+msgstr "未使用のコード"
+
+#: .\rhixe_scans\templates\mfa\recovery_codes\index.html:25
+msgid "Download codes"
+msgstr "コードをダウンロードする"
+
+#: .\rhixe_scans\templates\mfa\recovery_codes\index.html:30
+msgid "Generate new codes"
+msgstr "新しいコードを生成する"
+
+#: .\rhixe_scans\templates\mfa\totp\activate_form.html:4
+#: .\rhixe_scans\templates\mfa\totp\activate_form.html:8
+msgid "Activate Authenticator App"
+msgstr "認証アプリを有効化する"
+
+#: .\rhixe_scans\templates\mfa\totp\activate_form.html:11
+msgid ""
+"To protect your account with two-factor authentication, scan the QR code "
+"below with your authenticator app. Then, input the verification code "
+"generated by the app below."
+msgstr ""
+"アカウントを二要素認証で保護するために、認証アプリで以下の QR コードをスキャ"
+"ンしてください。次に、アプリで生成された確認コードを以下に入力してください。"
+
+#: .\rhixe_scans\templates\mfa\totp\activate_form.html:21
+msgid "Authenticator secret"
+msgstr "認証アプリシークレット"
+
+#: .\rhixe_scans\templates\mfa\totp\activate_form.html:24
+msgid ""
+"You can store this secret and use it to reinstall your authenticator app at "
+"a later time."
+msgstr ""
+"このシークレットを保存し、後で認証アプリを再インストールする際に使用できま"
+"す。"
+
+#: .\rhixe_scans\templates\mfa\totp\deactivate_form.html:5
+#: .\rhixe_scans\templates\mfa\totp\deactivate_form.html:9
+msgid "Deactivate Authenticator App"
+msgstr "認証アプリを無効化する"
+
+#: .\rhixe_scans\templates\mfa\totp\deactivate_form.html:12
+msgid ""
+"You are about to deactivate authenticator app based authentication. Are you "
+"sure?"
+msgstr "認証アプリによる認証を無効化しようとしています。本当によろしいですか?"
+
+#: .\rhixe_scans\templates\mfa\webauthn\add_form.html:7
+msgid "Add Security Key or Device"
+msgstr ""
+
+#: .\rhixe_scans\templates\mfa\webauthn\add_form.html:18
+msgid "Add key or device"
+msgstr ""
+
+#: .\rhixe_scans\templates\mfa\webauthn\authenticator_confirm_delete.html:6
+msgid "Remove Security Key or Device"
+msgstr ""
+
+#: .\rhixe_scans\templates\mfa\webauthn\authenticator_confirm_delete.html:8
+#, fuzzy
+#| msgid "Are you sure you want to sign out?"
+msgid "Are you sure you want to remove this security key?"
+msgstr "ログアウトしますか?"
+
+#: .\rhixe_scans\templates\mfa\webauthn\authenticator_list.html:8
+msgid "Security Keys and Devices"
+msgstr ""
+
+#: .\rhixe_scans\templates\mfa\webauthn\authenticator_list.html:11
+msgid "You have not added any security keys/devices."
+msgstr ""
+
+#: .\rhixe_scans\templates\mfa\webauthn\authenticator_list.html:16
+msgid "Key"
+msgstr "キー"
+
+#: .\rhixe_scans\templates\mfa\webauthn\authenticator_list.html:19
+msgid "Usage"
+msgstr ""
+
+#: .\rhixe_scans\templates\mfa\webauthn\authenticator_list.html:31
+msgid "Passkey"
+msgstr ""
+
+#: .\rhixe_scans\templates\mfa\webauthn\authenticator_list.html:35
+#, fuzzy
+#| msgid "secret key"
+msgid "Security key"
+msgstr "シークレットキー"
+
+#: .\rhixe_scans\templates\mfa\webauthn\authenticator_list.html:38
+msgid "This key does not specify whether is a passkey."
+msgstr ""
+
+#: .\rhixe_scans\templates\mfa\webauthn\authenticator_list.html:39
+#, fuzzy
+#| msgid "Unverified"
+msgid "Unspecified"
+msgstr "未確認"
+
+#: .\rhixe_scans\templates\mfa\webauthn\authenticator_list.html:44
+#, python-format
+msgid "Added on %(created_at)s"
+msgstr ""
+
+#: .\rhixe_scans\templates\mfa\webauthn\authenticator_list.html:46
+#, python-format
+msgid "Last used %(last_used)s"
+msgstr ""
+
+#: .\rhixe_scans\templates\mfa\webauthn\authenticator_list.html:54
+#: .\rhixe_scans\templates\partials\chapter\comments.html:117
+msgid "Edit"
+msgstr ""
+
+#: .\rhixe_scans\templates\mfa\webauthn\edit_form.html:7
+msgid "Edit Security Key or Device"
+msgstr ""
+
+#: .\rhixe_scans\templates\mfa\webauthn\edit_form.html:18
+msgid "Save"
+msgstr ""
+
+#: .\rhixe_scans\templates\mfa\webauthn\snippets\scripts.html:2
+msgid "This functionality requires JavaScript."
+msgstr ""
+
+#: .\rhixe_scans\templates\partials\chapter\card.html:61
+msgid "no pages found!"
+msgstr ""
+
+#: .\rhixe_scans\templates\partials\chapter\comments.html:6
+#, fuzzy
+#| msgid "Generate new codes"
+msgid "Create new comment"
+msgstr "新しいコードを生成する"
+
+#: .\rhixe_scans\templates\partials\chapter\comments.html:26
+#, python-format
+msgid " %(field.errors)s "
+msgstr ""
+
+#: .\rhixe_scans\templates\partials\chapter\comments.html:31
+#, python-format
+msgid " %(field.label)s "
+msgstr ""
+
+#: .\rhixe_scans\templates\partials\chapter\comments.html:37
+#, python-format
+msgid " %(field.help_text)s "
+msgstr ""
+
+#: .\rhixe_scans\templates\partials\chapter\comments.html:48
+msgid " Add Comment"
+msgstr ""
+
+#: .\rhixe_scans\templates\partials\chapter\comments.html:54
+#, python-format
+msgid ""
+"\n"
+"    <h2>%(total_comments)s comment%(total_comments|pluralize)s</h2>\n"
+"    "
+msgstr ""
+
+#: .\rhixe_scans\templates\partials\chapter\comments.html:102
+msgid "Comment settings"
+msgstr ""
+
+#: .\rhixe_scans\templates\partials\chapter\comments.html:131
+msgid "Report"
+msgstr ""
+
+#: .\rhixe_scans\templates\partials\chapter\comments.html:165
+msgid "Reply"
+msgstr ""
+
+#: .\rhixe_scans\templates\partials\chapter\comments.html:184
+msgid "Showing"
+msgstr ""
+
+#: .\rhixe_scans\templates\partials\chapter\comments.html:188
+msgid "of"
+msgstr ""
+
+#: .\rhixe_scans\templates\partials\chapter\comments.html:200
+#: .\rhixe_scans\templates\partials\chapter\comments.html:221
+msgid "Previous"
+msgstr ""
+
+#: .\rhixe_scans\templates\partials\chapter\comments.html:269
+#: .\rhixe_scans\templates\partials\chapter\comments.html:290
+msgid "Next"
+msgstr ""
+
+#: .\rhixe_scans\templates\socialaccount\authentication_error.html:5
+#: .\rhixe_scans\templates\socialaccount\authentication_error.html:9
+msgid "Third-Party Login Failure"
+msgstr "ソーシャルログインに失敗しました"
+
+#: .\rhixe_scans\templates\socialaccount\authentication_error.html:12
+msgid ""
+"An error occurred while attempting to login via your third-party account."
+msgstr "ソーシャルアカウントでのログイン時ににエラーが発生しました。"
+
+#: .\rhixe_scans\templates\socialaccount\connections.html:5
+#: .\rhixe_scans\templates\socialaccount\connections.html:9
+msgid "Account Connections"
+msgstr "アカウント接続"
+
+#: .\rhixe_scans\templates\socialaccount\connections.html:13
+msgid ""
+"You can sign in to your account using any of the following third-party "
+"accounts:"
+msgstr "以下の外部アカウントを使ってログインすることができます:"
+
+#: .\rhixe_scans\templates\socialaccount\connections.html:46
+msgid "You currently have no third-party accounts connected to this account."
+msgstr "あなたのカウントに結びつけられた外部アカウントはありません。"
+
+#: .\rhixe_scans\templates\socialaccount\connections.html:50
+msgid "Add a Third-Party Account"
+msgstr "外部アカウントを追加する"
+
+#: .\rhixe_scans\templates\socialaccount\email\account_connected_message.txt:4
+#, python-format
+msgid ""
+"A third-party account from %(provider)s has been connected to your account."
+msgstr ""
+"%(provider)s のサードパーティアカウントがあなたのアカウントに接続されました。"
+
+#: .\rhixe_scans\templates\socialaccount\email\account_connected_subject.txt:3
+msgid "Third-Party Account Connected"
+msgstr "外部アカウントと接続されました"
+
+#: .\rhixe_scans\templates\socialaccount\email\account_disconnected_message.txt:4
+#, python-format
+msgid ""
+"A third-party account from %(provider)s has been disconnected from your "
+"account."
+msgstr ""
+"%(provider)s のサードパーティアカウントがあなたのアカウントから切断されまし"
+"た。"
+
+#: .\rhixe_scans\templates\socialaccount\email\account_disconnected_subject.txt:3
+msgid "Third-Party Account Disconnected"
+msgstr "外部アカウントは接続解除されました"
+
+#: .\rhixe_scans\templates\socialaccount\login.html:10
+#, python-format
+msgid "Connect %(provider)s"
+msgstr "%(provider)s と接続する"
+
+#: .\rhixe_scans\templates\socialaccount\login.html:13
+#, python-format
+msgid "You are about to connect a new third-party account from %(provider)s."
+msgstr "%(provider)sの新しい外部アカウントを接続しようとしています。"
+
+#: .\rhixe_scans\templates\socialaccount\login.html:17
+#, python-format
+msgid "Sign In Via %(provider)s"
+msgstr "%(provider)s でログインする"
+
+#: .\rhixe_scans\templates\socialaccount\login.html:20
+#, python-format
+msgid "You are about to sign in using a third-party account from %(provider)s."
+msgstr "%(provider)s の外部アカウントを使用してログインしようとしています。"
+
+#: .\rhixe_scans\templates\socialaccount\login.html:27
+#: .\rhixe_scans\templates\socialaccount\login_redirect.html:10
+msgid "Continue"
+msgstr "続ける"
+
+#: .\rhixe_scans\templates\socialaccount\login_cancelled.html:5
+#: .\rhixe_scans\templates\socialaccount\login_cancelled.html:9
+msgid "Login Cancelled"
+msgstr "ログインはキャンセルされました"
+
+#: .\rhixe_scans\templates\socialaccount\login_cancelled.html:13
+#, python-format
+msgid ""
+"You decided to cancel logging in to our site using one of your existing "
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
+msgstr ""
+"既存の外部アカウントを使ったログインはキャンセルされました。\n"
+"やり直す場合は<a href=\"%(login_url)s\">ログインページ</a>にお進みください。"
+
+#: .\rhixe_scans\templates\socialaccount\messages\account_connected.txt:2
+msgid "The third-party account has been connected."
+msgstr "外部アカウントが接続されました。"
+
+#: .\rhixe_scans\templates\socialaccount\messages\account_connected_other.txt:2
+msgid "The third-party account is already connected to a different account."
+msgstr "この外部アカウントは他のアカウントに接続されています。"
+
+#: .\rhixe_scans\templates\socialaccount\messages\account_disconnected.txt:2
+msgid "The third-party account has been disconnected."
+msgstr "外部アカウントの接続が解除されました。"
+
+#: .\rhixe_scans\templates\socialaccount\signup.html:12
+#, python-format
+msgid ""
+"You are about to use your %(provider_name)s account to login to\n"
+"%(site_name)s. As a final step, please complete the following form:"
+msgstr ""
+"%(provider_name)s アカウントを使って %(site_name)s にログインしようとしていま"
+"す。\n"
+"ユーザー登録のために、以下のフォームに記入してください。"
+
+#: .\rhixe_scans\templates\socialaccount\snippets\login.html:10
+msgid "Or use a third-party"
+msgstr "外部アカウントを使用する"
+
+#: .\rhixe_scans\templates\users\user_form.html:89
+msgid "Update"
+msgstr ""
+
+#: .\rhixe_scans\templates\usersessions\messages\sessions_logged_out.txt:2
+msgid "Signed out of all other sessions."
+msgstr "他のすべてのセッションからログアウトしました。"
+
+#: .\rhixe_scans\templates\usersessions\usersession_list.html:23
+msgid "Started At"
+msgstr "開始日時"
+
+#: .\rhixe_scans\templates\usersessions\usersession_list.html:24
+msgid "IP Address"
+msgstr "IP アドレス"
+
+#: .\rhixe_scans\templates\usersessions\usersession_list.html:25
+msgid "Browser"
+msgstr "ブラウザー"
+
+#: .\rhixe_scans\templates\usersessions\usersession_list.html:27
+msgid "Last seen at"
+msgstr "閲覧日時"
+
+#: .\rhixe_scans\templates\usersessions\usersession_list.html:47
+msgid "Current"
+msgstr "現在の"
+
+#: .\rhixe_scans\templates\usersessions\usersession_list.html:60
+msgid "Sign Out Other Sessions"
+msgstr "他のセッションをログアウトする"
+
+#: .\rhixe_scans\users\admin.py:21
+msgid "Personal info"
+msgstr ""
+
+#: .\rhixe_scans\users\admin.py:23
+#, fuzzy
+#| msgid "Sessions"
+msgid "Permissions"
+msgstr "セッション"
+
+#: .\rhixe_scans\users\admin.py:34
+msgid "Important dates"
+msgstr ""
+
+#: .\rhixe_scans\users\apps.py:9
+#, fuzzy
+#| msgid "Username"
+msgid "Users"
+msgstr "ユーザー名"
+
+#: .\rhixe_scans\users\forms.py:30 .\rhixe_scans\users\forms.py:83
+#: .\rhixe_scans\users\forms.py:181 .\rhixe_scans\users\forms.py:387
+msgid "Captcha"
+msgstr ""
+
+#: .\rhixe_scans\users\forms.py:51 .\rhixe_scans\users\forms.py:125
+#: .\rhixe_scans\users\models.py:40
+#, fuzzy
+#| msgid "Username"
+msgid "User Name"
+msgstr "ユーザー名"
+
+#: .\rhixe_scans\users\forms.py:54 .\rhixe_scans\users\forms.py:128
+msgid "admin@test.com"
+msgstr ""
+
+#: .\rhixe_scans\users\forms.py:57
+msgid "First Name"
+msgstr ""
+
+#: .\rhixe_scans\users\forms.py:60
+msgid "Last Name"
+msgstr ""
+
+#: .\rhixe_scans\users\forms.py:92 .\rhixe_scans\users\forms.py:396
+msgid "Password"
+msgstr "パスワード"
+
+#: .\rhixe_scans\users\forms.py:98 .\rhixe_scans\users\forms.py:110
+#: .\rhixe_scans\users\forms.py:402
+msgid "••••••••"
+msgstr ""
+
+#: .\rhixe_scans\users\forms.py:104
+#, fuzzy
+#| msgid "Email Confirmation"
+msgid "Password Confirmation"
+msgstr "メールアドレスの確認"
+
+#: .\rhixe_scans\users\forms.py:106
+msgid "Enter the same password as before, for verification."
+msgstr ""
+
+#: .\rhixe_scans\users\forms.py:173 .\rhixe_scans\users\tests\test_forms.py:35
+#, fuzzy
+#| msgid "This email address is already associated with another account."
+msgid "This email has already been taken."
+msgstr "このメールアドレスは別のアカウントで使用されています。"
+
+#: .\rhixe_scans\users\forms.py:182
+msgid "Enter the Letters Above."
+msgstr ""
+
+#: .\rhixe_scans\users\forms.py:189
+#, fuzzy
+#| msgid "email confirmations"
+msgid "Terms and Conditions"
+msgstr "メールアドレスの確認"
+
+#: .\rhixe_scans\users\forms.py:203 .\rhixe_scans\users\forms.py:427
+msgid "Email"
+msgstr "メールアドレス"
+
+#: .\rhixe_scans\users\forms.py:211 .\rhixe_scans\users\forms.py:423
+msgid "name@company.com"
+msgstr ""
+
+#: .\rhixe_scans\users\forms.py:216 .\rhixe_scans\users\forms.py:224
+#, fuzzy
+#| msgid "Username"
+msgid "username"
+msgstr "ユーザー名"
+
+#: .\rhixe_scans\users\forms.py:408
+msgid "Remember Me"
+msgstr "ログインしたままにする"
+
+#: .\rhixe_scans\users\models.py:37
+msgid "First Name of User"
+msgstr ""
+
+#: .\rhixe_scans\users\models.py:38
+msgid "Last Name of User"
+msgstr ""
+
+#: .\rhixe_scans\users\models.py:39
+msgid "email address"
+msgstr "メールアドレス"
+
+#: .\rhixe_scans\users\tests\test_views.py:72 .\rhixe_scans\users\views.py:153
+#, fuzzy
+#| msgid "Password successfully changed."
+msgid "Information successfully updated"
+msgstr "パスワードが変更されました。"
+
+#~ msgid "This account is currently inactive."
+#~ msgstr "このアカウントは現在無効です。"
+
+#, fuzzy
+#~| msgid "You cannot remove your primary email address (%(email)s)."
+#~ msgid "You cannot remove your primary email address."
+#~ msgstr "メインのメールアドレス (%(email)s) を削除することはできません。"
+
+#~ msgid "This email address is already associated with this account."
+#~ msgstr "このメールアドレスはすでに登録されています。"
+
+#~ msgid "The email address and/or password you specified are not correct."
+#~ msgstr "入力されたメールアドレスもしくはパスワードが正しくありません。"
+
+#~ msgid "A user is already registered with this email address."
+#~ msgstr "他のユーザーがこのメールアドレスを使用しています。"
+
+#~ msgid "Please type your current password."
+#~ msgstr "現在のパスワードを入力してください。"
+
+#~ msgid "Incorrect code."
+#~ msgstr "コードが正しくありません。"
+
+#~ msgid "Incorrect password."
+#~ msgstr "不正なパスワードです。"
+
+#, fuzzy
+#~| msgid "Bad Token"
+#~ msgid "Invalid or expired key."
+#~ msgstr "不正なトークン"
+
+#~ msgid "The password reset token was invalid."
+#~ msgstr "パスワードリセットトークンが無効です。"
+
+#, python-format
+#~ msgid "You cannot add more than %d email addresses."
+#~ msgstr "メールアドレスは %d 個までしか登録できません。"
+
+#~ msgid "Too many failed login attempts. Try again later."
+#~ msgstr "ログイン失敗が連続しています。時間が経ってからやり直してください。"
+
+#~ msgid "The email address is not assigned to any user account"
+#~ msgstr "このメールアドレスで登録されたユーザーアカウントがありません。"
+
+#~ msgid "Username can not be used. Please use other username."
+#~ msgstr "このユーザー名は使用できません。他のユーザー名を選んでください。"
+
+#~ msgid "The username and/or password you specified are not correct."
+#~ msgstr "入力されたユーザー名もしくはパスワードが正しくありません。"
+
+#~ msgid "Use your password"
+#~ msgstr "パスワードを使用する"
+
+#~ msgid "Use your authenticator app"
+#~ msgstr "認証アプリを利用する"
+
+#~ msgid "Mark selected email addresses as verified"
+#~ msgstr "確認済みにするメールアドレスを選択"
+
+#~ msgid "Accounts"
+#~ msgstr "アカウント"
+
+#~ msgid "You must type the same password each time."
+#~ msgstr "同じパスワードを入力してください。"
+
+#~ msgid "Email address"
+#~ msgstr "メールアドレス"
+
+#~ msgid "Username or email"
+#~ msgstr "ユーザー名またはメールアドレス"
+
+#~ msgctxt "field label"
+#~ msgid "Login"
+#~ msgstr "ログイン"
+
+#~ msgid "Forgot your password?"
+#~ msgstr "パスワードをお忘れですか?"
+
+#~ msgid "Email (again)"
+#~ msgstr "メールアドレス (確認用)"
+
+#~ msgid "Email address confirmation"
+#~ msgstr "メールアドレスの確認"
+
+#~ msgid "Email (optional)"
+#~ msgstr "メールアドレス (オプション)"
+
+#~ msgid "You must type the same email each time."
+#~ msgstr "同じパスワードを入力してください。"
+
+#~ msgid "Password (again)"
+#~ msgstr "パスワード (再入力)"
+
+#~ msgid "Current Password"
+#~ msgstr "現在のパスワード"
+
+#~ msgid "New Password"
+#~ msgstr "新しいパスワード"
+
+#~ msgid "New Password (again)"
+#~ msgstr "新しいパスワード (再入力)"
+
+#~ msgid "Code"
+#~ msgstr "コード"
+
+#~ msgid "user"
+#~ msgstr "ユーザー"
+
+#~ msgid "verified"
+#~ msgstr "確認済み"
+
+#~ msgid "primary"
+#~ msgstr "メイン"
+
+#~ msgid "email addresses"
+#~ msgstr "メールアドレス"
+
+#~ msgid "created"
+#~ msgstr "作成日時"
+
+#~ msgid "sent"
+#~ msgstr "送信日時"
+
+#~ msgid "key"
+#~ msgstr "キー"
+
+#~ msgid "email confirmation"
+#~ msgstr "メールアドレスの確認"
+
+#~ msgid ""
+#~ "You cannot add an email address to an account protected by two-factor "
+#~ "authentication."
+#~ msgstr ""
+#~ "二要素認証で保護されているアカウントには、メールアドレスを追加できません。"
+
+#~ msgid "You cannot deactivate two-factor authentication."
+#~ msgstr "二要素認証は無効化できません。"
+
+#, fuzzy
+#~| msgid "You cannot deactivate two-factor authentication."
+#~ msgid ""
+#~ "You cannot generate recovery codes without having two-factor "
+#~ "authentication enabled."
+#~ msgstr "二要素認証は無効化できません。"
+
+#~ msgid ""
+#~ "You cannot activate two-factor authentication until you have verified "
+#~ "your email address."
+#~ msgstr ""
+#~ "メールアドレスの確認が完了するまで、二要素認証を有効にすることはできませ"
+#~ "ん。"
+
+#~ msgid "MFA"
+#~ msgstr "多要素認証"
+
+#~ msgid "Authenticator code"
+#~ msgstr "認証アプリコード"
+
+#~ msgid "Recovery codes"
+#~ msgstr "リカバリーコード"
+
+#~ msgid "TOTP Authenticator"
+#~ msgstr "TOTP 認証アプリ"
+
+#, python-format
+#~ msgid ""
+#~ "An account already exists with this email address. Please sign in to that "
+#~ "account first, then connect your %s account."
+#~ msgstr ""
+#~ "このメールアドレスを使用するアカウントが既にあります。そのアカウントにログ"
+#~ "インしてから %s アカウントを接続してください。"
+
+#, fuzzy
+#~| msgid "Bad Token"
+#~ msgid "Invalid token."
+#~ msgstr "不正なトークン"
+
+#~ msgid "Your account has no password set up."
+#~ msgstr "アカウントにパスワードを設定する必要があります。"
+
+#~ msgid "Your account has no verified email address."
+#~ msgstr "確認済みのメールアドレスの登録が必要です。"
+
+#, fuzzy
+#~| msgid ""
+#~| "You can sign in to your account using any of the following third-party "
+#~| "accounts:"
+#~ msgid "You cannot disconnect your last remaining third-party account."
+#~ msgstr "以下の外部アカウントを使ってログインすることができます:"
+
+#~ msgid "Social Accounts"
+#~ msgstr "外部アカウント"
+
+#~ msgid "provider"
+#~ msgstr "プロバイダー"
+
+#~ msgid "provider ID"
+#~ msgstr "プロバイダー ID"
+
+#~ msgid "name"
+#~ msgstr "ユーザー名"
+
+#~ msgid "client id"
+#~ msgstr "ユーザー ID"
+
+#~ msgid "App ID, or consumer key"
+#~ msgstr "App ID もしくはコンシューマキー"
+
+#~ msgid "API secret, client secret, or consumer secret"
+#~ msgstr ""
+#~ "API シークレット、クライアントシークレット、またはコンシューマーシークレッ"
+#~ "ト"
+
+#~ msgid "social application"
+#~ msgstr "ソーシャルアプリケーション"
+
+#~ msgid "social applications"
+#~ msgstr "ソーシャルアプリケーション"
+
+#~ msgid "uid"
+#~ msgstr "ユーザー名"
+
+#~ msgid "last login"
+#~ msgstr "最終ログイン"
+
+#~ msgid "date joined"
+#~ msgstr "アカウント作成日"
+
+#~ msgid "extra data"
+#~ msgstr "エクストラデータ"
+
+#~ msgid "social accounts"
+#~ msgstr "ソーシャルアカウント"
+
+#~ msgid "token"
+#~ msgstr "トークン"
+
+#~ msgid "\"oauth_token\" (OAuth1) or access token (OAuth2)"
+#~ msgstr "「oauth_token」(OAuth1) もしくは Access Token (OAuth2)"
+
+#~ msgid "token secret"
+#~ msgstr "トークンシークレット"
+
+#~ msgid "\"oauth_token_secret\" (OAuth1) or refresh token (OAuth2)"
+#~ msgstr "「oauth_token_secret」(OAuth1) もしくは Refresh Token (OAuth2)"
+
+#~ msgid "expires at"
+#~ msgstr "失効期限"
+
+#~ msgid "social application token"
+#~ msgstr "ソーシャルアプリケーショントークン"
+
+#~ msgid "social application tokens"
+#~ msgstr "ソーシャルアプリケーショントークン"
+
+#~ msgid "Invalid profile data"
+#~ msgstr "無効なプロファイルデータ"
+
+#, fuzzy
+#~| msgctxt "field label"
+#~| msgid "Login"
+#~ msgid "Login"
+#~ msgstr "ログイン"
+
+#, python-format
+#~ msgid ""
+#~ "Invalid response while obtaining request token from \"%s\". Response was: "
+#~ "%s."
+#~ msgstr ""
+#~ "「%s」からのリクエストトークン取得中に不正な応答がありました。レスポンス: "
+#~ "%s"
+
+#, python-format
+#~ msgid "Invalid response while obtaining access token from \"%s\"."
+#~ msgstr ""
+#~ "不正なレスポンスが返されたため、「%s」からアクセストークンを取得できません"
+#~ "でした。"
+
+#, python-format
+#~ msgid "No request token saved for \"%s\"."
+#~ msgstr "「%s」のリクエストトークンを保存できませんでした。"
+
+#, python-format
+#~ msgid "No access token saved for \"%s\"."
+#~ msgstr "「%s」のアクセストークンを保存できませんでした。"
+
+#, python-format
+#~ msgid "No access to private resources at \"%s\"."
+#~ msgstr "「%s」の情報にアクセスできませんでした。"
+
+#, python-format
+#~ msgid "Invalid response while obtaining request token from \"%s\"."
+#~ msgstr ""
+#~ "不正なレスポンスが返されたため、「%s」からリクエストトークンを取得できませ"
+#~ "んでした。"
+
+#~ msgid "User Sessions"
+#~ msgstr "ユーザーセッション"
+
+#~ msgid "session key"
+#~ msgstr "セッションキー"
+
+#, python-brace-format
+#~ msgid "Password must be a minimum of {0} characters."
+#~ msgstr "パスワードは {0} 文字以上の長さが必要です。"
+
+#~| msgid ""
+#~| "You're receiving this e-mail because you or someone else has requested a "
+#~| "password for your user account.\n"
+#~| "It can be safely ignored if you did not request a password reset. Click "
+#~| "the link below to reset your password."
+#~ msgid ""
+#~ "You are receiving this email because you or someone else has requested a\n"
+#~ "password for your user account. However, we do not have any record of a "
+#~ "user\n"
+#~ "with email %(email)s in our database.\n"
+#~ "\n"
+#~ "This mail can be safely ignored if you did not request a password reset.\n"
+#~ "\n"
+#~ "If it was you, you can sign up for an account using the link below."
+#~ msgstr ""
+#~ "このメールは、あなた（もしくは別の誰か）がパスワードの再設定を行おうとした"
+#~ "ために送られました。\n"
+#~ "パスワードの再設定を要求したのがあなたではない場合、このメールは無視してく"
+#~ "ださい。パスワードを再設定するためには、以下のリンクをクリックしてくださ"
+#~ "い。"
+
+#, fuzzy
+#~| msgid "The following email addresses are associated with your account:"
+#~ msgid "The following email address is associated with your account:"
+#~ msgstr "以下のメールアドレスがアカウントに登録されています："
+
+#, fuzzy
+#~| msgid "Confirm Email Address"
+#~ msgid "Change Email Address"
+#~ msgstr "メールアドレスの確認"
+
+#~ msgid "change password"
+#~ msgstr "パスワード変更"
+
+#~ msgid "OpenID Sign In"
+#~ msgstr "OpenID ログイン"

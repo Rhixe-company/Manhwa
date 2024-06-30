@@ -1,0 +1,482 @@
+{% extends "base.html" %} {% load static i18n widget_tweaks component_tags%}
+<!-- Add chapter Drawer -->
+{% block title %} {% translate comic.title %} {% endblock title %}
+<!-- Add chapter Drawer -->
+{% block content %}
+
+<div class="container mx-auto">
+  <div class="justify-center pt-5">
+    <div class="col-span-8 flex justify-between">
+      <h1 class="text-2xl font-bold">{{comic.title|title}}</h1>
+    </div>
+    <div class="col-span-8 flex justify-between pt-3">
+      <div class="flex">
+        <div>
+          <img
+            class="avatar_single"
+            src="{{comic.user.images.url}}"
+            alt="{{comic.title}}"
+          />
+        </div>
+        <div class="pl-3">
+          <div class="col-span-12">{{comic.author|title}}</div>
+          <div class="col-span-12 text-sm text-gray-500">
+            {{comic.created_at|date:"M-d-Y"}}
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-row gap-2">
+        {% if request.user.is_authenticated %}
+        <span id="thumbs" data-value="{{comic.id}}"></span>
+        <div class="inline-flex pr-2">
+          <span id="up">{{comic.thumbsup}}</span>
+          <button
+            class="thumbsaction btn btn-outline border-0 p-0"
+            value="thumbsup"
+            title="I like this"
+            role="button"
+            data-tooltip-target="thumbsuptooltip"
+          >
+            <svg
+              id="thumbsup"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-hand-thumbs-up"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2 2 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a10 10 0 0 0-.443.05 9.4 9.4 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a9 9 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.2 2.2 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.9.9 0 0 1-.121.416c-.165.288-.503.56-1.066.56z"
+              />
+            </svg>
+          </button>
+          <div
+            id="thumbsuptooltip"
+            role="tooltip"
+            class="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300"
+          >
+            Like Me
+            <div class="tooltip-arrow" data-popper-arrow></div>
+          </div>
+        </div>
+        <div class="inline-flex pr-2">
+          <span id="down">{{comic.thumbsdown}}</span>
+          <button
+            class="thumbsaction btn btn-outline border-0 p-0"
+            value="thumbsdown"
+            title="I like this"
+            role="button"
+            data-tooltip-target="thumbsdowntooltip"
+          >
+            <svg
+              id="thumbsdown"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-hand-thumbs-down"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8.864 15.674c-.956.24-1.843-.484-1.908-1.42-.072-1.05-.23-2.015-.428-2.59-.125-.36-.479-1.012-1.04-1.638-.557-.624-1.282-1.179-2.131-1.41C2.685 8.432 2 7.85 2 7V3c0-.845.682-1.464 1.448-1.546 1.07-.113 1.564-.415 2.068-.723l.048-.029c.272-.166.578-.349.97-.484C6.931.08 7.395 0 8 0h3.5c.937 0 1.599.478 1.934 1.064.164.287.254.607.254.913 0 .152-.023.312-.077.464.201.262.38.577.488.9.11.33.172.762.004 1.15.069.13.12.268.159.403.077.27.113.567.113.856s-.036.586-.113.856c-.035.12-.08.244-.138.363.394.571.418 1.2.234 1.733-.206.592-.682 1.1-1.2 1.272-.847.283-1.803.276-2.516.211a10 10 0 0 1-.443-.05 9.36 9.36 0 0 1-.062 4.51c-.138.508-.55.848-1.012.964zM11.5 1H8c-.51 0-.863.068-1.14.163-.281.097-.506.229-.776.393l-.04.025c-.555.338-1.198.73-2.49.868-.333.035-.554.29-.554.55V7c0 .255.226.543.62.65 1.095.3 1.977.997 2.614 1.709.635.71 1.064 1.475 1.238 1.977.243.7.407 1.768.482 2.85.025.362.36.595.667.518l.262-.065c.16-.04.258-.144.288-.255a8.34 8.34 0 0 0-.145-4.726.5.5 0 0 1 .595-.643h.003l.014.004.058.013a9 9 0 0 0 1.036.157c.663.06 1.457.054 2.11-.163.175-.059.45-.301.57-.651.107-.308.087-.67-.266-1.021L12.793 7l.353-.354c.043-.042.105-.14.154-.315.048-.167.075-.37.075-.581s-.027-.414-.075-.581c-.05-.174-.111-.273-.154-.315l-.353-.354.353-.354c.047-.047.109-.176.005-.488a2.2 2.2 0 0 0-.505-.804l-.353-.354.353-.354c.006-.005.041-.05.041-.17a.9.9 0 0 0-.121-.415C12.4 1.272 12.063 1 11.5 1"
+              />
+            </svg>
+          </button>
+          <div
+            id="thumbsdowntooltip"
+            role="tooltip"
+            class="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300"
+          >
+            Un Like Me
+            <div class="tooltip-arrow" data-popper-arrow></div>
+          </div>
+        </div>
+        <div class="inline-flex pr-2">
+          <span id="like_count">{{comic.like_count}}</span>
+          {% csrf_token %}
+          <button class="text-dark p-0" id="like-button" value="{{comic.id}}">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              class="bi bi-heart"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"
+              />
+            </svg>
+          </button>
+        </div>
+        {% if fav %}
+        <div class="inline-flex">
+          <a
+            hx-post="{% url 'bookmarks:add-comic' %}"
+            hx-vals='{"comictitle": "{{comic.title}}"}'
+            hx-trigger="click"
+            class="btn btn-outline border-0 p-0"
+            data-tooltip-target="removebookmarkstooltip"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              class="bi bi-bookmark-check"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M4.5 2a.5.5 0 0 0-.5.5v11.066l4-2.667 4 2.667V8.5a.5.5 0 0 1 1 0v6.934l-5-3.333-5 3.333V2.5A1.5 1.5 0 0 1 4.5 1h4a.5.5 0 0 1 0 1h-4z"
+              />
+              <path
+                fill-rule="evenodd"
+                d="M15.854 2.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 4.793l2.646-2.647a.5.5 0 0 1 .708 0z"
+              />
+            </svg>
+          </a>
+          <div
+            id="removebookmarkstooltip"
+            role="tooltip"
+            class="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300"
+          >
+            Remove From Bookmarks
+            <div class="tooltip-arrow" data-popper-arrow></div>
+          </div>
+        </div>
+        {% else %}
+        <div>
+          <a
+            hx-post="{% url 'bookmarks:add-comic' %}"
+            hx-vals='{"comictitle": "{{comic.title}}"}'
+            hx-trigger="click"
+            class="btn btn-outline border-0 p-0"
+            data-tooltip-target="addbookmarkstooltip"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              class="bi bi-bookmark-plus"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M4.5 2a.5.5 0 0 0-.5.5v11.066l4-2.667 4 2.667V8.5a.5.5 0 0 1 1 0v6.934l-5-3.333-5 3.333V2.5A1.5 1.5 0 0 1 4.5 1h4a.5.5 0 0 1 0 1h-4zm9-1a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H13V1.5a.5.5 0 0 1 .5-.5z"
+              />
+              <path
+                fill-rule="evenodd"
+                d="M13 3.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0v-2z"
+              />
+            </svg>
+          </a>
+          <div
+            id="addbookmarkstooltip"
+            role="tooltip"
+            class="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300"
+          >
+            Add To Bookmarks
+            <div class="tooltip-arrow" data-popper-arrow></div>
+          </div>
+        </div>
+        {% endif %} {% else %}
+        <div class="inline-flex pr-2">
+          <span id="up">{{comic.thumbsup}}</span>
+          <a
+            href="{% url 'account_signup' %}"
+            class="thumbsaction btn btn-outline border-0 p-0"
+            value="thumbsup"
+            title="I like this"
+            role="button"
+            data-tooltip-target="thumbsuptooltip"
+          >
+            <svg
+              id="thumbsup"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-hand-thumbs-up"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2 2 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a10 10 0 0 0-.443.05 9.4 9.4 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a9 9 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.2 2.2 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.9.9 0 0 1-.121.416c-.165.288-.503.56-1.066.56z"
+              />
+            </svg>
+          </a>
+          <div
+            id="thumbsuptooltip"
+            role="tooltip"
+            class="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300"
+          >
+            Like Me
+            <div class="tooltip-arrow" data-popper-arrow></div>
+          </div>
+        </div>
+        <div class="inline-flex pr-2">
+          <span id="down">{{comic.thumbsdown}}</span>
+          <a
+            href="{% url 'account_signup' %}"
+            class="thumbsaction btn btn-outline border-0 p-0"
+            value="thumbsdown"
+            title="I like this"
+            role="button"
+            data-tooltip-target="thumbsdowntooltip"
+          >
+            <svg
+              id="thumbsdown"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-hand-thumbs-down"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8.864 15.674c-.956.24-1.843-.484-1.908-1.42-.072-1.05-.23-2.015-.428-2.59-.125-.36-.479-1.012-1.04-1.638-.557-.624-1.282-1.179-2.131-1.41C2.685 8.432 2 7.85 2 7V3c0-.845.682-1.464 1.448-1.546 1.07-.113 1.564-.415 2.068-.723l.048-.029c.272-.166.578-.349.97-.484C6.931.08 7.395 0 8 0h3.5c.937 0 1.599.478 1.934 1.064.164.287.254.607.254.913 0 .152-.023.312-.077.464.201.262.38.577.488.9.11.33.172.762.004 1.15.069.13.12.268.159.403.077.27.113.567.113.856s-.036.586-.113.856c-.035.12-.08.244-.138.363.394.571.418 1.2.234 1.733-.206.592-.682 1.1-1.2 1.272-.847.283-1.803.276-2.516.211a10 10 0 0 1-.443-.05 9.36 9.36 0 0 1-.062 4.51c-.138.508-.55.848-1.012.964zM11.5 1H8c-.51 0-.863.068-1.14.163-.281.097-.506.229-.776.393l-.04.025c-.555.338-1.198.73-2.49.868-.333.035-.554.29-.554.55V7c0 .255.226.543.62.65 1.095.3 1.977.997 2.614 1.709.635.71 1.064 1.475 1.238 1.977.243.7.407 1.768.482 2.85.025.362.36.595.667.518l.262-.065c.16-.04.258-.144.288-.255a8.34 8.34 0 0 0-.145-4.726.5.5 0 0 1 .595-.643h.003l.014.004.058.013a9 9 0 0 0 1.036.157c.663.06 1.457.054 2.11-.163.175-.059.45-.301.57-.651.107-.308.087-.67-.266-1.021L12.793 7l.353-.354c.043-.042.105-.14.154-.315.048-.167.075-.37.075-.581s-.027-.414-.075-.581c-.05-.174-.111-.273-.154-.315l-.353-.354.353-.354c.047-.047.109-.176.005-.488a2.2 2.2 0 0 0-.505-.804l-.353-.354.353-.354c.006-.005.041-.05.041-.17a.9.9 0 0 0-.121-.415C12.4 1.272 12.063 1 11.5 1"
+              />
+            </svg>
+          </a>
+          <div
+            id="thumbsdowntooltip"
+            role="tooltip"
+            class="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300"
+          >
+            Un Like Me
+            <div class="tooltip-arrow" data-popper-arrow></div>
+          </div>
+        </div>
+        <div class="pr-2">
+          <span class="" id="like_count">{{comic.like_count}}</span>
+          <a
+            href="{% url 'account_signup' %}"
+            class="text-dark btn-outline-light btn btn-link border-0 p-0"
+            value="{{comic.id}}"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              class="bi bi-heart"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"
+              />
+            </svg>
+          </a>
+        </div>
+        <div>
+          <a
+            href="{% url 'account_signup' %}"
+            class="btn btn-outline border-0 p-0"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              class="bi bi-bookmark-plus"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M4.5 2a.5.5 0 0 0-.5.5v11.066l4-2.667 4 2.667V8.5a.5.5 0 0 1 1 0v6.934l-5-3.333-5 3.333V2.5A1.5 1.5 0 0 1 4.5 1h4a.5.5 0 0 1 0 1h-4zm9-1a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H13V1.5a.5.5 0 0 1 .5-.5z"
+              />
+              <path
+                fill-rule="evenodd"
+                d="M13 3.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0v-2z"
+              />
+            </svg>
+          </a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="col-span-8 pt-5">
+      <div class="mx-w-md lg-max-w-lg shrink-0">
+        <img class="w-full" src="{{comic.images.url}}" alt="{{comic.title}}" />
+      </div>
+      <div
+        class="col-span-12 mb-2 flex flex-row justify-between gap-2 pt-1 text-center text-sm text-gray-600"
+      >
+        <p>Status: {{comic.status}}</p>
+
+        <div class="mb-2 flex items-center gap-1">
+          {% if comic.rating > 6.0 %}
+          <span class="fa fa-star checked text-yellow-300"></span>
+          {% else %}
+          <span class="fa fa-star"></span>
+          {% endif %} {% if comic.rating > 7.0 %}
+          <span class="fa fa-star checked text-yellow-300"></span>
+          {% else %}
+          <span class="fa fa-star"></span>
+          {% endif %} {% if comic.rating > 8.0 %}
+          <span class="fa fa-star checked text-yellow-300"></span>
+          {% else %}
+          <span class="fa fa-star"></span>
+          {% endif %} {% if comic.rating > 9.0 %}
+          <span class="fa fa-star checked text-yellow-300"></span>
+          {% else %}
+          <span class="fa fa-star"></span>
+          {% endif %} {% if comic.rating > 9.9 %}
+          <span class="fa fa-star checked text-yellow-300"></span>
+          {% else %}
+          <span class="fa fa-star"></span>
+          {% endif %}
+
+          <p
+            class="text-sm font-medium leading-none text-gray-500 dark:text-gray-400"
+          >
+            {{comic.rating}}
+          </p>
+        </div>
+      </div>
+      <p class="mb-6 text-gray-500 dark:text-gray-400">
+        {{comic.description|safe}}
+      </p>
+      <div class="flex justify-between p-5">
+        <table class="table">
+          <thead>
+            <th>Status</th>
+            <th>Type</th>
+            <th>Artist</th>
+            <th>Alternativetitle</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{comic.status}}</td>
+              <td>
+                <a href="{{comic.category.get_absolute_url}}"
+                  >{{comic.category.name}}</a
+                >
+              </td>
+              <td>{{comic.artist}}</td>
+              <td>{{comic.alternativetitle}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          class="inline-flex w-48 flex-col rounded-lg border border-gray-200 bg-white text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+        >
+          <button
+            type="button"
+            class="relative inline-flex w-full items-center rounded-t-lg border-b border-gray-200 px-4 py-2 text-sm font-medium hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 focus:ring-2 focus:ring-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:text-white dark:focus:ring-gray-500"
+          >
+            Genres
+          </button>
+          {% for genre in comic.genres.all %}
+          <a
+            href="{{genre.get_absolute_url}}"
+            class="relative inline-flex w-full items-center border-b border-gray-200 px-4 py-2 text-sm font-medium hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 focus:ring-2 focus:ring-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:text-white dark:focus:ring-gray-500"
+          >
+            {{genre.name}}
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="col-span-8">
+      {% if chapters %}
+      <div
+        class="w-92 rounded-lg border border-gray-200 bg-white text-sm font-medium text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+      >
+        <a
+          href="#"
+          aria-current="true"
+          class="block w-full cursor-pointer rounded-t-lg border-b border-gray-200 bg-blue-700 px-4 py-2 text-white dark:border-gray-600 dark:bg-gray-800"
+        >
+          Recent Chapters
+        </a>
+        {% for chapter in chapters %}
+        <a
+          href="{% url 'chapters:detail' chapter.slug %}"
+          class="block w-full cursor-pointer border-b border-gray-200 px-4 py-2 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:text-white dark:focus:ring-gray-500"
+        >
+          {{chapter.name}}
+        </a>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    {% if relatedcomics %}
+    <aside
+      aria-label="Related articles"
+      class="bg-gray-50 py-2 dark:bg-gray-800 lg:py-4"
+    >
+      <div class="mx-auto max-w-screen-xl px-4">
+        <h2 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
+          Related articles
+        </h2>
+        <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          {% component "card" comics=relatedcomics %} {% endcomponent %}
+        </div>
+      </div>
+    </aside>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock content %}
+<!-- end -->
+{% load render_bundle from webpack_loader %}
+<!-- sds -->
+{% block injs %}
+
+<!-- comic -->
+<script>
+  $(document).on("click", "#like-button", function (e) {
+    e.preventDefault();
+
+    $.ajax({
+      type: "POST",
+      url: '{% url "bookmarks:like" %}',
+      data: {
+        comicid: $("#like-button").val(),
+        csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+        action: "comic",
+      },
+      success: function (json) {
+        document.getElementById("like_count").innerHTML = json["result"];
+      },
+      error: function (xhr, errmsg, err) {},
+    });
+  });
+
+  $(document).ready(function () {
+    $(".thumbsaction").click(function (e) {
+      const comicid = document
+        .getElementById("thumbs")
+        .getAttribute("data-value");
+      const button = $(this).attr("value");
+      e.preventDefault();
+      $.ajax({
+        type: "POST",
+        url: '{% url "bookmarks:thumbs" %}',
+
+        data: {
+          comicid: comicid,
+          csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+          action: "thumbs",
+          button: button,
+        },
+        success: function (json) {
+          document.getElementById("up").innerHTML = json["up"];
+          document.getElementById("down").innerHTML = json["down"];
+          $("svg").removeClass("thumb-active");
+          $("#" + button).addClass("thumb-active");
+        },
+        error: function (xhr, errmsg, err) {},
+      });
+    });
+  });
+</script>
+<!-- ss -->
+{% endblock injs %}

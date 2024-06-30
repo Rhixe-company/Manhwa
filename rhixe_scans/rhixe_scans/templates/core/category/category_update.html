@@ -1,0 +1,91 @@
+{% extends "base.html" %} {% load static i18n widget_tweaks %}
+<!-- Modal footer -->
+{% block title %}{{category.name}} {% endblock title %}
+<!-- content -->
+{% block content %}
+
+<div>
+  <div
+    class="pt:mt-0 mx-auto flex flex-col items-center justify-center px-3 pt-4 dark:bg-gray-900"
+  >
+    <!-- Card -->
+    <div
+      class="w-full max-w-xl space-y-4 rounded-lg bg-white p-6 shadow dark:bg-gray-800 sm:p-4"
+    >
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+        {{category.name}}
+      </h2>
+      <form
+        class="mt-8 space-y-6"
+        action=""
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <!-- csrf -->
+        {% csrf_token %}
+        <!-- mana -->
+        {{ form.management_form }}
+        <!-- non form errors -->
+        {{ form.non_form_errors }}
+        <h3>Update Collection</h3>
+
+        {% for comic_form in form.forms %}
+        <hr />
+        <h5>
+          {% if comic_form.instance.id %}
+          <!-- if -->
+          Comic: {{ comic_form.instance.title|title }}
+          <!-- else -->
+          {% else %}
+          <!-- if -->
+          {% if form.forms|length > 1 %}
+          <!-- if -->
+          <span>Add another comic</span>
+          <!-- else -->
+          {% else %}
+          <!-- hgh -->
+          <span>Add a comic</span>
+          <!-- endif -->
+          {% endif %}
+          <!-- endif -->
+          {% endif %}
+        </h5>
+        {% for hidden_field in comic_form.hidden_fields %}
+        <!-- for -->
+        {{ hidden_field.errors }} {{ hidden_field }}
+        <!-- endfor -->
+        {% endfor %} {% for field in form %}
+
+        <div class="form-group mb-3">
+          <div class="ml-3 text-xs text-red-400">{{ field.errors }}</div>
+          <label for="{{field.label}}" class="form-label"
+            >{{field.label}}</label
+          >
+          {% render_field field %}
+          <span class="ml-3 text-sm text-gray-400">
+            {{ field.help_text }}
+          </span>
+        </div>
+        {% endfor %} {% endfor %}
+        <hr />
+        <div class="pt-2">
+          <button
+            class="w-100 btn btn-primary mb-2"
+            type="submit"
+            value="Update Collection"
+          >
+            Update Collection
+          </button>
+          <a
+            role="button"
+            href="{{category.get_absolute_url}}"
+            class="w-100 btn btn-secondary mb-2"
+            >Cancel</a
+          >
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

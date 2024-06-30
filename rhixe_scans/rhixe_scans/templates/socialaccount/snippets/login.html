@@ -1,0 +1,21 @@
+{% load i18n allauth socialaccount %}
+<!-- privder -->
+{% get_providers as socialaccount_providers %}
+<!-- if -->
+{% if socialaccount_providers %}
+<!-- ifd -->
+{% if not SOCIALACCOUNT_ONLY %}
+<!-- if not -->
+{% element h1 %}
+<!-- dg -->
+{% translate "Or use a third-party" %}
+<!-- nc -->
+{% endelement %}
+<!-- endelement -->
+{% endif %}
+<!-- include -->
+{% include "socialaccount/snippets/provider_list.html" with process="login" %}
+<!-- include -->
+{% include "socialaccount/snippets/login_extra.html" %}
+<!-- endif -->
+{% endif %}

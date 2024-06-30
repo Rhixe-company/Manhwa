@@ -1,0 +1,84 @@
+{% for comic in comics %}
+<div class="card card-compact w-auto border p-2 shadow-xl">
+  <figure>
+    <a href="{{comic.get_absolute_url}}"
+      ><img src="{{comic.images.url}}" alt="Shoes"
+    /></a>
+  </figure>
+  <div class="card-body">
+    <h4 class="card-title">
+      <a href="{{comic.get_absolute_url}}">{{comic.title|title}} </a>
+    </h4>
+    <div>
+      <p>
+        Type:
+        <a href="{{comic.category.get_absolute_url}}"
+          >{{comic.category.name}}</a
+        >
+      </p>
+
+      <p>Status: {{comic.get_status_display}}</p>
+      <div class="flex items-center gap-1">
+        Rating: {% if comic.rating > 5.5 %}
+        <span class="fa fa-star checked text-yellow-300"></span>
+        {% else %}
+        <span class="fa fa-star"></span>
+        {% endif %} {% if comic.rating > 6.5 %}
+        <span class="fa fa-star checked text-yellow-300"></span>
+        {% else %}
+        <span class="fa fa-star"></span>
+        {% endif %} {% if comic.rating > 7.5 %}
+        <span class="fa fa-star checked text-yellow-300"></span>
+        {% else %}
+        <span class="fa fa-star"></span>
+        {% endif %} {% if comic.rating > 8.5 %}
+        <span class="fa fa-star checked text-yellow-300"></span>
+        {% else %}
+        <span class="fa fa-star"></span>
+        {% endif %} {% if comic.rating > 9.5 %}
+        <span class="fa fa-star checked text-yellow-300"></span>
+        {% else %}
+        <span class="fa fa-star"></span>
+        {% endif %}
+
+        <p
+          class="text-sm font-medium leading-none text-gray-500 dark:text-gray-400"
+        >
+          {{comic.rating}}
+        </p>
+      </div>
+    </div>
+
+    {% if comic.genres.all %}
+    <div class="flex flex-row flex-wrap justify-between">
+      {% for genre in comic.genres.all %}
+      <a
+        href="{{genre.get_absolute_url}}"
+        class="btn btn-primary btn-sm inline-flex"
+      >
+        {{genre.name}}
+      </a>
+      {% endfor %}
+    </div>
+    {% endif %} {% if comic.chapter_comic.all %}
+    <div
+      class="w-92 rounded-lg border border-gray-200 bg-white text-sm font-medium text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+    >
+      <span
+        class="block w-full cursor-pointer rounded-t-lg border-b border-gray-200 bg-blue-700 px-4 py-2 text-white dark:border-gray-600 dark:bg-gray-800"
+      >
+        Recent Chapters
+      </span>
+      {% for chapter in comic.chapter_comic.all %}
+      <a
+        href="{{chapter.get_absolute_url}}"
+        class="block w-full cursor-pointer border-b border-gray-200 px-4 py-2 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:text-white dark:focus:ring-gray-500"
+      >
+        {{chapter.name}}
+      </a>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endfor %}

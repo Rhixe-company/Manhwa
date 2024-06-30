@@ -1,0 +1,103 @@
+{% extends "base.html" %} {% load static i18n widget_tweaks %}
+<!-- Modal footer -->
+{% block title %}Comic Admin{% endblock title %}
+<!-- content -->
+{% block content %}
+<section
+  class="min-w-full bg-gray-400 text-gray-800 dark:bg-gray-900 dark:text-gray-200"
+>
+  <!-- Start coding here -->
+  <div class="relative overflow-hidden shadow-md sm:rounded-lg">
+    <div
+      class="flex flex-col items-center justify-between space-y-3 p-4 md:flex-row md:space-x-4 md:space-y-0"
+    >
+      <div class="w-full md:w-1/2">
+        <form
+          class="flex items-center"
+          hx-get='{% url "comics:list" %}'
+          hx-target="#comic-container"
+        >
+          {{filter.form.title|add_label_class:"sr-only"}}
+          <div class="relative w-full">
+            <div
+              class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
+            >
+              <svg
+                aria-hidden="true"
+                class="h-5 w-5 text-gray-500 dark:text-gray-400"
+                fill="currentColor"
+                viewbox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+
+            {% render_field filter.form.title class='form-search' %}
+          </div>
+        </form>
+      </div>
+      <div
+        class="flex w-full flex-shrink-0 flex-col items-stretch justify-end space-y-2 md:w-auto md:flex-row md:items-center md:space-x-3 md:space-y-0"
+      >
+        {% include 'partials/comics/create.html' %}
+        <div class="flex w-full items-center space-x-3 md:w-auto">
+          {% load export_url from django_tables2 %}
+          <!-- for -->
+          {% for format in export_formats %}
+          <a
+            href="{% export_url format %}"
+            class="flex w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 md:w-auto"
+          >
+            <svg
+              class="mr-2 h-4 w-4"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewbox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
+              />
+            </svg>
+            Export
+          </a>
+          {% endfor %}
+          <a
+            href="{% url 'progress' %}"
+            class="flex w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 md:w-auto"
+          >
+            <svg
+              class="mr-2 h-4 w-4"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewbox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
+              />
+            </svg>
+            Download
+          </a>
+        </div>
+      </div>
+    </div>
+
+    {% include 'partials/comics/table.html' %}
+  </div>
+</section>
+
+{% endblock content %}

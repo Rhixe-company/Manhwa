@@ -1,0 +1,80 @@
+volumes:
+  postgres_data: {}
+  postgres_data_backups: {}
+  traefik: {}
+
+  redis_data: {}
+
+services:
+  django: &django
+    build:
+      context: .
+      dockerfile: ./compose/production/django/Dockerfile
+      args:
+        # These variable can be defined in an .env file in the root of the repo
+        DJANGO_AWS_STORAGE_BUCKET_NAME: ${DJANGO_AWS_STORAGE_BUCKET_NAME}
+        DJANGO_AWS_S3_CUSTOM_DOMAIN: ${DJANGO_AWS_S3_CUSTOM_DOMAIN}
+
+    image: rhixe/rhixe_scans:django
+    depends_on:
+      - postgres
+      - redis
+    env_file:
+      - ./.envs/.production/.django
+      - ./.envs/.production/.postgres
+    command: /start
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: rhixe/rhixe_scans:postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - postgres_data_backups:/backups
+    env_file:
+      - ./.envs/.production/.postgres
+
+  traefik:
+    build:
+      context: .
+      dockerfile: ./compose/production/traefik/Dockerfile
+    image: rhixe/rhixe_scans:traefik
+    depends_on:
+      - django
+    volumes:
+      - traefik:/etc/traefik/acme
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
+      - "0.0.0.0:5555:5555"
+
+  redis:
+    image: docker.io/redis:6
+
+    volumes:
+      - redis_data:/data
+
+  celeryworker:
+    <<: *django
+    image: rhixe/rhixe_scans:celeryworker
+    command: /start-celeryworker
+
+  celerybeat:
+    <<: *django
+    image: rhixe/rhixe_scans:celerybeat
+    command: /start-celerybeat
+
+  flower:
+    <<: *django
+    image: rhixe/rhixe_scans:flower
+    command: /start-flower
+
+  awscli:
+    build:
+      context: .
+      dockerfile: ./compose/production/aws/Dockerfile
+    env_file:
+      - ./.envs/.production/.django
+    volumes:
+      - postgres_data_backups:/backups:z

@@ -1,0 +1,15 @@
+{% load static i18n widget_tweaks humanize%}
+<!-- block comicslist -->
+{% block Comicslist %}
+<!-- Define Grid container div -->
+{% load render_table from django_tables2 %}
+
+<div
+  id="comic-container"
+  hx-trigger="comic_added    from:body"
+  hx-get='{% url "comics:list" %}'
+  hx-target="#comic-container"
+>
+  {% render_table table "partials/comics/django_tables2.html" %}
+</div>
+{% endblock Comicslist %}

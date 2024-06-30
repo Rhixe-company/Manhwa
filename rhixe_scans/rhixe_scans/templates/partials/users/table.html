@@ -1,0 +1,15 @@
+{% load static i18n widget_tweaks humanize%}
+<!-- block userslist -->
+{% block Userslist %}
+<!-- Define Grid container div -->
+{% load render_table from django_tables2 %}
+
+<div
+  id="user-container"
+  hx-trigger="user_added    from:body"
+  hx-get='{% url "users:list" %}'
+  hx-target="#user-container"
+>
+  {% render_table table "partials/users/django_tables2.html" %}
+</div>
+{% endblock Userslist %}

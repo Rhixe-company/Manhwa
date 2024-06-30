@@ -1,0 +1,178 @@
+{% load static i18n widget_tweaks crispy_forms_tags tailwind_filters %}
+<!-- drawer init and show -->
+<div class="flex justify-center text-center">
+  <button
+    id="updateChapterButton-{{record.slug}}"
+    class="mb-2 mr-2 flex rounded-lg bg-primary-700 px-1 py-1 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+    _="on click add .hidden to #updateChapterButton-{{record.slug}} then remove  .transition-transform .-translate-x-full from #drawer-update-chapter-default-{{record.slug}}"
+    type="button"
+  >
+    <svg
+      class="mr-2 h-4 w-4"
+      fill="currentColor"
+      viewBox="0 0 20 20"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
+      ></path>
+      <path
+        fill-rule="evenodd"
+        d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+        clip-rule="evenodd"
+      ></path>
+    </svg>
+    Update
+  </button>
+</div>
+
+<!-- drawer component -->
+<div
+  id="drawer-update-chapter-default-{{record.slug}}"
+  class="{% if not form.errors %} {% endif %} fixed left-0 top-0 z-40 h-screen w-full max-w-md -translate-x-full overflow-y-auto bg-white p-4 transition-transform dark:bg-gray-800"
+  tabindex="-1"
+  aria-labelledby="drawer-label"
+  aria-hidden="true"
+>
+  <div
+    hx-get="{% url 'chapters:update-chapter'  record.slug %}"
+    hx-target="#updateForm-{{record.slug}}"
+    hx-trigger="intersect"
+  >
+    <h5
+      id="drawer-label"
+      class="mb-6 inline-flex items-center text-sm font-semibold uppercase text-gray-500 dark:text-gray-400"
+    >
+      Update Chapter
+    </h5>
+    <button
+      type="button"
+      aria-controls="drawer-update-chapter-default-{{record.slug}}"
+      class="absolute right-2.5 top-2.5 inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
+      _="on click remove .hidden from #updateChapterButton-{{record.slug}} then add  .transition-transform .-translate-x-full to #drawer-update-chapter-default-{{record.slug}} then put '' into <textarea />'s value then put '' into <input />'s value then put '' into <select />'s value"
+    >
+      <svg
+        aria-hidden="true"
+        class="h-5 w-5"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+      <span class="sr-only">Close menu</span>
+    </button>
+    {% block Chaptersupdate %}
+    <form
+      id="updateForm-{{record.slug}}"
+      hx-post="{{record.update_absolute_url}}"
+      hx-encoding="multipart/form-data"
+      hx-target="#updateForm-{{record.slug}}"
+      _="on chapter_added remove .hidden from #updateChapterButton-{{record.slug}} then add  .transition-transform .-translate-x-full to #drawer-update-chapter-default-{{record.slug}} then put '' into <textarea />'s value then put '' into <input />'s value then put '' into <select />'s value"
+    >
+      <div class="space-y-4">
+        <div class="form-group">
+          {{ form.name|add_label_class:"form-label" }}
+          <!-- form name field -->
+          {% render_field form.name class='form-charinput' %}
+          <div>
+            <span class="ml-3 text-sm text-gray-400">
+              {{ form.name.help_text }}
+            </span>
+            <span class="ml-3 text-xs text-red-400"
+              >{{ form.name.errors }}</span
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          {{ form.slug|add_label_class:"form-label" }}
+          <!-- form slug field -->
+          {% render_field form.slug class='form-charinput' %}
+          <div>
+            <span class="ml-3 text-sm text-gray-400">
+              {{ form.slug.help_text }}
+            </span>
+            <span class="ml-3 text-xs text-red-400"
+              >{{ form.slug.errors }}</span
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          {{ form.numPages|add_label_class:"form-label" }}
+          <!-- form numPages field -->
+          {% render_field form.numPages class='form-charinput' %}
+          <div>
+            <span class="ml-3 text-sm text-gray-400">
+              {{ form.numPages.help_text }}
+            </span>
+            <span class="ml-3 text-xs text-red-400"
+              >{{ form.numPages.errors }}</span
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          {{ form.comic|add_label_class:"form-label" }}
+          <!-- form comic field -->
+          {% render_field form.comic class='form-selectinput' %}
+          <div>
+            <span class="ml-3 text-sm text-gray-400">
+              {{ form.comic.help_text }}
+            </span>
+            <span class="ml-3 text-xs text-red-400"
+              >{{ form.comic.errors }}</span
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          {{ form.crawled|add_label_class:"form-label" }}
+          <!-- form crawled field -->
+          {% render_field form.crawled class='form-charinput' %}
+          <div>
+            <span class="ml-3 text-sm text-gray-400">
+              {{ form.crawled.help_text }}
+            </span>
+            <span class="ml-3 text-xs text-red-400"
+              >{{ form.crawled.errors }}</span
+            >
+          </div>
+        </div>
+      </div>
+      <div
+        class="left-0 mt-4 flex w-full justify-center space-x-4 pb-4 sm:absolute sm:mt-0 sm:px-4"
+      >
+        <button
+          type="submit"
+          class="w-full justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+        >
+          Update
+        </button>
+        <button
+          type="button"
+          class="inline-flex w-full items-center justify-center rounded-lg border border-red-600 px-5 py-2.5 text-center text-sm font-medium text-red-600 hover:bg-red-600 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 dark:hover:text-white dark:focus:ring-red-900"
+        >
+          <svg
+            aria-hidden="true"
+            class="-ml-1 mr-1 h-5 w-5"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          Delete
+        </button>
+      </div>
+    </form>
+    {% endblock Chaptersupdate %}
+  </div>
+</div>

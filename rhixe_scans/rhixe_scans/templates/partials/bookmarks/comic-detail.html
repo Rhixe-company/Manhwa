@@ -1,0 +1,38 @@
+<div class="flex justify-between align-top">
+  <div>
+    <h2 class="mb-4 text-success">{{usercomic.comic.title}}</h2>
+    <p>
+      This comic is #{{ usercomic.order }} in {{ usercomic.user.email|title}}'s
+      list
+    </p>
+    <button
+      class="btn btn-primary"
+      hx-get="{% url 'bookmarks:list' %}"
+      hx-target="this"
+      hx-push-url="true"
+    >
+      Your List
+    </button>
+  </div>
+  <div>
+    {% if usercomic.comic.images %}
+    <img
+      src="{{ usercomic.comic.images.url }}"
+      style="max-width: 200px; max-height: 200px"
+    />
+    {% else %}
+    <p>No image :(</p>
+    {% endif %}
+
+    <form
+      hx-encoding="multipart/form-data"
+      hx-post="{% url 'bookmarks:upload-image' usercomic.pk %}"
+      hx-target="#main-content"
+    >
+      <div class="form-group">
+        <input type="file" name="image" class="form-files" />
+      </div>
+      <button type="submit" class="btn btn-success">Upload File</button>
+    </form>
+  </div>
+</div>
