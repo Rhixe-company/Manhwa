@@ -6,10 +6,10 @@ WORKDIR ${APP_HOME}
 COPY ./package.json ${APP_HOME}
 RUN npm install && npm cache clean --force
 COPY . ${APP_HOME}
-ARG DJANGO_AWS_STORAGE_BUCKET_NAME
-ENV DJANGO_AWS_STORAGE_BUCKET_NAME=${DJANGO_AWS_STORAGE_BUCKET_NAME}
-ARG DJANGO_AWS_S3_CUSTOM_DOMAIN
-ENV DJANGO_AWS_S3_CUSTOM_DOMAIN=${DJANGO_AWS_S3_CUSTOM_DOMAIN}
+# ARG DJANGO_AWS_STORAGE_BUCKET_NAME
+# ENV DJANGO_AWS_STORAGE_BUCKET_NAME=${DJANGO_AWS_STORAGE_BUCKET_NAME}
+# ARG DJANGO_AWS_S3_CUSTOM_DOMAIN
+# ENV DJANGO_AWS_S3_CUSTOM_DOMAIN=${DJANGO_AWS_S3_CUSTOM_DOMAIN}
 RUN npm run build
 # define an alias for the specific python version used in this file.
 FROM docker.io/python:3.12.3-slim-bookworm as python
@@ -47,7 +47,7 @@ ENV BUILD_ENV ${BUILD_ENVIRONMENT}
 WORKDIR ${APP_HOME}
 
 RUN addgroup --system django \
-    && adduser --system --ingroup django django
+  && adduser --system --ingroup django django
 
 
 # Install required system dependencies
