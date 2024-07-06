@@ -7,18 +7,18 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import Rule, CrawlSpider
 
 from scrapy_redis.spiders import RedisCrawlSpider
-import scrapy
 
 
-class AsuratoonSpider(CrawlSpider):
+
+class AsuratoonSpider(RedisCrawlSpider):
     name = "asuratoon"
     allowed_domains = ["asuratoon.com"]
-    start_urls = ["https://asuratoon.com/manga/?page=1&order=update"]
-    # redis_key = "asuratoon_queue:start_urls"
+    # start_urls = ["https://asuratoon.com/manga/?page=1&order=update"]
+    redis_key = "asuratoon_queue:start_urls"
 
-    # redis_batch_size = 1
+    redis_batch_size = 1
 
-    # max_idle_time = 7
+    max_idle_time = 7
 
     le_comic_details = LinkExtractor(restrict_xpaths='//div[@class="bsx"]/a')
 
@@ -94,7 +94,7 @@ class AsuratoonSpider(CrawlSpider):
             '//div[contains(@class, "eph-num")]/a/@href'
         ).getall()
         if chapter_pages:
-            for page in chapter_pages:
+            for page in chapter_pages[0:4]:
                 yield response.follow(page, callback=self.parsechapter)
         self.logger.info("A New Comic was found at %s", response.url)
 

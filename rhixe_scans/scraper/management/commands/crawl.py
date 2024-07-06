@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-# from redis import from_url
+from redis import from_url
 # from scraper.spiders.myspider import MyspiderSpider
 from scrapy.crawler import CrawlerRunner
 
@@ -18,13 +18,13 @@ class Command(BaseCommand):
     help = "A  Custom command to  run my spiders"
 
     def handle(self, *args, **options):
-        # redisClient = from_url(env("CELERY_BROKER_URL"))
+        redisClient = from_url(env("CELERY_BROKER_URL"))
 
-        # # Push URLs to Redis Queue
-        # redisClient.lpush(
-        #     "asuratoon_queue:start_urls",
-        #     "https://asuratoon.com/manga/?page=1&order=update",
-        # )
+        # Push URLs to Redis Queue
+        redisClient.lpush(
+            "asuratoon_queue:start_urls",
+            "https://asuratoon.com/manga/?page=1&order=update",
+        )
 
         crawler_settings = Settings()
         crawler_settings.setmodule(my_settings)

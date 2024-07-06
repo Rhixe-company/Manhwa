@@ -82,9 +82,9 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {
     "scraper.pipelines.dupelicate.DuplicatesPipeline": 200,
     "scraper.pipelines.default.ScraperPipeline": 300,
-    # "scraper.pipelines.images.ScraperImagesPipeline": 100,
+    "scraper.pipelines.images.ScraperImagesPipeline": 100,
     "scraper.pipelines.database.ScraperDbPipeline": 400,
-    # "scrapy_redis.pipelines.RedisPipeline": 600,
+    "scrapy_redis.pipelines.RedisPipeline": 600,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -153,10 +153,10 @@ IMAGES_STORE = settings.MEDIA_ROOT
 MEDIA_ALLOW_REDIRECTS = True
 REACTOR_THREADPOOL_MAXSIZE = 20
 DOWNLOAD_FAIL_ON_DATALOSS = False
-# DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
-# SCHEDULER = "scrapy_redis.scheduler.Scheduler"
-# SCHEDULER_PERSIST = False
-# SCHEDULER_QUEUE_CLASS = "scrapy_redis.queue.SpiderPriorityQueue"
-# SCHEDULER_QUEUE_CLASS = "scrapy_redis.queue.SpiderQueue"
-# SCHEDULER_QUEUE_CLASS = "scrapy_redis.queue.SpiderStack"
-# REDIS_URL = env("CELERY_BROKER_URL")
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+SCHEDULER_PERSIST = False
+SCHEDULER_QUEUE_CLASS = "scrapy_redis.queue.SpiderPriorityQueue"
+SCHEDULER_QUEUE_CLASS = "scrapy_redis.queue.SpiderQueue"
+SCHEDULER_QUEUE_CLASS = "scrapy_redis.queue.SpiderStack"
+REDIS_URL = env("CELERY_BROKER_URL")
