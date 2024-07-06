@@ -141,6 +141,21 @@ services:
       app-network:
         ipv4_address: 192.169.0.8
 
+  nginx:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./compose/production/nginx/Dockerfile
+    image: rhixe/rhixe_scans:nginx
+    container_name: nginx
+    depends_on:
+      - django
+    volumes:
+      - ./rhixe_scans/media:/usr/share/nginx/media:ro
+    networks:
+      app-network:
+        ipv4_address: 192.169.0.11
+
   # awscli:
   #   build:
   #     context: .
