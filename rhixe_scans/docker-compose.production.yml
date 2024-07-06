@@ -115,6 +115,7 @@ services:
     depends_on:
       - redis
       - postgres
+      - django
     command: /start-celeryworker
     networks:
       app-network:
@@ -124,9 +125,11 @@ services:
     <<: *django
     image: rhixe/rhixe_scans:celerybeat
     command: /start-celerybeat
+    container_name: celerybeat
     depends_on:
       - redis
       - postgres
+      - django
     networks:
       app-network:
         ipv4_address: 192.169.0.7
@@ -137,6 +140,11 @@ services:
     ports:
       - "5555:5555"
     command: /start-flower
+    container_name: flower
+    depends_on:
+      - redis
+      - postgres
+      - django
     networks:
       app-network:
         ipv4_address: 192.169.0.8
