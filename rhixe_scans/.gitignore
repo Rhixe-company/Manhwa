@@ -264,7 +264,7 @@ tags
 dump.rdb
 
 ### Project template
-rhixe_scans/media/
+# rhixe_scans/media/
 
 .pytest_cache/
 .ipython/
