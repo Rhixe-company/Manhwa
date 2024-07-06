@@ -44,10 +44,12 @@ class ComicAdminConfig(admin.ModelAdmin):
     ordering = ("-updated_at",)
     list_display = (
         "title",
-        "images",
+        "image_urls",
         "slug",
     )
+    prepopulated_fields = {'slug': ('title',)}
     inlines = [ChapterInline]
+
 
 
 @admin.register(Chapter)

@@ -33,10 +33,9 @@ class ComicFilter(django_filters.FilterSet):
 
     category = django_filters.ModelMultipleChoiceFilter(
         queryset=Category.objects.all(),
-        widget=forms.CheckboxSelectMultiple(),
     )
     genres = django_filters.ModelMultipleChoiceFilter(
-        queryset=Genre.objects.all(), widget=forms.CheckboxSelectMultiple()
+        queryset=Genre.objects.all(),
     )
     title = django_filters.CharFilter(
         field_name="title",
@@ -72,17 +71,15 @@ class SearchFilter(django_filters.FilterSet):
         label="Rating",
     )
 
-    category = django_filters.ModelMultipleChoiceFilter(
-        queryset=Category.objects.all(),
-        widget=forms.CheckboxSelectMultiple(),
-    )
+    category = django_filters.ModelMultipleChoiceFilter(queryset=Category.objects.all())
     genres = django_filters.ModelMultipleChoiceFilter(
         queryset=Genre.objects.all(),
         # widget=forms.CheckboxSelectMultiple(),
     )
     title = django_filters.CharFilter(
         field_name="title",
-        lookup_expr="icontains",
+        label="Title",
+        lookup_expr="startswith",
         widget=forms.TextInput(
             attrs={"placeholder": "Search Comics Everywhere..", "class": "form-search"}
         ),

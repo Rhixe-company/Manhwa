@@ -14,14 +14,14 @@ class ComicForm(forms.ModelForm):
         queryset=Genre.objects.all(),
         widget=forms.CheckboxSelectMultiple(),
     )
-    # images = forms.ImageField(label="Images")
+    # images = forms.FileField(label="Images",required=False)
 
     class Meta:
         model = Comic
         fields = [
             "title",
             "alternativetitle",
-            "slug",
+            # "slug",
             "images",
             "image_urls",
             "serialization",
@@ -37,7 +37,7 @@ class ComicForm(forms.ModelForm):
             "description",
             "crawled",
             # "updated_at",
-            # "created_at",
+            "created_at",
             "genres",
         ]
         # fields = "__all__"
@@ -52,9 +52,9 @@ class ComicForm(forms.ModelForm):
                     "class": "form-charinput",
                 }
             ),
-            "slug": forms.TextInput(
-                attrs={"placeholder": _("Enter  Slug"), "class": "form-charinput"}
-            ),
+            # "slug": forms.TextInput(
+            #     attrs={"placeholder": _("Enter  Slug"), "class": "form-charinput"}
+            # ),
             "image_urls": forms.URLInput(attrs={"class": "form-charinput"}),
             "serialization": forms.TextInput(attrs={"class": "form-charinput"}),
             "postedby": forms.TextInput(attrs={"class": "form-charinput"}),
@@ -81,10 +81,17 @@ class ComicForm(forms.ModelForm):
             # "updated_at": forms.DateInput(
             #     attrs={"type": "date", "class": "form-charinput"}
             # ),
-            # "created_at": forms.DateInput(
-            #     attrs={"type": "date", "class": "form-charinput"}
-            # ),
+            "created_at": forms.DateInput(
+                attrs={"type": "date", "class": "form-charinput"}
+            ),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+        # self.fields["images"].required = False
+        self.fields["images"].widget.attrs.update({"class": "form-fileinput"})
 
     def clean(self):
         cleaned_data = super().clean()
@@ -100,23 +107,45 @@ class ComicForm(forms.ModelForm):
     #     return comic
 
 
+
+
 class ChapterForm(forms.ModelForm):
     comic = forms.ModelChoiceField(queryset=Comic.objects.all())
 
     class Meta:
         model = Chapter
-        fields = "__all__"
-        # fields = [
-        #     "name",
-        #     "slug",
-        #     "comic",
-        #     "numPages",
-        #     "crawled",
-        # ]
+        # fields = "__all__"
+        fields = [
+            "name",
+
+            "comic",
+            "numPages",
+            "url",
+            "crawled",
+
+
+        ]
+
         widgets = {
-            "name": forms.TextInput(attrs={"placeholder": _("Enter  Name")}),
-            "slug": forms.TextInput(attrs={"placeholder": _("Enter  Slug")}),
-            "crawled": forms.DateInput(attrs={"type": "date"}),
+            "name": forms.TextInput(
+                attrs={"placeholder": _("Enter  Name"), "class": "form-charinput"}
+            ),
+
+            # "slug": forms.TextInput(
+            #     attrs={"placeholder": _("Enter  Slug"), "class": "form-charinput"}
+            # ),
+
+            "url": forms.URLInput(attrs={"class": "form-charinput"}),
+
+            "numPages": forms.NumberInput(attrs={"class": "form-charinput"}),
+
+            "comic": forms.Select(attrs={"class": "form-selectinput"}),
+
+            "crawled": forms.DateInput(
+                attrs={"type": "date", "class": "form-charinput"}
+            ),
+
+
         }
 
 

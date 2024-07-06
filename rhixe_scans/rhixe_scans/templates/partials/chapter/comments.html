@@ -2,23 +2,14 @@
 <div class="bg-white py-8 antialiased dark:bg-gray-900 lg:py-16">
   <div class="mx-auto max-w-2xl px-4">
     <div class="mb-6 flex items-center justify-between">
-      <h2 class="text-lg font-bold text-gray-900 dark:text-white lg:text-2xl">
-        {% translate 'Create new comment' %}
-      </h2>
+      <h2 class="text-lg font-bold text-gray-900 dark:text-white lg:text-2xl">{% translate 'Create new comment' %}</h2>
     </div>
-    <form
-      class="mb-6"
-      id="commentForm"
-      method="post"
-      enctype="multipart/form-data"
-    >
+    <form class="mb-6" id="commentForm" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <!-- med -->
       {{comment_form.media}}
 
-      <div
-        class="mb-4 rounded-lg rounded-t-lg border border-gray-200 bg-white px-4 py-2 dark:border-gray-700 dark:bg-gray-800"
-      >
+      <div class="mb-4 rounded-lg rounded-t-lg border border-gray-200 bg-white px-4 py-2 dark:border-gray-700 dark:bg-gray-800">
         <div class="space-y-4 p-4">
           {% for field in comment_form %}
           <div class="ml-3 text-xs text-red-400">
@@ -63,23 +54,11 @@
       <div id="{{ node.id }}">
         <footer class="mb-2 flex items-center justify-between">
           <div class="flex items-center">
-            <p
-              class="mr-3 inline-flex items-center text-sm font-semibold text-gray-900 dark:text-white"
-            >
-              <img
-                class="mr-2 h-6 w-6 rounded-full"
-                src="{{ node.user.images.url }}"
-                alt="{{ node.user.username }}"
-              />{% translate node.user.username %}
+            <p class="mr-3 inline-flex items-center text-sm font-semibold text-gray-900 dark:text-white">
+              <img class="mr-2 h-6 w-6 rounded-full" src="{{ node.user.images.url }}" alt="{{ node.user.username }}" />{% translate node.user.username %}
             </p>
             <p class="text-sm text-gray-600 dark:text-gray-400">
-              <time
-                pubdate
-                datetime="{{ node.publish }}"
-                title="{{ node.publish }}"
-              >
-                {{ node.publish|date:"M-d-Y" }}
-              </time>
+              <time pubdate datetime="{{ node.publish }}" title="{{ node.publish }}"> {{ node.publish|date:"M-d-Y" }} </time>
             </p>
           </div>
           <button
@@ -88,72 +67,32 @@
             class="inline-flex items-center rounded-lg bg-white p-2 text-center text-sm font-medium text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-50 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
             type="button"
           >
-            <svg
-              class="h-4 w-4"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 16 3"
-            >
-              <path
-                d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"
-              />
+            <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
+              <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
             </svg>
             <span class="sr-only">{% translate 'Comment settings' %}</span>
           </button>
           <!-- Dropdown menu -->
-          <div
-            id="dropdownComment-{{node.id}}"
-            class="z-10 hidden w-36 divide-y divide-gray-100 rounded bg-white shadow dark:divide-gray-600 dark:bg-gray-700"
-          >
-            <ul
-              class="py-1 text-sm text-gray-700 dark:text-gray-200"
-              aria-labelledby="dropdownMenuIconHorizontalButton"
-            >
+          <div id="dropdownComment-{{node.id}}" class="z-10 hidden w-36 divide-y divide-gray-100 rounded bg-white shadow dark:divide-gray-600 dark:bg-gray-700">
+            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownMenuIconHorizontalButton">
               <li>
-                <a
-                  href="#"
-                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >{% translate 'Edit' %}</a
-                >
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{% translate 'Edit' %}</a>
               </li>
               <li>
-                <a
-                  href="#"
-                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >{% translate 'Remove' %}</a
-                >
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{% translate 'Remove' %}</a>
               </li>
               <li>
-                <a
-                  href="#"
-                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >{% translate 'Report' %}</a
-                >
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{% translate 'Report' %}</a>
               </li>
             </ul>
           </div>
         </footer>
-        <h2 class="mb-2 text-gray-500 dark:text-gray-400">
-          {% translate node.name|title %}
-        </h2>
-        <div class="text-gray-500 dark:text-gray-400">
-          {% translate node.body|safe %}
-        </div>
+        <h2 class="mb-2 text-gray-500 dark:text-gray-400">{% translate node.name|title %}</h2>
+        <div class="text-gray-500 dark:text-gray-400">{% translate node.body|safe %}</div>
         <div class="mt-4 flex items-center space-x-4">
           {% if node.level < 3 %}
-          <button
-            type="button"
-            class="button flex items-center text-sm font-medium text-gray-500 hover:underline dark:text-gray-400"
-            onclick="myFunction({{ node.id }})"
-          >
-            <svg
-              class="mr-1.5 h-3.5 w-3.5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 18"
-            >
+          <button type="button" class="button flex items-center text-sm font-medium text-gray-500 hover:underline dark:text-gray-400" onclick="myFunction({{ node.id }})">
+            <svg class="mr-1.5 h-3.5 w-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
               <path
                 stroke="currentColor"
                 stroke-linecap="round"
@@ -176,19 +115,12 @@
 
     <!-- e -->
     {% if comments and comments.paginator.num_pages > 1 %}
-    <nav
-      class="flex flex-row items-center justify-between space-y-0 p-4"
-      aria-label="Table navigation"
-    >
+    <nav class="flex flex-row items-center justify-between space-y-0 p-4" aria-label="Table navigation">
       <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
         {% translate 'Showing' %}
-        <span class="font-semibold text-gray-900 dark:text-white"
-          >{% translate comments.number %}</span
-        >
+        <span class="font-semibold text-gray-900 dark:text-white">{% translate comments.number %}</span>
         {% translate 'of' %}
-        <span class="font-semibold text-gray-900 dark:text-white"
-          >{% translate comments.paginator.num_pages %}</span
-        >
+        <span class="font-semibold text-gray-900 dark:text-white">{% translate comments.paginator.num_pages %}</span>
       </span>
       <ul class="inline-flex items-stretch -space-x-px">
         {% if comments.has_previous %}
@@ -198,18 +130,8 @@
             class="ml-0 flex h-full items-center justify-center rounded-l-lg border border-gray-300 bg-white px-3 py-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
           >
             <span class="sr-only">{% translate 'Previous' %}</span>
-            <svg
-              class="h-5 w-5"
-              aria-hidden="true"
-              fill="currentColor"
-              viewbox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                clip-rule="evenodd"
-              />
+            <svg class="h-5 w-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
             </svg>
           </button>
         </li>
@@ -219,18 +141,8 @@
             class="ml-0 flex h-full items-center justify-center rounded-l-lg border border-gray-300 bg-white px-3 py-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
           >
             <span class="sr-only">{% translate 'Previous' %}</span>
-            <svg
-              class="h-5 w-5"
-              aria-hidden="true"
-              fill="currentColor"
-              viewbox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                clip-rule="evenodd"
-              />
+            <svg class="h-5 w-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
             </svg>
           </button>
         </li>
@@ -267,18 +179,8 @@
             class="flex h-full items-center justify-center rounded-r-lg border border-gray-300 bg-white px-3 py-1.5 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
           >
             <span class="sr-only">{% translate 'Next' %}</span>
-            <svg
-              class="h-5 w-5"
-              aria-hidden="true"
-              fill="currentColor"
-              viewbox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clip-rule="evenodd"
-              />
+            <svg class="h-5 w-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
             </svg>
           </button>
         </li>
@@ -288,18 +190,8 @@
             class="flex h-full items-center justify-center rounded-r-lg border border-gray-300 bg-white px-3 py-1.5 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
           >
             <span class="sr-only">{% translate 'Next' %}</span>
-            <svg
-              class="h-5 w-5"
-              aria-hidden="true"
-              fill="currentColor"
-              viewbox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clip-rule="evenodd"
-              />
+            <svg class="h-5 w-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
             </svg>
           </button>
         </li>

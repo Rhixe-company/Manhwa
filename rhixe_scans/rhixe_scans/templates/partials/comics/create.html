@@ -5,62 +5,32 @@
 <button
   type="button"
   id="modalButton"
-  class="flex items-center justify-center rounded-lg bg-primary-700 px-4 py-2 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+  class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
   _="on click add .hidden to #modalButton then remove .hidden from #modalEl"
 >
-  <svg
-    class="mr-2 h-3.5 w-3.5"
-    fill="currentColor"
-    viewbox="0 0 20 20"
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden="true"
-  >
-    <path
-      clip-rule="evenodd"
-      fill-rule="evenodd"
-      d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-    />
-  </svg>
-  Add comic
+
+  Add new comic
 </button>
 <div
   id="modalEl"
   tabindex="-1"
   aria-hidden="true"
-  class="{% if not form.errors %} {% endif %} fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full overflow-y-auto overflow-x-hidden p-4 md:inset-0"
+  class="{% if not form.errors %} fixed left-0 right-0 top-0 z-50  h-[calc(100%-1rem)] max-h-full w-full overflow-y-auto overflow-x-hidden p-4 md:inset-0 hidden {% else %} fixed left-0 right-0 top-0 z-50  h-[calc(100%-1rem)] max-h-full w-full overflow-y-auto overflow-x-hidden p-4 md:inset-0{% endif %} "
 >
   <div class="relative max-h-full w-full max-w-2xl">
     <!-- Modal content -->
     <div class="relative rounded-lg bg-white shadow dark:bg-gray-700">
       <!-- Modal header -->
-      <div
-        class="flex items-start justify-between rounded-t border-b p-5 dark:border-gray-600"
-      >
-        <h3
-          class="text-xl font-semibold text-gray-900 dark:text-white lg:text-2xl"
-        >
-          Create Comic
-        </h3>
+      <div class="flex items-start justify-between rounded-t border-b p-5 dark:border-gray-600">
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white lg:text-2xl">Create Comic</h3>
         <button
           type="button"
           id="modalButtonClose"
           class="ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
           _="on click remove .hidden from #modalButton then add .hidden to #modalEl then put '' into <textarea />'s value then put '' into <input />'s value then put '' into <select />'s value"
         >
-          <svg
-            class="h-3 w-3"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 14"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-            />
+          <svg class="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
           </svg>
           <span class="sr-only">Close modal</span>
         </button>
@@ -68,6 +38,9 @@
       <form
         hx-post="{% url 'comics:list' %}"
         hx-encoding="multipart/form-data"
+        hx-target="#modalEl"
+        hx-indicator=".progress"
+        class="max-w-sm mx-auto"
         _="on comic_added remove .hidden from #modalButton then add .hidden to #modalEl then put '' into <textarea />'s value then put '' into <input />'s value then put '' into <select />'s value"
       >
         {% for hidden_field in form.hidden_fields %}
@@ -75,38 +48,37 @@
         {{ hidden_field.errors }} {{ hidden_field }}
         <!-- endfor -->
         {% endfor %}
-        <!-- non form errors -->
-        {{ form.non_form_errors }}
-        <div class="space-y-4 p-4">
-          {% for field in form %}
 
-          <div class="form-group">
-            <div class="ml-3 text-xs text-red-400">{{ field.errors }}</div>
-            <label for="{{field.label}}" class="form-label"
-              >{{field.label}}</label
-            >
-            {% render_field field %}
-            <span class="ml-3 text-sm text-gray-400">
-              {{ field.help_text }}
-            </span>
-          </div>
-          {% endfor %}
+        {% for field in form %}
+
+
+        <div class="mb-5">
+
+          <label for="{{field.id}}" class="form-label">{{field.label}}</label>
+          {% render_field field  %}
+          <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="comic_{{field.name}}_help">{{ field.help_text }}</div>
+          <div class="ml-3 text-xs text-red-400">{{ field.errors }}</div>
         </div>
+
+
+
+        {% endfor %}
+         <!-- non form errors -->
+         {{ form.non_form_errors }}
         <!-- Modal footer -->
-        <div
-          class="flex items-center space-x-2 rounded-b border-t border-gray-200 p-6 dark:border-gray-600 rtl:space-x-reverse"
-        >
+        <div class="flex flex-row justify-between items-center space-x-2 rounded-b border-t border-gray-200 p-6 dark:border-gray-600 rtl:space-x-reverse">
           <button
             type="submit"
             class="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
-            Create
+            Add new comic
           </button>
           <button
             type="button"
+            _="on click remove .hidden from #modalButton then add .hidden to #modalEl then put '' into <textarea />'s value then put '' into <input />'s value then put '' into <select />'s value"
             class="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:z-10 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:border-gray-500 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
           >
-            Decline
+            Cancel
           </button>
         </div>
       </form>

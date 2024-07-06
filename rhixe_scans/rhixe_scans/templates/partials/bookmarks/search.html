@@ -1,19 +1,7 @@
 <div class="mb-4 flex justify-end">
-  <form
-    hx-post="{% url 'bookmarks:search-comic' %}"
-    hx-target="#results"
-    _="on submit toggle @disabled on #search-btn until htmx:afterOnLoad  then put '' into #searchtitle's value "
-  >
-    <input
-      type="text"
-      id="searchtitle"
-      name="search"
-      class="form-search mr-2"
-      placeholder="Search comics..."
-    />
-    <button id="search-btn" type="submit" class="btn btn-success btn-sm">
-      Search
-    </button>
+  <form hx-post="{% url 'bookmarks:search-comic' %}" hx-target="#results" _="on submit toggle @disabled on #search-btn until htmx:afterOnLoad  then put '' into #searchtitle's value ">
+    <input type="text" id="searchtitle" name="search" class="form-search mr-2" placeholder="Search comics..." />
+    <button id="search-btn" type="submit" class="btn btn-success btn-sm">Search</button>
   </form>
 </div>
 <div id="results"></div>

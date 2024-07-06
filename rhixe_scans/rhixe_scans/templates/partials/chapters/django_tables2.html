@@ -1,5 +1,9 @@
 {% load django_tables2 static i18n widget_tweaks component_tags %}
 <!-- table -->
 {% component "table" table=table %} {% endcomponent %}
-<!-- pagination -->
+
+<div
+class="sticky bottom-0 right-0 flex w-full flex-row items-center justify-between gap-2 border-t border-b border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800"
+>
 {% include 'partials/chapters/pagination.html' %}
+</div>

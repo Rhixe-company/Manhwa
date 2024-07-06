@@ -1,26 +1,30 @@
 {
-    "$schema": "https://json.schemastore.org/tsconfig",
-    "display": "Default",
-    "compilerOptions": {
-        "outDir": "./dist/webpack_bundles/js",
-        "sourceMap": true,
-        "noImplicitAny": true,
-        "module": "CommonJS",
-        "target": "ES6",
-        "jsx": "react",
-        "allowJs": true,
-        "moduleResolution": "node",
-        "esModuleInterop": true,
-    },
-    "include": [
-        "**/*.cjs",
-        "**/*.mjs",
-        "**/*.ts",
-        "**/*.tsx",
-        "src"
-    ],
-    "exclude": [
-        "**/dist/**",
-        "**/node_modules/**"
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Default",
+  "compilerOptions": {
+    "outDir": "./dist/webpack_bundles/js",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "CommonJS",
+    "target": "ES6",
+    "jsx": "react",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types"
     ]
+  },
+  "include": [
+    "**/*.cjs",
+    "**/*.mjs",
+    "**/*.ts",
+    "**/*.tsx",
+    "src"
+  ],
+  "exclude": [
+    "**/dist/**",
+    "**/node_modules/**"
+  ]
 }

@@ -1,6 +1,4 @@
 from django.db import models
-
-from django.utils.text import slugify
 from django.contrib.auth import get_user_model
 
 from django.core.exceptions import ValidationError
@@ -11,11 +9,12 @@ from django.shortcuts import get_object_or_404
 from django.dispatch import receiver
 from django.urls import reverse
 from core.managers import NewManager
-from django.db.models.functions import Lower
+from django.db.models.functions import Lower, Upper
 from django.utils.translation import gettext_lazy as _
 import uuid
 from mptt.models import MPTTModel, TreeForeignKey
 from django.utils import timezone
+from django.template.defaultfilters import slugify  # new
 
 from ckeditor_uploader.fields import RichTextUploadingField
 
@@ -126,16 +125,18 @@ class Comic(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(_("Title"), max_length=50000, unique=True)
-    slug = models.SlugField(_("Slug"), max_length=50000, unique=True)
+    slug = models.SlugField(
+        _("Slug"), max_length=50000, unique=True, default="", null=False, blank=True
+    )
     images = models.ImageField(
         _("Images"),
         upload_to=comic_location,
         validators=[ext_validator],
         max_length=40000,
-        null=True,
+        default="/images/placeholder.png",
         blank=True,
     )
-    image_urls = models.URLField(max_length=40000, null=True)
+    image_urls = models.URLField(max_length=40000, null=True, blank=True)
 
     description = models.TextField(_("Description"), blank=True, null=True)
     status = models.CharField(_("Status"), max_length=150, choices=options)
@@ -195,30 +196,24 @@ class Comic(models.Model):
     def __str__(self):
         return self.title
 
-    def save(self, *args, **kwargs):
-        if self.slug == None:
-            slug = slugify(self.title)
-            has_slug = Comic.objects.filter(slug=slug).exists()
-            count = 1
-            while has_slug:
-                count += 1
-                slug = slugify(self.title) + "-" + str(count)
-                has_slug = Comic.objects.filter(slug=slug).exists()
-            self.slug = slug
-        super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):  # new
+        if not self.slug:
+            self.slug = slugify(self.title)
+        return super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
-        self.images.delete()
+        if self.images and self.images != "/images/placeholder.png":
+            self.images.delete()
         super().delete(*args, **kwargs)
 
     def get_absolute_url(self) -> str:
         return reverse("comics:detail", kwargs={"pk": self.slug})
 
     def update_absolute_url(self) -> str:
-        return reverse("comics:update-comic", kwargs={"pk": self.slug})
+        return reverse("comics:update-comic", kwargs={"pk": self.id})
 
     def delete_absolute_url(self) -> str:
-        return reverse("comics:delete-comic", kwargs={"pk": self.slug})
+        return reverse("comics:delete-comic", kwargs={"pk": self.id})
 
 
 class UserComics(models.Model):
@@ -236,7 +231,9 @@ class UserComics(models.Model):
 class Chapter(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(_("Name"), max_length=50000)
-    slug = models.SlugField(_("Slug"), max_length=50000, unique=True)
+    slug = models.SlugField(
+        _("Slug"), max_length=50000, unique=True, default="", null=False
+    )
     crawled = models.DateField(_("Downloaded"), default="")
     url = models.URLField(_("Url"), max_length=50000, null=True, blank=True)
     numPages = models.PositiveSmallIntegerField(_("Total Pages"), default=0)
@@ -247,37 +244,26 @@ class Chapter(models.Model):
     created_at = models.DateField(_("Published"), auto_now_add=True)
 
     class Meta:
-        ordering = [
-            "-updated_at",
-            Lower("name"),
-        ]
-        get_latest_by = "updated_at"
-
+        ordering = [Upper("name")]
+        get_latest_by = "-updated_at"
         verbose_name_plural = "Chapters"
 
     def __str__(self):
         return self.name
 
-    def save(self, *args, **kwargs):
-        if self.slug == None:
-            slug = slugify(self.name)
-            has_slug = Chapter.objects.filter(slug=slug).exists()
-            count = 1
-            while has_slug:
-                count += 1
-                slug = slugify(self.name) + "-" + str(count)
-                has_slug = Chapter.objects.filter(slug=slug).exists()
-            self.slug = slug
-        super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):  # new
+        if not self.slug:
+            self.slug = slugify(self.name)
+        return super().save(*args, **kwargs)
 
     def get_absolute_url(self) -> str:
         return reverse("chapters:detail", kwargs={"pk": self.slug})
 
     def update_absolute_url(self) -> str:
-        return reverse("chapters:update-chapter", kwargs={"pk": self.slug})
+        return reverse("chapters:update-chapter", kwargs={"pk": self.pk})
 
     def delete_absolute_url(self) -> str:
-        return reverse("chapters:delete-chapter", kwargs={"pk": self.slug})
+        return reverse("chapters:delete-chapter", kwargs={"pk": self.pk})
 
 
 class Panel(models.Model):
@@ -288,8 +274,10 @@ class Panel(models.Model):
         upload_to=panel_location,
         validators=[ext_validator],
         max_length=40000,
+        default="/images/placeholder.png",
+        blank=True,
     )
-    image_urls = models.URLField(max_length=40000, null=True, blank=True)
+    image_urls = models.URLField(max_length=40000)
     chapter = models.ForeignKey(
         Chapter, on_delete=models.CASCADE, related_name="panel_chapter"
     )
@@ -301,10 +289,11 @@ class Panel(models.Model):
         verbose_name_plural = "Panels"
 
     def __str__(self):
-        return str(self.images)
+        return str(self.image_urls)
 
     def delete(self, *args, **kwargs):
-        self.images.delete()
+        if self.images and self.images != "/images/placeholder.png":
+            self.images.delete()
         super().delete(*args, **kwargs)
 
 

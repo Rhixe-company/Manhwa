@@ -4,83 +4,51 @@
 <!-- content -->
 {% block content %}
 <div>
-  <div
-    class="pt:mt-0 mx-auto flex flex-col items-center justify-center px-6 pt-8 dark:bg-gray-900"
-  >
+  <div class="pt:mt-0 mx-auto flex flex-col items-center justify-center px-6 pt-8 dark:bg-gray-900">
     <!-- Card -->
-    <div
-      class="w-full max-w-xl space-y-8 rounded-lg bg-white p-6 shadow dark:bg-gray-800 sm:p-8"
-    >
-      <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
-        {{ user.username }}
-      </h2>
+    <div class="w-full max-w-xl space-y-8 rounded-lg bg-white p-6 shadow dark:bg-gray-800 sm:p-8">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ user.username }}</h2>
 
-      <form
-        class="mt-8 space-y-6"
-        method="post"
-        action="{% url 'users:update' %}"
-        enctype="multipart/form-data"
-        autocomplete="off"
-      >
+      <form class="mt-8 space-y-6" method="post" action="{% url 'users:update' %}" enctype="multipart/form-data" autocomplete="off">
         {% csrf_token %}
         <div>
           {{ form.email|add_label_class:"form-label" }}
           <!-- email input -->
           {% render_field form.email class='form-charinput' %}
-          <span class="ml-3 text-sm text-gray-400">
-            {{ form.email.help_text }}
-          </span>
+          <span class="ml-3 text-sm text-gray-400"> {{ form.email.help_text }} </span>
           <div class="ml-3 text-xs text-red-400">{{ form.email.errors }}</div>
         </div>
         <div>
           {{ form.username|add_label_class:"form-label" }}
           <!-- username input -->
           {% render_field form.username class='form-charinput' %}
-          <span class="ml-3 text-sm text-gray-400">
-            {{ form.username.help_text }}
-          </span>
-          <div class="ml-3 text-xs text-red-400">
-            {{ form.username.errors }}
-          </div>
+          <span class="ml-3 text-sm text-gray-400"> {{ form.username.help_text }} </span>
+          <div class="ml-3 text-xs text-red-400">{{ form.username.errors }}</div>
         </div>
         <div>
           {{ form.images|add_label_class:"form-label" }}
           <!-- images input -->
           {% render_field form.images class="form-files " %}
-          <span class="ml-3 text-sm text-gray-400">
-            {{ form.images.help_text }}
-          </span>
+          <span class="ml-3 text-sm text-gray-400"> {{ form.images.help_text }} </span>
           <div class="ml-3 text-xs text-red-400">{{ form.images.errors }}</div>
         </div>
         <div>
           {{ form.first_name|add_label_class:"form-label" }}
           <!-- first_name input -->
           {% render_field form.first_name class='form-charinput' %}
-          <span class="ml-3 text-sm text-gray-400">
-            {{ form.first_name.help_text }}
-          </span>
-          <div class="ml-3 text-xs text-red-400">
-            {{ form.first_name.errors }}
-          </div>
+          <span class="ml-3 text-sm text-gray-400"> {{ form.first_name.help_text }} </span>
+          <div class="ml-3 text-xs text-red-400">{{ form.first_name.errors }}</div>
         </div>
         <div>
           {{ form.last_name|add_label_class:"form-label" }}
           <!-- last_name input -->
           {% render_field form.last_name class='form-charinput' %}
-          <span class="ml-3 text-sm text-gray-400">
-            {{ form.last_name.help_text }}
-          </span>
-          <div class="ml-3 text-xs text-red-400">
-            {{ form.last_name.errors }}
-          </div>
+          <span class="ml-3 text-sm text-gray-400"> {{ form.last_name.help_text }} </span>
+          <div class="ml-3 text-xs text-red-400">{{ form.last_name.errors }}</div>
         </div>
 
         {% if redirect_field_value %}
-        <input
-          type="hidden"
-          name="{{ redirect_field_name }}"
-          value="{{ redirect_field_value }}"
-        />
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
         <button
           type="submit"

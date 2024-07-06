@@ -5,7 +5,7 @@
 {% block title %} {% trans "Signup" %} {% endblock title %}
 <!-- content -->
 {% block content %}
-<div class="pt:mt-0 mx-auto flex flex-col items-center justify-center px-6 pt-8 dark:bg-gray-900">
+<div class="mx-auto flex flex-col items-center justify-center px-6 pt-8 dark:bg-gray-900">
   <a href="{% url  'index' %}" class="mb-8 flex items-center justify-center text-2xl font-semibold dark:text-white lg:mb-10">
     <img src="{% static 'images/logos/logo.png' %}" class="mr-4 h-11" alt="Rhixescans Logo" />
     <span>Rhixescans</span>
@@ -18,7 +18,7 @@
     <a class="text-primary-700 hover:underline dark:text-primary-500" href="{{ login_url }}"> {% endsetvar %} {% setvar end_link %} </a>
     {% endsetvar %}
     <!-- element -->
-    {% element div %}
+    {% element p %}
     <!-- blocktrans -->
     {% blocktranslate %} Already have an account? Then please {{ link }}sign in{{ end_link }}. {% endblocktranslate %}
     <!-- end -->
@@ -30,15 +30,19 @@
     <!-- elemt -->
     {% element form form=form method="post" action=action_url tags="entrance,signup" %}
     <!-- slot -->
-    {% slot body %} {% csrf_token %}
+    {% slot body %}
+    <!-- n -->
+    {% csrf_token %}
     <!-- elemwnt -->
     {% element fields form=form unlabeled=True %} {% endelement %}
     <!-- red -->
-    {{ redirect_field }} {% endslot %}
+    {{ redirect_field }}
+    <!-- mn -->
+    {% endslot %}
     <!-- slot -->
     {% slot actions %}
     <!-- element -->
-    {% element button2 tags="prominent,signup" type="submit" %} {% trans "Create account" %} {% endelement %}
+    {% element button tags="prominent,signup" type="submit" %} {% trans "Create account" %} {% endelement %}
     <!-- slot -->
     {% endslot %}
     <!-- slot -->

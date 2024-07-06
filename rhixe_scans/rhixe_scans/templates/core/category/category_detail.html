@@ -8,23 +8,11 @@
     <span class="pe-2">Category name:</span>
     <h3 class="text-2xl font-bold">{{category.name|title}}</h3>
   </div>
-  <div class="m-2 grid w-auto grid-cols-3 grid-rows-4 gap-2">
-    {% component "card" comics=category.comic_category.all %} {% endcomponent %}
-  </div>
+  <div class="m-2 grid w-auto grid-cols-3 grid-rows-4 gap-2">{% component "card" comics=category.comic_category.all %} {% endcomponent %}</div>
 
   <div>
-    <a
-      href="{% url 'category:edit_category' category.pk %}"
-      role="button"
-      class="w-100 btn btn-primary mb-2"
-      >Edit Category Comics</a
-    >
-    <a
-      href="{% url 'category:list' %}"
-      role="button"
-      class="w-100 btn btn-secondary"
-      >All Category
-    </a>
+    <a href="{% url 'category:edit_category' category.pk %}" role="button" class="w-100 btn btn-primary mb-2">Edit Category Comics</a>
+    <a href="{% url 'category:list' %}" role="button" class="w-100 btn btn-secondary">All Category </a>
   </div>
 </div>
 <!-- end -->

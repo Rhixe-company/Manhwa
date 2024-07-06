@@ -1,137 +1,90 @@
 {% extends "base.html" %} {% load static i18n widget_tweaks %}
 <!-- Modal footer -->
-{% block title %}Chapter Admin{% endblock title %}
+{% block title %}{% trans 'Chapter Admin' %}{% endblock title %}
 <!-- content -->
 {% block content %}
-<section
-  class="min-w-full bg-gray-400 text-gray-800 dark:bg-gray-900 dark:text-gray-200"
->
-  <!-- Start coding here -->
-  <div class="relative overflow-hidden shadow-md sm:rounded-lg">
-    <div
-      class="flex flex-col items-center justify-between space-y-3 p-4 md:flex-row md:space-x-4 md:space-y-0"
-    >
-      <div class="w-full md:w-1/2">
-        <form
-          class="flex items-center"
-          hx-get='{% url "chapters:list" %}'
-          hx-target="#chapter-container"
-        >
+
+<section>
+  <div class="block items-center justify-between border-b border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex lg:mt-1.5">
+    <div class="mb-1 w-full">
+      <div class="mb-4">
+        <nav class="mb-5 flex" aria-label="Breadcrumb">
+          <ol class="inline-flex items-center space-x-1 text-sm font-medium md:space-x-2">
+            <li class="inline-flex items-center">
+              <a href="{% url 'index' %}" class="inline-flex items-center text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-white">
+                <svg class="mr-2.5 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
+                  ></path>
+                </svg>
+                Home
+              </a>
+            </li>
+            <li>
+              <div class="flex items-center">
+                <svg class="h-6 w-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <a href="{% url 'chapters:list' %}" class="ml-1 text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-white md:ml-2">Admin</a>
+              </div>
+            </li>
+            <li>
+              <div class="flex items-center">
+                <svg class="h-6 w-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="ml-1 text-gray-400 dark:text-gray-500 md:ml-2" aria-current="page">Chapters</span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+        <h1 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">All chapters</h1>
+      </div>
+      <div class="block items-center justify-between dark:divide-gray-700 sm:flex md:divide-x md:divide-gray-100">
+        <form class="sm:pr-3 w-auto" hx-get='{% url "chapters:list" %}' hx-target="#chapter-container" hx-indicator=".progress">
           {{filter.form.name|add_label_class:"sr-only"}}
           <div class="relative w-full">
-            <div
-              class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
-            >
-              <svg
-                aria-hidden="true"
-                class="h-5 w-5 text-gray-500 dark:text-gray-400"
-                fill="currentColor"
-                viewbox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                  clip-rule="evenodd"
-                />
+            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+              <svg aria-hidden="true" class="h-5 w-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
               </svg>
             </div>
 
             {% render_field filter.form.name class='form-search' %}
           </div>
         </form>
-      </div>
-      <div
-        class="flex w-full flex-shrink-0 flex-col items-stretch justify-end space-y-2 md:w-auto md:flex-row md:items-center md:space-x-3 md:space-y-0"
-      >
-        {% include 'partials/chapters/create.html' %}
-        <div class="flex w-full items-center space-x-3 md:w-auto">
-          {% load export_url from django_tables2 %}
-          <!-- for -->
-          {% for format in export_formats %}
-          <a
-            href="{% export_url format %}"
-            class="flex w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 md:w-auto"
-          >
-            <svg
-              class="mr-2 h-4 w-4"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewbox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-              aria-hidden="true"
+        <div class="flex  flex-shrink-0   justify-end w-auto flex-row items-center space-x-3 space-y-0">
+          {% include 'partials/chapters/create.html' %}
+          <div class="flex w-full items-center space-x-3 md:w-auto">
+            {% load export_url from django_tables2 %}
+            <!-- for -->
+            {% for format in export_formats %}
+            <a
+              href="{% export_url format %}"
+              class="flex w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 md:w-auto"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
-              />
-            </svg>
-            Export
-          </a>
-          {% endfor %}
-          <button
-            id="filterDropdownButton"
-            data-dropdown-toggle="filterDropdown"
-            class="flex w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 md:w-auto"
-            type="button"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-              class="mr-2 h-4 w-4 text-gray-400"
-              viewbox="0 0 20 20"
-              fill="currentColor"
+              <svg class="mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+              </svg>
+              Export
+            </a>
+            {% endfor %}
+            <a
+              href="{% url 'progress' %}"
+              class="flex w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 md:w-auto"
             >
-              <path
-                fill-rule="evenodd"
-                d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
-                clip-rule="evenodd"
-              />
-            </svg>
-            Filter
-            <svg
-              class="-mr-1 ml-1.5 h-5 w-5"
-              fill="currentColor"
-              viewbox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <path
-                clip-rule="evenodd"
-                fill-rule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-              />
-            </svg>
-          </button>
-          <div
-            id="filterDropdown"
-            class="z-10 hidden w-48 rounded-lg bg-white p-3 shadow dark:bg-gray-700"
-          >
-            <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">
-              filter.form.category|add_label_class
-            </h6>
-            <form
-              class="space-y-2 text-sm"
-              aria-labelledby="filterDropdownButton"
-              hx-get='{% url "chapters:list" %}'
-              hx-target="#chapter-container"
-            >
-              <div class="flex items-center">
-                render_field filter.form.category
-              </div>
-              <button type="submit" class="btn btn-secondary btn-sm">
-                submit
-              </button>
-            </form>
+              <svg class="mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+              </svg>
+              Download
+            </a>
           </div>
         </div>
       </div>
     </div>
-
-    {% include 'partials/chapters/table.html' %}
   </div>
+   <div class="flex flex-col">{% include 'partials/chapters/table.html' %}</div>
+
 </section>
 
 {% endblock content %}

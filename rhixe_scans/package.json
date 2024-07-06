@@ -8,7 +8,7 @@
     "htmx.org": "^1.9.12",
     "hyperscript.org": "^0.9.12",
     "jquery": "^3.7.1",
-    "select2": "^4.1.0-rc.0",
+    "select2": "~4.0",
     "sortablejs": "^1.15.2",
     "tw-elements": "^2.0.0"
   },
@@ -23,6 +23,7 @@
     "@types/alpinejs": "^3.13.10",
     "@types/jquery": "^3.5.30",
     "@types/select2": "^4.0.63",
+    "@types/sortablejs": "^1.15.8",
     "autoprefixer": "^10.4.19",
     "babel-loader": "^9.1.2",
     "bootstrap": "^5.2.3",

@@ -1,27 +1,15 @@
 {% load django_tables2 static i18n %}
-<div>
-  <table
-    class="table table-xs w-full text-left text-sm text-gray-500 dark:text-gray-400"
-    {%
-    render_attrs
-    table.attrs
-    %}
-  >
+<div class="overflow-hidden shadow">
+  <table class="table table-xs min-w-full divide-y divide-gray-200 dark:divide-gray-600" {% render_attrs table.attrs %}>
     {% if table.show_header %}
-    <thead
-      class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400"
-      {{table.attrs.thead.as_html}}
-    >
+    <thead class="bg-gray-100 dark:bg-gray-700" {{table.attrs.thead.as_html}}>
       <tr>
         {% for column in table.columns %}
-        <th scope="col" class="px-1 py-1" {{column.attrs.th.as_html }}>
+        <th scope="col" class="p-1 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400"{{column.attrs.th.as_html }}>
           {% if column.orderable %}
-          <a
-            hx-get="{% querystring table.prefixed_order_by_field=column.order_by_alias.next %}"
-            hx-target="#comic-container"
-          >
-            {{ column.header }}
-          </a>
+          <a hx-get="{% querystring table.prefixed_order_by_field=column.order_by_alias.next %}" hx-target="#comic-container" hx-indicator=".progress"
+          hx-push-url="true"
+          > {{ column.header }} </a>
           {% else %} {{ column.header }} {% endif %}
         </th>
         {% endfor %}
@@ -30,15 +18,11 @@
     {% endif %}
     <!-- block table.body -->
 
-    <tbody {{table.attrs.tbody.as_html }}>
+    <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700" {{table.attrs.tbody.as_html }}>
       {% for row in table.paginated_rows %}
-      <tr class="border-b dark:border-gray-700" {{row.attrs.as_html}}>
+      <tr class="hover:bg-gray-100 dark:hover:bg-gray-700" {{row.attrs.as_html}}>
         {% for column, cell in row.items %}
-        <td
-          scope="row"
-          class="px-1 py-1 font-medium text-gray-900 dark:text-white"
-          {{column.attrs.td.as_html}}
-        >
+        <td class="p-1 text-sm  " {{column.attrs.td.as_html}}>
           {% if column.localize == None %}
           <!-- loclize ==None -->
           {{cell}} {% else %} {% if column.localize %}
@@ -55,4 +39,3 @@
     </tbody>
   </table>
 </div>
-<!-- pagination -->

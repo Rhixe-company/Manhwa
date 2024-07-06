@@ -1,15 +1,23 @@
-{% load static i18n widget_tweaks humanize%}
-<!-- block chapterslist -->
-{% block Chapterslist %}
-<!-- Define Grid container div -->
 {% load render_table from django_tables2 %}
-
-<div
-  id="chapter-container"
-  hx-trigger="chapter_added    from:body"
-  hx-get='{% url "chapters:list" %}'
-  hx-target="#chapter-container"
->
-  {% render_table table "partials/chapters/django_tables2.html" %}
+<!-- block chapterslist -->
+<div class="progress">
+  <div class="indeterminate"></div>
 </div>
-{% endblock Chapterslist %}
+
+<div class="overflow-x-auto">
+  {% block Chapterslist %}
+
+  <div
+    class="inline-block min-w-full align-middle"
+    id="chapter-container"
+    hx-trigger="chapter_added    from:body"
+    hx-get='{% url "chapters:list" %}'
+    hx-target="#chapter-container"
+    hx-indicator=".progress"
+  >
+    {% render_table table "partials/chapters/django_tables2.html" %}
+  </div>
+  {% endblock Chapterslist %}
+</div>
+
+

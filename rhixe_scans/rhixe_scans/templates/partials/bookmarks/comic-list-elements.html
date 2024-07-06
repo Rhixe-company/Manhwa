@@ -2,9 +2,7 @@
 <div>
   <input type="hidden" name="comic_order" value="{{ comic.id }}" />
   <li class="list-group-item flex items-center justify-between">
-    <a style="cursor: pointer" href="{{comic.comic.get_absolute_url}}">
-      #{{comic.order}} {{ comic.comic.title }}
-    </a>
+    <a style="cursor: pointer" href="{{comic.comic.get_absolute_url}}"> #{{comic.order}} {{ comic.comic.title }} </a>
     <span
       class="badge-danger badge-pill badge"
       style="cursor: pointer"

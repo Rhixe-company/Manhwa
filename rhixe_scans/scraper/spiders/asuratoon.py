@@ -7,6 +7,7 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import Rule, CrawlSpider
 
 from scrapy_redis.spiders import RedisCrawlSpider
+import scrapy
 
 
 class AsuratoonSpider(CrawlSpider):
@@ -33,6 +34,7 @@ class AsuratoonSpider(CrawlSpider):
     )
 
     def parse_item(self, response):
+
         loader = ItemLoader(item=ComicItem(), selector=response)
 
         image = response.urljoin(
@@ -66,8 +68,8 @@ class AsuratoonSpider(CrawlSpider):
             "numChapters",
             len(response.xpath('//div[contains(@class, "eph-num")]/a/@href').getall()),
         )
-        loader.add_xpath("created_at", '//time[@itemprop="datePublished"]/text()')
-        loader.add_xpath("updated_at", '//time[@itemprop="dateModified"]/text()')
+        loader.add_xpath("created_at", '//time[@itemprop="datePublished"]/@datetime')
+        loader.add_xpath("updated_at", '//time[@itemprop="dateModified"]/@datetime')
         item = loader.load_item()
 
         yield item
@@ -75,6 +77,13 @@ class AsuratoonSpider(CrawlSpider):
         # # All Chapter Page
         # chapter_page = response.xpath('//div[contains(@class, "eph-num")]/a/@href')
         # yield from response.follow_all(chapter_page, callback=self.parsechapter)
+        # # All Chapter Page
+        # chapter_pages = response.xpath(
+        #     '//div[contains(@class, "eph-num")]/a/@href'
+        # ).getall()
+        # if chapter_pages:
+        #     for page in chapter_pages:
+        #         yield scrapy.Request(response.urljoin(page), callback=self.parsechapter)
 
         # chapter_page = response.xpath(
         #     '//div[contains(@class, "eph-num")]/a/@href'
@@ -85,10 +94,12 @@ class AsuratoonSpider(CrawlSpider):
             '//div[contains(@class, "eph-num")]/a/@href'
         ).getall()
         if chapter_pages:
-            for page in chapter_pages[0:2]:
+            for page in chapter_pages:
                 yield response.follow(page, callback=self.parsechapter)
+        self.logger.info("A New Comic was found at %s", response.url)
 
     def parsechapter(self, response):
+
         loader = ItemLoader(item=ChapterItem(), selector=response)
         loader.add_value("url", response.url)
         loader.add_value("chapterslug", response.url)
@@ -105,3 +116,4 @@ class AsuratoonSpider(CrawlSpider):
         )
         item = loader.load_item()
         yield item
+        self.logger.info("A New Chapter was found at %s", response.url)

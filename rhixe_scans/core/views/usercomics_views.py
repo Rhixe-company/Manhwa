@@ -168,16 +168,17 @@ def add_comic(request):
             comic=comic, user=request.user, order=get_max_order(request.user)
         )
 
-    comics = UserComics.objects.prefetch_related("comic").filter(user=request.user)
-    paginator = Paginator(comics, settings.PAGINATE_BY)
-    page_number = request.GET.get("page", 1)
-    page_obj = paginator.get_page(page_number)
-    html = render_block_to_string(
-        "partials/bookmarks/comic-list.html",
-        "bookmarkComics",
-        {"comics": page_obj},
-    )
-    return HttpResponse(html)
+    # comics = UserComics.objects.prefetch_related("comic").filter(user=request.user)
+    # paginator = Paginator(comics, settings.PAGINATE_BY)
+    # page_number = request.GET.get("page", 1)
+    # page_obj = paginator.get_page(page_number)
+    # html = render_block_to_string(
+    #     "partials/bookmarks/comic-list.html",
+    #     "bookmarkComics",
+    #     {"comics": page_obj},
+    # )
+    # return HttpResponse(html)
+    return HttpResponseClientRefresh()
 
 
 @require_http_methods(["DELETE", "GET"])
@@ -188,16 +189,17 @@ def delete_comic(request, pk):
     UserComics.objects.get(comic=pk).delete()
 
     reorder(request.user)
-    comics = UserComics.objects.prefetch_related("comic").filter(user=request.user)
-    paginator = Paginator(comics, settings.PAGINATE_BY)
-    page_number = request.GET.get("page", 1)
-    page_obj = paginator.get_page(page_number)
-    html = render_block_to_string(
-        "partials/bookmarks/comic-list.html",
-        "bookmarkComics",
-        {"comics": page_obj},
-    )
-    return HttpResponse(html)
+    # comics = UserComics.objects.prefetch_related("comic").filter(user=request.user)
+    # paginator = Paginator(comics, settings.PAGINATE_BY)
+    # page_number = request.GET.get("page", 1)
+    # page_obj = paginator.get_page(page_number)
+    # html = render_block_to_string(
+    #     "partials/bookmarks/comic-list.html",
+    #     "bookmarkComics",
+    #     {"comics": page_obj},
+    # )
+    # return HttpResponse(html)
+    return HttpResponseClientRefresh()
 
 
 @require_http_methods(["POST"])
@@ -232,16 +234,17 @@ def sort(request):
         usercomic.save()
         comics.append(usercomic)
 
-    newcomics = UserComics.objects.prefetch_related("comic").filter(user=request.user)
-    paginator = Paginator(newcomics, settings.PAGINATE_BY)
-    page_number = request.GET.get("page", 1)
-    page_obj = paginator.get_page(page_number)
-    html = render_block_to_string(
-        "partials/bookmarks/comic-list.html",
-        "bookmarkComics",
-        {"comics": page_obj},
-    )
-    return HttpResponse(html)
+    # newcomics = UserComics.objects.prefetch_related("comic").filter(user=request.user)
+    # paginator = Paginator(newcomics, settings.PAGINATE_BY)
+    # page_number = request.GET.get("page", 1)
+    # page_obj = paginator.get_page(page_number)
+    # html = render_block_to_string(
+    #     "partials/bookmarks/comic-list.html",
+    #     "bookmarkComics",
+    #     {"comics": page_obj},
+    # )
+    # return HttpResponse(html)
+    return HttpResponseClientRefresh()
 
 
 @require_http_methods(["GET"])

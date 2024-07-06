@@ -10,9 +10,7 @@
     <ul class="items-center justify-between">
       {% for cat in author_list %}
       <li class="list-item">
-        <a href="{{cat.get_absolute_url}}" class="btn btn-outline"
-          >{{cat.name}}</a
-        >
+        <a href="{{cat.get_absolute_url}}" class="btn btn-outline">{{cat.name}}</a>
       </li>
       {% endfor %}
     </ul>

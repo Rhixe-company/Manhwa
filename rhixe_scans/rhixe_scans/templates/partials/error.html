@@ -4,11 +4,7 @@
     <h1>Ooops!!! Only Active Users Allowed</h1>
   </div>
   <div>
-    <a
-      href='{% url "account_login" %}'
-      class="text-primary-700 hover:underline dark:text-primary-500"
-      >Login here</a
-    >
+    <a href='{% url "account_login" %}' class="text-primary-700 hover:underline dark:text-primary-500">Login here</a>
   </div>
   <div>
     <p>{% if exception %} {{ exception }} {% endif %}</p>

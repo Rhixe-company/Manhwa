@@ -14,98 +14,27 @@ from django.forms import EmailField
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django import forms
-from captcha.fields import CaptchaField, CaptchaTextInput
+from django_recaptcha.fields import ReCaptchaField
+from django_recaptcha.widgets import ReCaptchaV2Checkbox
 from django.utils.safestring import mark_safe
 from allauth.utils import set_form_field_order
 from django.contrib.auth import get_user_model, password_validation
 
 from allauth.mfa.forms import AuthenticateForm, ActivateTOTPForm, DeactivateTOTPForm
-from allauth.core import context
-from allauth.mfa.adapter import get_adapter
-from .flows import check_rate_limit, post_authentication, check_rate_limit
-from allauth.mfa.models import Authenticator
-from . import auth
+
 
 User = get_user_model()
 
 
-class AuthenticateWebAuthnForm(forms.Form):
-    credential = forms.JSONField(required=True, widget=forms.HiddenInput)
-
-    def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop("user")
-        self.authentication_data = auth.begin_authentication(self.user)
-        super().__init__(*args, **kwargs)
-
-    def clean_credential(self):
-        credential = self.cleaned_data["credential"]
-        # Explicitly parse JSON payload -- otherwise, authenticate_complete()
-        # crashes with some random TypeError and we don't want to do
-        # Pokemon-style exception handling.
-        auth.parse_authentication_response(credential)
-        user = self.user
-        if user is None:
-            user = auth.extract_user_from_response(credential)
-        clear_rl = check_rate_limit(user)
-        authenticator = auth.complete_authentication(user, credential)
-        clear_rl()
-        return authenticator
-
-    def save(self):
-        authenticator = self.cleaned_data["credential"]
-        authenticator.record_usage()
-
-
-class BaseAuthenticateForm(forms.Form):
-    code = forms.CharField(
-        label=_("Code"),
-        widget=forms.TextInput(
-            attrs={
-                "placeholder": _("Code"),
-                "autocomplete": "one-time-code",
-                "class": "form-charinput",
-            },
-        ),
-    )
-
-    def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop("user")
-        super().__init__(*args, **kwargs)
-
-    def clean_code(self):
-        clear_rl = check_rate_limit(self.user)
-        code = self.cleaned_data["code"]
-        for auth in Authenticator.objects.filter(user=self.user).exclude(
-            # WebAuthn cannot validate manual codes.
-            type=Authenticator.Type.WEBAUTHN
-        ):
-            if auth.wrap().validate_code(code):
-                self.authenticator = auth
-                clear_rl()
-                return code
-
-        raise get_adapter().validation_error("incorrect_code")
-
-
-class AuthenticateForm(BaseAuthenticateForm):
-    def save(self):
-        post_authentication(context.request, self.authenticator)
-
-
-class ReauthenticateForm(BaseAuthenticateForm):
-    def save(self):
-        post_authentication(context.request, self.authenticator, reauthenticated=True)
-
-
 class UserAdminForm(forms.ModelForm):
 
-    captcha = CaptchaField(
-        label=_("Captcha"),
-        widget=CaptchaTextInput(
-            attrs={
-                "class": "form-charinput",
-            }
-        ),
+    captcha = ReCaptchaField(
+        # widget=ReCaptchaV2Checkbox(
+        #     attrs={
+        #         "data-theme": "dark",
+        #         # "data-size": "compact",
+        #     }
+        # )
     )
 
     class Meta:
@@ -152,13 +81,13 @@ class UserAdminForm(forms.ModelForm):
 
 class UserForm(forms.ModelForm):
 
-    captcha = CaptchaField(
-        label=_("Captcha"),
-        widget=CaptchaTextInput(
-            attrs={
-                "class": "form-charinput",
-            }
-        ),
+    captcha = ReCaptchaField(
+        # widget=ReCaptchaV2Checkbox(
+        #     attrs={
+        #         "data-theme": "dark",
+        #         # "data-size": "compact",
+        #     }
+        # )
     )
 
     password1 = forms.CharField(
@@ -250,14 +179,22 @@ class UserAdminCreationForm(admin_forms.UserCreationForm):
 class UserSignupForm(SignupForm):
 
     images = forms.ImageField(label=_("Images"))
-    captcha = CaptchaField(
-        label=_("Captcha"),
-        help_text=_("Enter the Letters Above."),
-        widget=CaptchaTextInput(
-            attrs={
-                "class": "form-charinput",
-            }
-        ),
+    # captcha = CaptchaField(
+    #     label=_("Captcha"),
+    #     help_text=_("Enter the Letters Above."),
+    #     widget=CaptchaTextInput(
+    #         attrs={
+    #             "class": "form-charinput",
+    #         }
+    #     ),
+    # )
+    captcha = ReCaptchaField(
+        # widget=ReCaptchaV2Checkbox(
+        #     attrs={
+        #         "data-theme": "dark",
+        #         # "data-size": "compact",
+        #     }
+        # )
     )
     forgot_txt = _("Terms and Conditions")
     remember = forms.BooleanField(
@@ -384,13 +321,22 @@ class UserSocialSignupForm(SocialSignupForm):
 
 
 class MyCustomLoginForm(LoginForm):
-    captcha = CaptchaField(
-        label=_("Captcha"),
-        widget=CaptchaTextInput(
-            attrs={
-                "class": "form-charinput",
-            }
-        ),
+    # captcha = CaptchaField(
+    #     label=_("Captcha"),
+    #     widget=CaptchaTextInput(
+    #         attrs={
+    #             "class": "form-charinput",
+    #         }
+    #     ),
+    # )
+
+    captcha = ReCaptchaField(
+        # widget=ReCaptchaV2Checkbox(
+        #     attrs={
+        #         "data-theme": "dark",
+        #         # "data-size": "compact",
+        #     }
+        # )
     )
 
     password = forms.CharField(

@@ -5,97 +5,66 @@
 {% block title %} {% trans "Sign In" %} {% endblock title %}
 <!-- content -->
 {% block content %}
-<div class="pt:mt-0 mx-auto flex flex-col items-center justify-center px-2 pt-4 dark:bg-gray-900">
-  <a href="{% url  'index' %}" class="mb-8 flex items-center justify-center text-2xl font-semibold dark:text-white lg:mb-10">
+<div class="mx-auto flex flex-col items-center justify-center px-6 pt-8 dark:bg-gray-900">
+  <a href="{% url  'index' %}" class="mb-4 flex items-center justify-center text-2xl font-semibold dark:text-white lg:mb-5">
     <img src="{% static 'images/logos/logo.png' %}" class="mr-4 h-11" alt="Rhixescans Logo" />
     <span>Rhixescans</span>
   </a>
-  <div>
+  <div class="w-full max-w-xl space-y-8 rounded-lg bg-white p-6 shadow dark:bg-gray-800 sm:p-8">
     <!-- element -->
     {% element h2 %} {% trans "Sign in to platform " %} {% endelement %}
     <!-- set -->
+    {% if not SOCIALACCOUNT_ONLY %}
+    <!-- set -->
     {% setvar link %}
-    <a class="text-primary-700 hover:underline dark:text-primary-500" href="{{ signup_url }}">
-      {% endsetvar %}
-      <!-- set -->
-      {% setvar end_link %}
-    </a>
+    <a class="text-primary-700 hover:underline dark:text-primary-500" href="{{ signup_url }}"> {% endsetvar %} {% setvar end_link %} </a>
     {% endsetvar %}
-    <!-- endset -->
-    {% element div %}
-    <!-- tra -->
-    {% blocktranslate %} If you have not created an account yet, then please {{ link }}sign up{{ end_link }} first. {% endblocktranslate %}
-    <!-- endtrans -->
-    {% endelement %}
-    <!-- if -->
-    {% if SOCIALACCOUNT_ONLY %}
-    <!-- vn -->
+    <!-- el -->
+    {% element p %} {% blocktranslate %}If you have not created an account yet, then please {{ link }}sign up{{ end_link }} first.{% endblocktranslate %} {% endelement %}
+    <!-- url -->
     {% url 'account_login' as login_url %}
     <!-- element -->
     {% element form form=form method="post" action=login_url tags="entrance,login" %}
     <!-- slot -->
-    {% slot body %} {% csrf_token %}
-    <!-- element -->
+    {% slot body %}
+    <!-- csr -->
+    {% csrf_token %}
+    <!-- mm -->
     {% element fields form=form unlabeled=True %} {% endelement %}
-    <!-- endelement -->
+    <!-- mm -->
     {{ redirect_field }} {% endslot %}
-    <!-- endslot -->
-    {% slot actions %}
-    <div class="flex flex-row items-center justify-between gap-4">
-      <!-- ellv -->
-      {% element button2 type="submit" tags="prominent,login" %}
-      <!-- tra -->
-      {% trans "Login to your account" %}
-      <!-- hj -->
-      {% endelement %}
-    </div>
-
-    {% endslot %}
-    <!-- vk -->
-    {% endelement %}
-    <!-- end -->
-    {% endif %}
-
-    <!-- gbgj -->
+    <!-- action -->
+    {% slot actions %} {% element button type="submit" tags="prominent,login" %} {% trans "Sign In" %} {% endelement %} {% endslot %}
+    <!-- mmm -->
+    {% endelement %} {% endif %}
+    <!-- nmm -->
     {% if LOGIN_BY_CODE_ENABLED or PASSKEY_LOGIN_ENABLED %}
-
-    <!-- but -->
+    <!-- mm -->
+    {% element hr %} {% endelement %}
+    <!-- mnnn -->
     {% element button_group vertical=True %}
-    <!-- bj -->
-    {% if PASSKEY_LOGIN_ENABLED %}
-    <!-- bb -->
-    {% element button type="submit" form="mfa_login" id="passkey_login" tags="prominent,login,outline,primary" %}
-    <!-- el -->
-    {% trans "Sign in with a passkey" %}
-    <!-- bnn -->
-    {% endelement %}
-    <!-- bh -->
+    <!-- mm -->
+    {% if PASSKEY_LOGIN_ENABLED %} {% element button type="submit" form="mfa_login" id="passkey_login" tags="prominent,login,outline,primary" %} {% trans "Sign in with a passkey" %} {% endelement %}
     {% endif %}
-    <!-- vhj -->
-    {% if LOGIN_BY_CODE_ENABLED %}
-    <!-- b -->
-    {% element button href=request_login_code_url tags="prominent,login,outline,primary" %} {% trans "Mail me a sign-in code" %} {% endelement %}
-    <!-- vb -->
-    {% endif %}
-    <!-- n -->
-    {% endelement %}
-    <!-- n -->
-    {% endif %}
-    <!-- bn -->
-    {% if SOCIALACCOUNT_ENABLED %}
-    <!-- bn -->
-    {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
-    <!-- bb -->
-    {% endif %}
+    <!-- nn -->
+    {% if LOGIN_BY_CODE_ENABLED %} {% element button href=request_login_code_url tags="prominent,login,outline,primary" %} {% trans "Mail me a sign-in code" %} {% endelement %} {% endif %}
+    <!-- mmm -->
+    {% endelement %} {% endif %}
+    <!-- nmm -->
+    {% if SOCIALACCOUNT_ENABLED %} {% include "socialaccount/snippets/login.html" with page_layout="entrance" %} {% endif %}
   </div>
 </div>
 
 {% endblock content %}
-<!-- bnn -->
-{% block extra_body %} {{ block.super }}
-<!--n  -->
+<!-- n -->
+{% block extra_body %}
+<!-- nm -->
+{{ block.super }}
+<!-- mmm -->
 {% if PASSKEY_LOGIN_ENABLED %}
-<!-- njkj -->
-{% include "mfa/webauthn/snippets/login_script.html" with button_id="passkey_login" %} {% endif %}
-<!-- bvh -->
+<!-- nn -->
+{% include "mfa/webauthn/snippets/login_script.html" with button_id="passkey_login" %}
+<!-- bnn -->
+{% endif %}
+<!-- nnn -->
 {% endblock %}

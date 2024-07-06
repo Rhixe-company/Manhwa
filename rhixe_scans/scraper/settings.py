@@ -82,7 +82,7 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {
     "scraper.pipelines.dupelicate.DuplicatesPipeline": 200,
     "scraper.pipelines.default.ScraperPipeline": 300,
-    "scraper.pipelines.images.ScraperImagesPipeline": 100,
+    # "scraper.pipelines.images.ScraperImagesPipeline": 100,
     "scraper.pipelines.database.ScraperDbPipeline": 400,
     # "scrapy_redis.pipelines.RedisPipeline": 600,
 }

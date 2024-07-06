@@ -15,16 +15,8 @@
       hx-encoding="multipart/form-data"
       _="on submit toggle @disabled on #addcomic-btn until htmx:afterOnLoad then put '' into #comictitle-input's value "
     >
-      <input
-        type="text"
-        id="comictitle-input"
-        name="comictitle"
-        placeholder="Enter a Comic"
-        class="form-charinput form-control mr-2"
-      />
-      <button id="addcomic-btn" type="submit" class="btn btn-success btn-sm">
-        Add Comic
-      </button>
+      <input type="text" id="comictitle-input" name="comictitle" placeholder="Enter a Comic" class="form-charinput form-control mr-2" />
+      <button id="addcomic-btn" type="submit" class="btn btn-success btn-sm">Add Comic</button>
     </form>
   </div>
   <hr />

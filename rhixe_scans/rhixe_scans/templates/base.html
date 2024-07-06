@@ -8,14 +8,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="shortcut icon"
-      href="{% static 'images/logos/logo.ico' %}"
-      type="image/x-icon"
-    />
-    <title>
-      {% block title %} {% trans "Rhixescans" %} {% endblock title %}
-    </title>
+    <link rel="shortcut icon" href="{% static 'images/logos/logo.ico' %}" type="image/x-icon" />
+    <title>{% block title %} {% trans "Rhixescans" %} {% endblock title %}</title>
 
     <!-- css -->
     {% block css %}
@@ -31,8 +25,8 @@
     {% render_bundle 'vendors' 'js' attrs='defer' %}
     <!-- nn -->
     <script src="{% static 'js/jquery.js' %}"></script>
-    <!-- nn -->
     <script src="{% static 'js/token.js' %}"></script>
+
     <script async defer src="{% static 'js/buttons.js' %}"></script>
     <!-- endjs -->
     {% endblock js %}

@@ -1,2 +1,8 @@
-{% extends "allauth/layouts/base.html" %}
-{% block content %}{% endblock content %}
+{% extends "base.html" %} {% load static i18n %}
+<div class="mx-auto flex flex-col items-center justify-center px-3 pt-4 dark:bg-gray-900">
+  <a href="{% url 'index' %}" class="mb-8 flex items-center justify-center text-2xl font-semibold dark:text-white lg:mb-10">
+    <img src="{% static 'images/logos/logo.png' %}" alt="Rhixescans Logo" class="mr-4 h-11" />
+    <span>{% trans 'Rhixescans' %}</span>
+  </a>
+  <div class="w-full max-w-xl space-y-4 rounded-lg bg-white p-3 shadow dark:bg-gray-800 sm:p-4">{% block content %} {% endblock content %}</div>
+</div>

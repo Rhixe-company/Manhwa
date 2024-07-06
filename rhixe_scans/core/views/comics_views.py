@@ -83,7 +83,7 @@ def comic_list(request):
             # return HttpResponseClientRefresh()
             return response
 
-    comics = Comic.objects.all()
+    comics = Comic.objects.select_related("category").prefetch_related("genres").all()
     myFilter = ComicFilter(request.GET, queryset=comics)
     table = ComicTable(myFilter.qs)
     # table.paginate(page=request.GET.get("page", 1), per_page=settings.PAGINATE_BY)
@@ -196,7 +196,7 @@ def comic_detail(request, pk):
         if UserComics.objects.filter(comic=comic, user=request.user).exists():
             fav = True
 
-    chapters = Chapter.objects.select_related("comic").filter(comic__slug=comic.slug)
+    chapters = comic.chapter_comic.all().order_by("name")
     genres = [gen.id for gen in comic.genres.all()]
     cat = comic.category.id
     genresquery = Q(genres=genres[0])
@@ -225,15 +225,15 @@ def comic_detail(request, pk):
 @admin_only
 @login_required
 def comic_edit(request, pk):
-    comic = get_object_or_404(Comic, slug=pk)
+    comic = get_object_or_404(Comic, id=pk)
     if request.method == "POST":
         form = ComicForm(request.POST, request.FILES, instance=comic)
         if form.is_valid():
 
-            images = form.cleaned_data["images"]
+            # images = form.cleaned_data["images"]
 
             newcomic = form.save(commit=False)
-            newcomic.images = images
+            # newcomic.images = images
             newcomic.user = request.user
             genres = form.cleaned_data["genres"]
             newcomic.genres.set([gen for gen in genres])
@@ -270,13 +270,13 @@ def comic_edit(request, pk):
 @admin_only
 @login_required
 def comic_delete(request, pk):
-    if Comic.objects.filter(slug=pk).exists():
-        comic = get_object_or_404(Comic, slug=pk)
+    if Comic.objects.filter(id=pk).exists():
+        comic = get_object_or_404(Comic, id=pk)
         # panels = Panel.objects.filter(comic=comic.pk)
         # panels.delete()
         comic.delete()
 
-        response = HttpResponse("")
+        # response = HttpResponse("")
 
-        return trigger_client_event(response, "comic_added")
-        # return HttpResponseClientRefresh()
+        # return trigger_client_event(response, "comic_added")
+        return HttpResponseClientRefresh()

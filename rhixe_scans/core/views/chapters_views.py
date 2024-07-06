@@ -96,7 +96,7 @@ def chapter_detail(request, pk):
             comment = comment_form.save(commit=False)
 
             comment.user = request.user
-            comment.chapter = Chapter.objects.get(slug=pk)
+            comment.chapter = Chapter.objects.get(id=pk)
             comment.save()
 
             return HttpResponseRedirect("/chapters/" + chapter.slug)
@@ -118,7 +118,7 @@ def chapter_detail(request, pk):
 @user_only
 @login_required
 def chapter_edit(request, pk):
-    chapter = get_object_or_404(Chapter, slug=pk)
+    chapter = get_object_or_404(Chapter, id=pk)
     if request.method == "POST":
         form = ChapterForm(request.POST, instance=chapter)
         if form.is_valid():
@@ -154,8 +154,8 @@ def chapter_edit(request, pk):
 @admin_only
 @login_required
 def chapter_delete(request, pk):
-    if Chapter.objects.filter(slug=pk).exists():
-        chapter = get_object_or_404(Chapter, slug=pk)
+    if Chapter.objects.filter(id=pk).exists():
+        chapter = get_object_or_404(Chapter, id=pk)
 
         chapter.delete()
 

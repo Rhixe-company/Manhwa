@@ -20,15 +20,38 @@ class MaterializeCssCheckboxColumn(tables.CheckBoxColumn):
         specific = self.attrs.get("td__input")
         attrs = tables.utils.AttributeDict(default, **(specific or general or {}))
         return mark_safe(
-            '<div class="flex items-center" ><input id="checkbox-table-search-1" type="checkbox" onclick="event.stopPropagation()" class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"  %s/><label for="checkbox-table-search-1" class="sr-only"></label></div>'
+            "<div class='flex items-center'><label><input class='form-checkboxinput' %s/><span></span></label></div>"
             % attrs.as_html()
         )
 
 
-class ImageColumn(tables.Column):
+# class MaterializeCssCheckboxColumn(tables.CheckBoxColumn):
+#     def render(self, value, bound_column, record):
+#         default = {"type": "checkbox", "name": bound_column.name, "value": value}
+#         if self.is_checked(value, record):
+#             default.update({"checked": "checked"})
+
+#         general = self.attrs.get("input")
+#         specific = self.attrs.get("td__input")
+#         attrs = tables.utils.AttributeDict(default, **(specific or general or {}))
+#         return mark_safe(
+#             '<div class="flex items-center" ><input id="checkbox-table-search-1" type="checkbox" onclick="event.stopPropagation()" class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"  %s/><label for="checkbox-table-search-1" class="sr-only"></label></div>'
+#             % attrs.as_html()
+#         )
+
+
+class ImagesColumn(tables.Column):
     def render(self, value):
         return format_html(
-            '<div class="avatar"><div class="mask mask-squircle w-12 h-12"><img     src="/media/{}" /></div></div>',
+            '<div class=" flex items-center p-2 mr-6 space-x-3 "><img class="w-10 h-10 rounded-full"     src="/media/{}" /></div>',
+            value,
+        )
+
+
+class Image_urlsColumn(tables.Column):
+    def render(self, value):
+        return format_html(
+            '<div class=" flex items-center p-2 mr-6 space-x-3 "><img class="w-10 h-10 rounded-full"     src="{}" /></div>',
             value,
         )
 
@@ -36,16 +59,16 @@ class ImageColumn(tables.Column):
 class TitleColumn(tables.Column):
     def render(self, value):
         return format_html(
-            "<div><h5>{}</h5></div>",
+            "<span>{}</span>",
             value,
         )
 
 
 class ChapterTable(tables.Table):
-    id = MaterializeCssCheckboxColumn(accessor="pk", orderable=False)
+    check = MaterializeCssCheckboxColumn(accessor="pk", orderable=False)
     name = TitleColumn(linkify=True)
     numPages = tables.Column()
-    comic = ImageColumn(accessor="comic__images", linkify=True)
+    comic = Image_urlsColumn(accessor="comic__image_urls", linkify=True)
     update = tables.TemplateColumn(
         template_name="partials/chapters/update_button.html", orderable=False
     )
@@ -55,9 +78,9 @@ class ChapterTable(tables.Table):
 
     class Meta:
         model = Chapter
-        template_name = "django_tables2/semantic.html"
-        sequence = ("id", "name", "numPages", "comic", "slug")
-        fields = ("id", "name", "numPages", "comic", "slug")
+        # template_name = "django_tables2/semantic.html"
+        sequence = ("check", "name", "numPages", "comic", "slug")
+        fields = ("check", "name", "numPages", "comic", "slug")
         attrs = {
             "th": {
                 "_ordering": {
@@ -72,12 +95,13 @@ class ChapterTable(tables.Table):
     @classmethod
     def render_paginated_table(cls, request):
         table = cls(data=Chapter.objects.all())
-        table.paginate(page=request.GET.get("page", 1), per_page=settings.PAGINATE_BY)
+        table.paginate(page=request.GET.get("page", 1), per_page=100)
         return table
 
 
 class ComicTable(tables.Table):
-    id = MaterializeCssCheckboxColumn(accessor="pk", orderable=False)
+    # id = MaterializeCssCheckboxColumn(accessor="pk", orderable=False)
+    check = MaterializeCssCheckboxColumn(accessor="pk")
     update = tables.TemplateColumn(
         template_name="partials/comics/update_button.html", orderable=False
     )
@@ -85,16 +109,20 @@ class ComicTable(tables.Table):
         template_name="partials/comics/delete_button.html", orderable=False
     )
     title = TitleColumn(linkify=True)
-    images = ImageColumn(accessor="images", linkify=True)
+    image_urls = Image_urlsColumn(accessor="image_urls", linkify=True)
+    # images = Image_urlsColumn(accessor="images", linkify=True)
     status = tables.Column()
     category = tables.Column()
-    created_at = tables.DateColumn(format="M d Y")
+    # author = tables.Column()
+    # artist = tables.Column()
+    # created_at = tables.DateColumn(format="M d Y")
     updated_at = tables.DateTimeColumn(format=settings.DATETIME_FORMAT)
     genres = tables.ManyToManyColumn()
 
     class Meta:
         model = Comic
-        template_name = "django_tables2/semantic.html"
+        # template_name = "django_tables2/semantic.html"
+        # template_name = "tables/bootstrap_htmx.html"
         attrs = {
             "th": {
                 "_ordering": {
@@ -106,46 +134,46 @@ class ComicTable(tables.Table):
         }
         row_attrs = {"data-id": lambda record: record.pk}
         sequence = (
-            "id",
+            "check",
             "title",
-            "images",
+            "image_urls",
             "category",
+            # "artist",
+            # "author",
             "status",
-            "created_at",
+            # "created_at",
             "genres",
             "updated_at",
         )
         fields = (
+            "check",
             "title",
-            "images",
+            "image_urls",
             "category",
+            # "artist",
+            # "author",
             "status",
-            "id",
-            "created_at",
+            # "created_at",
             "genres",
             "updated_at",
         )
 
     @classmethod
     def render_paginated_table(cls, request):
-        table = cls(
-            data=Comic.objects.select_related("category")
-            .prefetch_related("genres")
-            .all()
-        )
+        table = cls(data=Comic.objects.all())
         table.paginate(page=request.GET.get("page", 1), per_page=settings.PAGINATE_BY)
         return table
 
 
 class PanelTable(tables.Table):
-    id = MaterializeCssCheckboxColumn(accessor="pk")
-    images = ImageColumn()
-    comic = ImageColumn(accessor="comic__images")
-    chapter = ImageColumn(accessor="chapter__name")
+    check = MaterializeCssCheckboxColumn(accessor="pk")
+    images = Image_urlsColumn()
+    comic = Image_urlsColumn(accessor="comic__image_urls")
+    chapter = Image_urlsColumn(accessor="chapter__name")
 
     class Meta:
         model = Panel
-        template_name = "django_tables2/semantic.html"
+        # template_name = "django_tables2/semantic.html"
         fields = ("check", "images", "comic", "chapter", "slug")
 
     @classmethod
@@ -157,7 +185,7 @@ class PanelTable(tables.Table):
 
 class UserTable(tables.Table):
 
-    id = MaterializeCssCheckboxColumn(accessor="pk", orderable=False)
+    check = MaterializeCssCheckboxColumn(accessor="pk", orderable=False)
     update = tables.TemplateColumn(
         template_name="partials/users/update_button.html", orderable=False
     )
@@ -166,13 +194,13 @@ class UserTable(tables.Table):
     )
     email = TitleColumn(linkify=True)
 
-    images = ImageColumn(linkify=True)
+    images = ImagesColumn(linkify=True)
 
     class Meta:
         model = User
-        template_name = "django_tables2/semantic.html"
+        # template_name = "django_tables2/semantic.html"
         sequence = (
-            "id",
+            "check",
             "email",
             "username",
             "images",
@@ -183,7 +211,7 @@ class UserTable(tables.Table):
             "username",
             "images",
             "is_superuser",
-            "id",
+            "check",
         )
         attrs = {
             "th": {

@@ -5,26 +5,16 @@
   <div class="cards my-4 grid grid-rows-2 gap-4">
     {% for comic in comics %}
 
-    <div
-      class="card card-compact rounded-sm border border-gray-200 bg-base-100 shadow-xl dark:border-gray-500"
-    >
+    <div class="card card-compact rounded-sm border border-gray-200 bg-base-100 shadow-xl dark:border-gray-500">
       <div class="card-inner">
         <a href="{{comic.get_absolute_url}}">
           <figure class="card-front">
             {% if comic.images %}
 
-            <img
-              class="image-full"
-              src="{{ comic.images.url   }}"
-              alt="{{ comic.title   }}"
-            />
+            <img class="image-full" src="{{ comic.images.url   }}" alt="{{ comic.title   }}" />
 
             {% else %}
-            <img
-              class="image-full"
-              src="{{ comic.image_urls   }}"
-              alt="{{ comic.title   }}"
-            />
+            <img class="image-full" src="{{ comic.image_urls   }}" alt="{{ comic.title   }}" />
 
             {% endif %}
           </figure>

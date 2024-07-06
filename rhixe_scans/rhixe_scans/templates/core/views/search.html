@@ -4,26 +4,14 @@
 <!-- Right Content -->
 {% block content %}
 
-<div
-  class="mt-4 block items-center justify-between border-b border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex lg:mt-1.5"
->
+<div class="mt-4 block items-center justify-between border-b border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex lg:mt-1.5">
   <div class="mb-1 w-full">
     <div class="mb-4">
       <nav class="mb-5 flex" aria-label="Breadcrumb">
-        <ol
-          class="inline-flex items-center space-x-1 text-sm font-medium md:space-x-2"
-        >
+        <ol class="inline-flex items-center space-x-1 text-sm font-medium md:space-x-2">
           <li class="inline-flex items-center">
-            <a
-              href="{% url 'index' %}"
-              class="inline-flex items-center text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-white"
-            >
-              <svg
-                class="mr-2.5 h-5 w-5"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
+            <a href="{% url 'index' %}" class="inline-flex items-center text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-white">
+              <svg class="mr-2.5 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
                 ></path>
@@ -33,118 +21,66 @@
           </li>
           <li>
             <div class="flex items-center">
-              <svg
-                class="h-6 w-6 text-gray-400"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                  clip-rule="evenodd"
-                ></path>
+              <svg class="h-6 w-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
               </svg>
-              <a
-                href="{% url 'comics:search' %}"
-                class="ml-1 text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-white md:ml-2"
-                >Search</a
-              >
+              <a href="{% url 'comics:search' %}" class="ml-1 text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-white md:ml-2">Search</a>
             </div>
           </li>
           <li>
             <div class="flex items-center">
-              <svg
-                class="h-6 w-6 text-gray-400"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                  clip-rule="evenodd"
-                ></path>
+              <svg class="h-6 w-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
               </svg>
-              <span
-                class="ml-1 text-gray-400 dark:text-gray-500 md:ml-2"
-                aria-current="page"
-                >searchs</span
-              >
+              <span class="ml-1 text-gray-400 dark:text-gray-500 md:ml-2" aria-current="page">searchs</span>
             </div>
           </li>
         </ol>
       </nav>
-      <h1
-        class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl"
-      >
-        All searchs
-      </h1>
-    </div>
-    <div class="flex flex-col-reverse md:grid md:grid-cols-4 md:gap-4">
-      <div class="col-span-3">
-        <form
-          hx-get="{% url 'comics:search' %}"
-          hx-target="#search-container"
-          class="col-span-1 mb-4 mt-4 flex"
-        >
-          {{ filter.form.title|add_label_class:"sr-only" }}
-          <div class="relative w-full">
-            <div
-              class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
-            >
-              <svg
-                class="h-5 w-5 text-gray-500"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
-            </div>
-            <!-- input -->
-            {%render_field filter.form.title class="form-search"%}
-          </div>
-        </form>
-        {% include 'partials/searchs/search-results.html' %}
-      </div>
 
-      <!-- 1/4 cols for the filter form -->
-      <div class="col-span-1">
+      <div class="flex flex-col-reverse md:grid md:grid-cols-4 md:gap-4">
+        <div class="col-span-3">{% include 'partials/searchs/search-results.html' %}</div>
+
+        <!-- 1/4 cols for the filter form -->
         <div class="col-span-1">
-          <form
-            hx-get="{% url 'comics:search' %}"
-            hx-target="#search-container"
-          >
-            <div class="form-control mb-2">
-              {{ filter.form.status|add_label_class:"label text-white" }}
-              <!-- input -->
-              {% render_field filter.form.status class="form-selectinput"%}
-            </div>
-            <div class="form-control mb-2">
-              {{ filter.form.rating|add_label_class:"label text-white" }}
-              <div class="flex flex-row gap-2">
+          <div class="col-span-1">
+            <form hx-get="{% url 'comics:search' %}" hx-target="#search-container">
+              {{ filter.form.title|add_label_class:"label text-white" }}
+              <div class="relative w-full">
+                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                  <svg class="h-5 w-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+                  </svg>
+                </div>
                 <!-- input -->
-                {%render_field filter.form.rating class="form-search"%}
+                {%render_field filter.form.title class="form-search"%}
               </div>
-            </div>
+              <div class="form-control mb-2">
+                {{ filter.form.status|add_label_class:"label text-white" }}
+                <!-- input -->
+                {% render_field filter.form.status class="form-selectinput"%}
+              </div>
+              <div class="form-control mb-2">
+                {{ filter.form.rating|add_label_class:"label text-white" }}
+                <div class="flex flex-row gap-2">
+                  <!-- input -->
+                  {%render_field filter.form.rating class="form-search"%}
+                </div>
+              </div>
 
-            <div class="form-control mb-2">
-              {{ filter.form.category|add_label_class:"label text-white" }}
-              <!-- input -->
-              {%render_field filter.form.category %}
-            </div>
-            <div class="form-control mb-2">
-              {{ filter.form.genres|add_label_class:"label text-white" }}
-              <!-- input -->
-              {%render_field filter.form.genres %}
-            </div>
-            <button class="btn btn-success">Filter</button>
-          </form>
+              <div class="form-control mb-2">
+                {{ filter.form.category|add_label_class:"label text-white" }}
+                <!-- input -->
+                {%render_field filter.form.category %}
+              </div>
+              <div class="form-control mb-2">
+                {{ filter.form.genres|add_label_class:"label text-white" }}
+                <!-- input -->
+                {%render_field filter.form.genres %}
+              </div>
+              <button class="btn btn-success">Filter</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -155,4 +91,4 @@
 <!-- load -->
 {% load render_bundle from webpack_loader %}
 <!-- injs -->
-{% block injs %} {% render_bundle 'search' 'js' %} {% endblock injs %}
+{% block injs %} {% render_bundle 'search' 'js' attrs='defer' %} {% endblock injs %}

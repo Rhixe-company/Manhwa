@@ -146,16 +146,12 @@ THIRD_PARTY_APPS = [
     "allauth.mfa",
     "allauth.socialaccount",
     "allauth.usersessions",
-    "allauth.socialaccount.providers.apple",
-    "allauth.socialaccount.providers.facebook",
-    "allauth.socialaccount.providers.google",
-    "allauth.socialaccount.providers.openid",
     "django_celery_beat",
     "django_celery_results",
     "webpack_loader",
     "django_htmx",
     "widget_tweaks",
-    "captcha",
+    "django_recaptcha",
     "django_tables2",
     "django_filters",
     "celery_progress",
@@ -191,7 +187,7 @@ AUTHENTICATION_BACKENDS = [
 AUTH_USER_MODEL = "users.User"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
 LOGIN_REDIRECT_URL = "users:redirect"
-LOGOUT_REDIRECT_URL = "account_request_login_code"
+LOGOUT_REDIRECT_URL = "account_login"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
 LOGIN_URL = "account_login"
 
@@ -352,15 +348,24 @@ DJANGO_ADMIN_FORCE_ALLAUTH = env.bool("DJANGO_ADMIN_FORCE_ALLAUTH", default=Fals
 # https://docs.djangoproject.com/en/dev/ref/settings/#logging
 # See https://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
+# A sample logging configuration. The only tangible logging
+# performed by this configuration is to send an email to
+# the site admins on every HTTP 500 error when DEBUG=False.
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
+    "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
     "formatters": {
         "verbose": {
             "format": "%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s",
         },
     },
     "handlers": {
+        "mail_admins": {
+            "level": "ERROR",
+            "filters": ["require_debug_false"],
+            "class": "django.utils.log.AdminEmailHandler",
+        },
         "console": {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
@@ -368,6 +373,18 @@ LOGGING = {
         },
     },
     "root": {"level": "INFO", "handlers": ["console"]},
+    "loggers": {
+        "django.request": {
+            "handlers": ["mail_admins"],
+            "level": "ERROR",
+            "propagate": True,
+        },
+        "django.security.DisallowedHost": {
+            "level": "ERROR",
+            "handlers": ["console", "mail_admins"],
+            "propagate": True,
+        },
+    },
 }
 
 # Celery
@@ -447,7 +464,6 @@ ACCOUNT_FORMS = {
 }
 
 # https://docs.allauth.org/en/latest/socialaccount/configuration.html
-SOCIALACCOUNT_QUERY_EMAIL = True
 SOCIALACCOUNT_ADAPTER = "rhixe_scans.users.adapters.SocialAccountAdapter"
 
 # https://docs.allauth.org/en/latest/socialaccount/configuration.html
@@ -461,30 +477,6 @@ MFA_FORMS = {
     "reauthenticate": "rhixe_scans.users.forms.MyCustomAuthenticateForm",
     "activatetotp": "rhixe_scans.users.forms.MyCustomActivateTOTPForm",
     "deactivatetotp": "rhixe_scans.users.forms.MyCustomDeactivateTOTPForm",
-}
-
-SOCIALACCOUNT_QUERY_EMAIL = True
-SOCIALACCOUNT_PROVIDERS = {
-    "google": {"EMAIL_AUTHENTICATION": True},
-    "openid": {
-        "SERVERS": [
-            {
-                "id": "yahoo",
-                "name": "Yahoo",
-                "openid_url": "http://me.yahoo.com",
-            },
-            {
-                "id": "hyves",
-                "name": "Hyves",
-                "openid_url": "http://hyves.nl",
-            },
-            {
-                "id": "google",
-                "name": "Google",
-                "openid_url": "https://www.google.com/accounts/o8/id",
-            },
-        ]
-    },
 }
 
 
@@ -522,3 +514,6 @@ CKEDITOR_CONFIGS = {
         ),
     }
 }
+
+RECAPTCHA_PUBLIC_KEY = "6LeHeQkqAAAAAPIfRGn6IjmgiXSN7ZoXN6CB9MG5"
+RECAPTCHA_PRIVATE_KEY = "6LeHeQkqAAAAAG9R819xsr8su4UXDD6yWMubVqR5"

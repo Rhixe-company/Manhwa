@@ -5,13 +5,9 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views import defaults as default_views
 from core.views import comics_views
-from rhixe_scans.users import views as users_views
+
+# from rhixe_scans.users import views as users_views
 from django.conf.urls.i18n import i18n_patterns
-from allauth.account.decorators import secure_admin_login
-
-
-admin.autodiscover()
-admin.site.login = secure_admin_login(admin.site.login)
 
 
 urlpatterns = i18n_patterns(
@@ -21,7 +17,7 @@ urlpatterns = i18n_patterns(
         view=comics_views.index,
         name="index",
     ),
-    path("comics/", include("core.urls.comics_urls", namespace="comics")),
+    path("comics/", include("core.urls.comics_urls")),
     path("bookmarks/", include("core.urls.usercomics_urls", namespace="bookmarks")),
     path("chapters/", include("core.urls.chapters_urls", namespace="chapters")),
     # Django Admin, use {% url 'admin:index' %}
@@ -42,22 +38,12 @@ urlpatterns = i18n_patterns(
         name="task_status",
     ),
     path("ckeditor/", include("ckeditor_uploader.urls")),
-    path("accounts/signup/", view=users_views.RegisterView.as_view()),
-    path("accounts/login/", view=users_views.LoginView.as_view()),
-    path("accounts/2fa/", users_views.index, name="mfa_index"),
-    path(
-        "accounts/2fa/authenticate/",
-        users_views.authenticate,
-        name="mfa_authenticate",
-    ),
-    path(
-        "accounts/2fa/reauthenticate/",
-        users_views.reauthenticate,
-        name="mfa_reauthenticate",
-    ),
+    # path("accounts/signup/", view=users_views.RegisterView.as_view()),
+    # path("accounts/login/", view=users_views.LoginView.as_view()),
     path("accounts/", include("allauth.urls")),
-    path("accounts/", include("allauth.socialaccount.urls")),
-    path("captcha/", include("captcha.urls")),
+    # path("accounts/", include("allauth.socialaccount.urls")),
+    # path("accounts/", include("allauth.mfa.urls")),
+    # path("accounts/", include("allauth.usersessions.urls")),
 )
 
 if settings.DEBUG:

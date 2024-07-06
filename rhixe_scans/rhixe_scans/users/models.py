@@ -53,7 +53,8 @@ class User(AbstractUser):
     objects: ClassVar[UserManager] = UserManager()
 
     def delete(self, *args, **kwargs):
-        self.images.delete()
+        if self.images and self.images != "/images/user.png":
+            self.images.delete()
         super().delete(*args, **kwargs)
 
     def get_absolute_url(self) -> str:

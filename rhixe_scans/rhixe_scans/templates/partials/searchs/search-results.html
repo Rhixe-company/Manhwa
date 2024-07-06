@@ -1,12 +1,6 @@
 {% load static i18n widget_tweaks humanize django_tables2%}
 <!-- block searchslist -->
 
-<div
-  id="search-container"
-  class="col-span-3"
-  hx-trigger="comic_added    from:body"
-  hx-get='{% url "comics:search" %}'
-  hx-target="#search-container"
->
+<div id="search-container" class="col-span-3" hx-trigger="comic_added    from:body" hx-get='{% url "comics:search" %}' hx-target="#search-container">
   {% render_table table "partials/searchs/search-results-elements.html" %}
 </div>

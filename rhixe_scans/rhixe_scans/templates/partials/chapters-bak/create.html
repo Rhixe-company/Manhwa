@@ -1,0 +1,115 @@
+{% load static i18n widget_tweaks crispy_forms_tags tailwind_filters %}
+<!-- ChaptersCreate -->
+{% block Chapterscreate %}
+
+<button
+  type="button"
+  id="modalButton"
+  class="flex items-center justify-center rounded-lg bg-primary-700 px-4 py-2 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+  _="on click add .hidden to #modalButton then remove .hidden from #modalEl"
+>
+  <svg class="mr-2 h-3.5 w-3.5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+  </svg>
+  Add chapter
+</button>
+<div
+  id="modalEl"
+  tabindex="-1"
+  aria-hidden="true"
+  class="{% if not form.errors %} {% endif %} fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full overflow-y-auto overflow-x-hidden p-4 md:inset-0"
+>
+  <div class="relative max-h-full w-full max-w-2xl">
+    <!-- Modal content -->
+    <div class="relative rounded-lg bg-white shadow dark:bg-gray-700">
+      <!-- Modal header -->
+      <div class="flex items-start justify-between rounded-t border-b p-5 dark:border-gray-600">
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white lg:text-2xl">Create Chapter</h3>
+        <button
+          type="button"
+          id="modalButtonClose"
+          class="ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
+          _="on click remove .hidden from #modalButton then add .hidden to #modalEl then put '' into <textarea />'s value then put '' into <input />'s value then put '' into <select />'s value"
+        >
+          <svg class="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+          </svg>
+          <span class="sr-only">Close modal</span>
+        </button>
+      </div>
+      <form
+        hx-post="{% url 'chapters:list' %}"
+        hx-encoding="multipart/form-data"
+        _="on chapter_added remove .hidden from #modalButton then add .hidden to #modalEl then put '' into <textarea />'s value then put '' into <input />'s value then put '' into <select />'s value"
+      >
+        <div class="space-y-4 p-4">
+          <div class="form-group">
+            {{ form.name|add_label_class:"form-label" }}
+            <!-- form name field -->
+            {% render_field form.name class='form-charinput' %}
+            <div>
+              <span class="ml-3 text-sm text-gray-400"> {{ form.name.help_text }} </span>
+              <span class="ml-3 text-xs text-red-400">{{ form.name.errors }}</span>
+            </div>
+          </div>
+          <div class="form-group">
+            {{ form.slug|add_label_class:"form-label" }}
+            <!-- form slug field -->
+            {% render_field form.slug class='form-charinput' %}
+            <div>
+              <span class="ml-3 text-sm text-gray-400"> {{ form.slug.help_text }} </span>
+              <span class="ml-3 text-xs text-red-400">{{ form.slug.errors }}</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            {{ form.numPages|add_label_class:"form-label" }}
+            <!-- form numPages field -->
+            {% render_field form.numPages class='form-charinput' %}
+            <div>
+              <span class="ml-3 text-sm text-gray-400"> {{ form.numPages.help_text }} </span>
+              <span class="ml-3 text-xs text-red-400">{{ form.numPages.errors }}</span>
+            </div>
+          </div>
+          <div class="form-group">
+            {{ form.comic|add_label_class:"form-label" }}
+            <!-- form comic field -->
+            {% render_field form.comic class='form-selectinput' %}
+            <div>
+              <span class="ml-3 text-sm text-gray-400"> {{ form.comic.help_text }} </span>
+              <span class="ml-3 text-xs text-red-400">{{ form.comic.errors }}</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            {{ form.crawled|add_label_class:"form-label" }}
+            <!-- form crawled field -->
+            {% render_field form.crawled class='form-charinput' %}
+            <div>
+              <span class="ml-3 text-sm text-gray-400"> {{ form.crawled.help_text }} </span>
+              <span class="ml-3 text-xs text-red-400">{{ form.crawled.errors }}</span>
+            </div>
+          </div>
+        </div>
+        <!-- Modal footer -->
+        <div class="flex items-center space-x-2 rounded-b border-t border-gray-200 p-6 dark:border-gray-600 rtl:space-x-reverse">
+          <button
+            type="submit"
+            class="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Create
+          </button>
+          <button
+            type="button"
+            class="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:z-10 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:border-gray-500 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+          >
+            Decline
+          </button>
+        </div>
+      </form>
+      <!-- Modal body -->
+    </div>
+  </div>
+</div>
+
+{% endblock Chapterscreate %}

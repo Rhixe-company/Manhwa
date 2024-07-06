@@ -13,8 +13,8 @@ class ScraperDbPipeline:
     def process_item(self, item, spider):
 
         adapter = ItemAdapter(item)
-        if adapter.get("images"):
-            if adapter.get("images") and adapter.get("title"):
+        if adapter.get("image_urls"):
+            if adapter.get("image_urls") and adapter.get("title"):
                 category = Category.objects.filter(
                     Q(name__startswith=item["category"])
                 ).update_or_create(name=item["category"])[0]
@@ -25,7 +25,7 @@ class ScraperDbPipeline:
                     Q(name__startswith=item.get("author"))
                 ).update_or_create(name=item.get("author"))[0]
 
-                for img in item.get("images"):
+                for img in item.get("image_urls"):
                     try:
                         user = User.objects.filter(email="admin@rhixe.company").first()
                         if not user:
@@ -49,8 +49,8 @@ class ScraperDbPipeline:
                             updated_at=item["updated_at"],
                             created_at=item["created_at"],
                             url=item["url"],
-                            image_urls=img["url"],
-                            images=img["path"],
+                            image_urls=img,
+                            # images=img["path"],
                             status=item["status"],
                             description=item.get("description"),
                             numChapters=item["numChapters"],
@@ -80,7 +80,7 @@ class ScraperDbPipeline:
                 return item
 
             if (
-                adapter.get("images")
+                adapter.get("image_urls")
                 and adapter.get("comictitle")
                 and adapter.get("chaptername")
             ):
@@ -117,24 +117,40 @@ class ScraperDbPipeline:
                         except IntegrityError as e:
 
                             raise DropItem(f"Chapter-Error:   {e!r}")
-                        images = item.get("images")
+                        images = item.get("image_urls")
                         if images:
                             for img in images:
                                 try:
                                     page = Panel.objects.filter(
-                                        Q(images__startswith=img)
-                                        | Q(image_urls__startswith=img["path"])
+                                        Q(image_urls__startswith=img)
                                     ).update_or_create(
                                         comic=dbcom,
                                         chapter=chapter,
-                                        image_urls=img["url"],
-                                        images=img["path"],
+                                        image_urls=img,
                                     )[
                                         0
                                     ]
                                 except IntegrityError as e:
 
                                     DropItem(f"Panel-Error:   {e!r}")
+                        # images = item.get("images")
+                        # if images:
+                        #     for img in images:
+                        #         try:
+                        #             page = Panel.objects.filter(
+                        #                 Q(images__startswith=img)
+                        #                 | Q(image_urls__startswith=img["path"])
+                        #             ).update_or_create(
+                        #                 comic=dbcom,
+                        #                 chapter=chapter,
+                        #                 image_urls=img["url"],
+                        #                 images=img["path"],
+                        #             )[
+                        #                 0
+                        #             ]
+                        #         except IntegrityError as e:
+
+                        #             DropItem(f"Panel-Error:   {e!r}")
                     else:
                         dbcom = Comic.objects.get(
                             Q(title__startswith=item.get("comictitle"))
@@ -157,23 +173,39 @@ class ScraperDbPipeline:
 
                             raise DropItem(f"Chapter-Error:   {e!r}")
 
-                        images = item.get("images")
+                        images = item.get("image_urls")
                         if images:
                             for img in images:
                                 try:
                                     page = Panel.objects.filter(
-                                        Q(images__startswith=img)
-                                        | Q(image_urls__startswith=img["path"])
+                                        Q(image_urls__startswith=img)
                                     ).update_or_create(
                                         comic=dbcom,
                                         chapter=chapter,
-                                        image_urls=img["url"],
-                                        images=img["path"],
+                                        image_urls=img,
                                     )[
                                         0
                                     ]
                                 except IntegrityError as e:
 
                                     DropItem(f"Panel-Error:   {e!r}")
+                        # images = item.get("images")
+                        # if images:
+                        #     for img in images:
+                        #         try:
+                        #             page = Panel.objects.filter(
+                        #                 Q(images__startswith=img)
+                        #                 | Q(image_urls__startswith=img["path"])
+                        #             ).update_or_create(
+                        #                 comic=dbcom,
+                        #                 chapter=chapter,
+                        #                 image_urls=img["url"],
+                        #                 images=img["path"],
+                        #             )[
+                        #                 0
+                        #             ]
+                        #         except IntegrityError as e:
+
+                        #             DropItem(f"Panel-Error:   {e!r}")
 
                 return item
