@@ -1,12 +1,22 @@
-volumes:
-  postgres_data: {}
-  postgres_data_backups: {}
-  traefik: {}
+# volumes:
+#   postgres_data: {}
+#   postgres_data_backups: {}
+#   traefik: {}
 
-  redis_data: {}
+#   redis_data: {}
+
+networks:
+  app-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.169.0.0/24"
+          gateway: 192.169.0.1
 
 services:
   django: &django
+    restart: always
     build:
       context: .
       dockerfile: ./compose/production/django/Dockerfile
@@ -16,65 +26,126 @@ services:
         DJANGO_AWS_S3_CUSTOM_DOMAIN: ${DJANGO_AWS_S3_CUSTOM_DOMAIN}
 
     image: rhixe/rhixe_scans:django
+    container_name: django
     depends_on:
       - postgres
       - redis
+    volumes:
+      - .:/app:z
+      - ./rhixe_scans/media:/app/rhixe_scans/media
     env_file:
       - ./.envs/.production/.django
       - ./.envs/.production/.postgres
     command: /start
+    networks:
+      app-network:
+        ipv4_address: 192.169.0.3
 
   postgres:
+    restart: always
     build:
       context: .
       dockerfile: ./compose/production/postgres/Dockerfile
     image: rhixe/rhixe_scans:postgres
+    container_name: postgres
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - postgres_data_backups:/backups
+      - ../data/postgresql:/var/lib/postgresql
+      - ../data/backups:/backups
+
     env_file:
       - ./.envs/.production/.postgres
+    networks:
+      app-network:
+        ipv4_address: 192.169.0.4
 
   traefik:
+    restart: always
     build:
       context: .
       dockerfile: ./compose/production/traefik/Dockerfile
     image: rhixe/rhixe_scans:traefik
+    container_name: traefik
     depends_on:
       - django
     volumes:
-      - traefik:/etc/traefik/acme
+      - ../data/traefik:/etc/traefik/acme
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
       - "0.0.0.0:5555:5555"
+    networks:
+      app-network:
+        ipv4_address: 192.169.0.5
 
-  redis:
-    image: docker.io/redis:6
+  redis: &redis
+    restart: always
+    build:
+      context: .
+      dockerfile: ./compose/production/redis/Dockerfile
+    image: rhixe/rhixe_scans:redis
+    container_name: redis
 
     volumes:
-      - redis_data:/data
+      - ../data/redis:/data
+    command: redis-server /usr/src/app/redis/redis.conf
+    ports:
+      - "6379:6379"
+    networks:
+      app-network:
+        ipv4_address: 192.169.0.5
+
+  redis-slave:
+    <<: *redis
+    restart: always
+    image: rhixe/rhixe_scans:redis-slave
+    container_name: redis-slave
+    depends_on:
+      - redis
+    command: redis-server /usr/src/app/redis/redis-slave.conf --replicaof redis 6379
+    ports:
+      - "6380:6379"
+    networks:
+      app-network:
+        ipv4_address: 192.169.0.10
 
   celeryworker:
     <<: *django
     image: rhixe/rhixe_scans:celeryworker
+    container_name: celeryworker
+    depends_on:
+      - redis
+      - postgres
     command: /start-celeryworker
+    networks:
+      app-network:
+        ipv4_address: 192.169.0.6
 
   celerybeat:
     <<: *django
     image: rhixe/rhixe_scans:celerybeat
     command: /start-celerybeat
+    depends_on:
+      - redis
+      - postgres
+    networks:
+      app-network:
+        ipv4_address: 192.169.0.7
 
   flower:
     <<: *django
     image: rhixe/rhixe_scans:flower
+    ports:
+      - "5555:5555"
     command: /start-flower
+    networks:
+      app-network:
+        ipv4_address: 192.169.0.8
 
-  awscli:
-    build:
-      context: .
-      dockerfile: ./compose/production/aws/Dockerfile
-    env_file:
-      - ./.envs/.production/.django
-    volumes:
-      - postgres_data_backups:/backups:z
+  # awscli:
+  #   build:
+  #     context: .
+  #     dockerfile: ./compose/production/aws/Dockerfile
+  #   env_file:
+  #     - ./.envs/.production/.django
+  #   volumes:
+  #     - postgres_data_backups:/backups:z
