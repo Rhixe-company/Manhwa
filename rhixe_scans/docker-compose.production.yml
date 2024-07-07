@@ -160,7 +160,7 @@ services:
       - django
     volumes:
       - ./rhixe_scans/media:/usr/share/nginx/media:ro
-      - ./staticfiles:/usr/share/nginx/static:ro
+      # - ./staticfiles:/usr/share/nginx/static:ro
     networks:
       app-network:
         ipv4_address: 192.169.0.11

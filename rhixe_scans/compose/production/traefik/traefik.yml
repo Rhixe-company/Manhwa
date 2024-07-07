@@ -60,15 +60,15 @@ http:
       tls:
         certResolver: letsencrypt
 
-    web-static-router:
-      rule: "(Host(`rhixescans.online`) || Host(`www.rhixescans.online`) ) && PathPrefix(`/static/`)"
-      entryPoints:
-        - web-secure
-      middlewares:
-        - csrf
-      service: django-static
-      tls:
-        certResolver: letsencrypt
+    # web-static-router:
+    #   rule: "(Host(`rhixescans.online`) || Host(`www.rhixescans.online`) ) && PathPrefix(`/static/`)"
+    #   entryPoints:
+    #     - web-secure
+    #   middlewares:
+    #     - csrf
+    #   service: django-static
+    #   tls:
+    #     certResolver: letsencrypt
 
   middlewares:
     csrf:
@@ -93,10 +93,10 @@ http:
         servers:
           - url: http://nginx:80
 
-    django-static:
-      loadBalancer:
-        servers:
-          - url: http://nginx:80
+    # django-static:
+    #   loadBalancer:
+    #     servers:
+    #       - url: http://nginx:80
 
 providers:
   # https://doc.traefik.io/traefik/master/providers/file/
