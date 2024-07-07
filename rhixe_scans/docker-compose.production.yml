@@ -33,6 +33,7 @@ services:
     volumes:
       - .:/app:z
       - ./rhixe_scans/media:/app/rhixe_scans/media
+      - ./staticfiles:/app/staticfiles
     env_file:
       - ./.envs/.production/.django
       - ./.envs/.production/.postgres
@@ -160,6 +161,7 @@ services:
       - django
     volumes:
       - ./rhixe_scans/media:/usr/share/nginx/media:ro
+      - ./staticfiles:/usr/share/nginx/static:ro
     networks:
       app-network:
         ipv4_address: 192.169.0.11
