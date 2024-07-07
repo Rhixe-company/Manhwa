@@ -33,50 +33,50 @@ from django.utils.translation import gettext_lazy as _
 LANGUAGE_CODE = "en"
 
 LANGUAGES = [
-    ("ar", "Arabic"),
-    ("az", "Azerbaijani"),
-    ("bg", "Bulgarian"),
-    ("ca", "Catalan"),
-    ("cs", "Czech"),
-    ("da", "Danish"),
-    ("de", "German"),
-    ("el", "Greek"),
+    # ("ar", "Arabic"),
+    # ("az", "Azerbaijani"),
+    # ("bg", "Bulgarian"),
+    # ("ca", "Catalan"),
+    # ("cs", "Czech"),
+    # ("da", "Danish"),
+    # ("de", "German"),
+    # ("el", "Greek"),
     ("en", "English"),
-    ("es", "Spanish"),
-    ("et", "Estonian"),
-    ("eu", "Basque"),
-    ("fa", "Persian"),
-    ("fi", "Finnish"),
+    # ("es", "Spanish"),
+    # ("et", "Estonian"),
+    # ("eu", "Basque"),
+    # ("fa", "Persian"),
+    # ("fi", "Finnish"),
     ("fr", "French"),
-    ("he", "Hebrew"),
-    ("hr", "Croatian"),
-    ("hu", "Hungarian"),
-    ("id", "Indonesian"),
+    # ("he", "Hebrew"),
+    # ("hr", "Croatian"),
+    # ("hu", "Hungarian"),
+    # ("id", "Indonesian"),
     ("it", "Italian"),
     ("ja", "Japanese"),
-    ("ka", "Georgian"),
-    ("ko", "Korean"),
-    ("ky", "Kyrgyz"),
-    ("lt", "Lithuanian"),
-    ("lv", "Latvian"),
-    ("mn", "Mongolian"),
-    ("nb", "Norwegian Bokmål"),
-    ("nl", "Dutch"),
-    ("pl", "Polish"),
-    ("pt-BR", "Portuguese (Brazil)"),
-    ("pt-PT", "Portuguese (Portugal)"),
-    ("ro", "Romanian"),
-    ("ru", "Russian"),
-    ("sk", "Slovak"),
-    ("sl", "Slovenian"),
-    ("sr", "Serbian"),
-    ("sr-Latn", "Serbian (Latin)"),
-    ("sv", "Swedish"),
-    ("th", "Thai"),
-    ("tr", "Turkish"),
-    ("uk", "Ukrainian"),
-    ("zh-hans", "Chinese (Simplified)"),
-    ("zh-hant", "Chinese (Traditional)"),
+    # ("ka", "Georgian"),
+    # ("ko", "Korean"),
+    # ("ky", "Kyrgyz"),
+    # ("lt", "Lithuanian"),
+    # ("lv", "Latvian"),
+    # ("mn", "Mongolian"),
+    # ("nb", "Norwegian Bokmål"),
+    # ("nl", "Dutch"),
+    # ("pl", "Polish"),
+    # ("pt-BR", "Portuguese (Brazil)"),
+    # ("pt-PT", "Portuguese (Portugal)"),
+    # ("ro", "Romanian"),
+    # ("ru", "Russian"),
+    # ("sk", "Slovak"),
+    # ("sl", "Slovenian"),
+    # ("sr", "Serbian"),
+    # ("sr-Latn", "Serbian (Latin)"),
+    # ("sv", "Swedish"),
+    # ("th", "Thai"),
+    # ("tr", "Turkish"),
+    # ("uk", "Ukrainian"),
+    # ("zh-hans", "Chinese (Simplified)"),
+    # ("zh-hant", "Chinese (Traditional)"),
 ]
 # Languages we provide translations for, out of the box.
 
@@ -92,28 +92,7 @@ LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-# DATABASES = {"default": env.db("DATABASE_URL")}
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "rhixe_scans.sqlite3",
-#         "USER": "",
-#         "PASSWORD": "",
-#         "HOST": "",
-#         "PORT": "",
-#     }
-# }
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("POSTGRES_DB"),
-        "USER": env("POSTGRES_USER"),
-        "PASSWORD": env("POSTGRES_PASSWORD"),
-        "HOST": env("POSTGRES_HOST"),
-        "PORT": env("POSTGRES_PORT"),
-    }
-}
-DATABASES["default"]["ATOMIC_REQUESTS"] = True
+
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
