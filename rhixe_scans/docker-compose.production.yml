@@ -137,8 +137,7 @@ services:
   flower:
     <<: *django
     image: rhixe/rhixe_scans:flower
-    ports:
-      - "5555:5555"
+
     command: /start-flower
     container_name: flower
     depends_on:
