@@ -99,16 +99,16 @@ COPY --from=client-builder --chown=django:django ${APP_HOME} ${APP_HOME}
 # make django owner of the WORKDIR directory as well.
 RUN chown -R django:django ${APP_HOME}
 
-USER django
+# USER django
 
 RUN DATABASE_URL="" \
   CELERY_BROKER_URL="" \
   DJANGO_SETTINGS_MODULE="config.settings.test" \
   python manage.py compilemessages
 
-RUN DATABASE_URL="" \
-  CELERY_BROKER_URL="" \
-  DJANGO_SETTINGS_MODULE="config.settings.test" \
-  python manage.py collectstatic --noinput --clear
+# RUN DATABASE_URL="" \
+#   CELERY_BROKER_URL="" \
+#   DJANGO_SETTINGS_MODULE="config.settings.test" \
+#   python manage.py collectstatic --noinput --clear
 
 ENTRYPOINT ["/entrypoint"]
