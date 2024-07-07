@@ -16,7 +16,6 @@ networks:
 
 services:
   django: &django
-    restart: always
     build:
       context: .
       dockerfile: ./compose/production/django/Dockerfile
@@ -43,7 +42,6 @@ services:
         ipv4_address: 192.169.0.3
 
   postgres:
-    restart: always
     build:
       context: .
       dockerfile: ./compose/production/postgres/Dockerfile
@@ -60,7 +58,6 @@ services:
         ipv4_address: 192.169.0.4
 
   traefik:
-    restart: always
     build:
       context: .
       dockerfile: ./compose/production/traefik/Dockerfile
@@ -79,7 +76,6 @@ services:
         ipv4_address: 192.169.0.12
 
   redis: &redis
-    restart: always
     build:
       context: .
       dockerfile: ./compose/production/redis/Dockerfile
@@ -97,7 +93,7 @@ services:
 
   redis-slave:
     <<: *redis
-    restart: always
+
     image: rhixe/rhixe_scans:redis-slave
     container_name: redis-slave
     depends_on:
@@ -150,7 +146,6 @@ services:
         ipv4_address: 192.169.0.8
 
   nginx:
-    restart: always
     build:
       context: .
       dockerfile: ./compose/production/nginx/Dockerfile
