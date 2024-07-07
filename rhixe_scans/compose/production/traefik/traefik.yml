@@ -31,7 +31,7 @@ certificatesResolvers:
 http:
   routers:
     web-secure-router:
-      rule: "Host(`rhixescans.online`) "
+      rule: "Host(`rhixescans.online`) || Host(`www.rhixescans.online`)"
       entryPoints:
         - web-secure
       middlewares:
@@ -42,7 +42,7 @@ http:
         certResolver: letsencrypt
 
     flower-secure-router:
-      rule: "Host(`rhixescans.online`)"
+      rule: "Host(`rhixescans.online`) || Host(`www.rhixescans.online`)"
       entryPoints:
         - flower
       service: flower
@@ -51,7 +51,7 @@ http:
         certResolver: letsencrypt
 
     web-media-router:
-      rule: "(Host(`rhixescans.online`) ) && PathPrefix(`/media/`)"
+      rule: "(Host(`rhixescans.online`) || Host(`www.rhixescans.online`)) && PathPrefix(`/media/`)"
       entryPoints:
         - web-secure
       middlewares:
@@ -61,7 +61,7 @@ http:
         certResolver: letsencrypt
 
     # web-static-router:
-    #   rule: "(Host(`rhixescans.online`) ) && PathPrefix(`/static/`)"
+    #   rule: "(Host(`rhixescans.online`) || Host(`www.rhixescans.online`) ) && PathPrefix(`/static/`)"
     #   entryPoints:
     #     - web-secure
     #   middlewares:
