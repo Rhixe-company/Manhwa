@@ -75,7 +75,7 @@ services:
       - "0.0.0.0:5555:5555"
     networks:
       app-network:
-        ipv4_address: 192.169.0.5
+        ipv4_address: 192.169.0.12
 
   redis: &redis
     restart: always
@@ -137,7 +137,8 @@ services:
   flower:
     <<: *django
     image: rhixe/rhixe_scans:flower
-
+    ports:
+      - "5555:5555"
     command: /start-flower
     container_name: flower
     depends_on:
