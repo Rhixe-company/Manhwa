@@ -1,24 +1,12 @@
 #!/bin/bash
 
-until docker-compose down --remove-orphans -t 0 -v; do
-    echo "Stopping Containers"
-
-done
+docker compose -f docker-compose.local.yml down --remove-orphans -t 0 -v
 # make clean
-# clear
 
-# # sudo rm -r volumes
-sudo rm -r volumes
-# # sudo chown -R $USER:$USER app
+# sudo rm -r static volumes
 # sudo chown -R $USER:$USER .
-# until docker-compose build --pull; do
-#     echo "Building Images"
-# done
-# docker system prune --volumes -f
-until docker-compose up -d -V; do
-    echo "Starting Containers"
-done
-# clear
-# make user-dev
-clear
-make log
+docker compose -f docker-compose.local.yml build --pull
+
+docker compose -f docker-compose.local.yml up -d -V
+
+docker compose -f docker-compose.local.yml logs -f
