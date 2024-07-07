@@ -1,10 +1,6 @@
 #!/bin/bash
 
-# until docker-compose -f docker-compose.production.yml down --remove-orphans -t 0 -v; do
-#     echo "Stopping Containers"
-
-# done
-
+docker compose -f docker-compose.production.yml down --remove-orphans -t 0 -v
 # make clean
 
 # sudo rm -r static volumes
@@ -13,4 +9,4 @@ docker compose -f docker-compose.production.yml build --pull
 
 docker compose -f docker-compose.production.yml up -d -V
 
-docker compose -f docker-compose.production.yml logs -w
+docker compose -f docker-compose.production.yml logs -f
