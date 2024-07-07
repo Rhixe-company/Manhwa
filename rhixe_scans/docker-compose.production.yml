@@ -33,7 +33,7 @@ services:
     volumes:
       - .:/app:z
       - ./rhixe_scans/media:/app/rhixe_scans/media
-      # - ./staticfiles:/app/staticfiles
+      - ./staticfiles:/app/staticfiles
     env_file:
       - ./.envs/.production/.django
       - ./.envs/.production/.postgres
