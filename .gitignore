@@ -286,8 +286,8 @@ tags
 dump.rdb
 
 ### Project template
-rhixe_scans/media/
-rhixe_scans/rhixe_scans/media/
+# rhixe_scans/media/
+# rhixe_scans/rhixe_scans/media/
 .pytest_cache/
 .ipython/
 rhixe_scans/static/webpack_bundles/
