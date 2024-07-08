@@ -3,7 +3,7 @@
 USE_DOCKER=yes
 IPYTHONDIR=/app/.ipython
 DJANGO_DEBUG=False
-DJANGO_ALLOWED_HOSTS=www.rhixescans.online,rhixescans.online,47.253.94.223,127.0.0.1,localhost,0.0.0.0
+DJANGO_ALLOWED_HOSTS=www.rhixescans.online,rhixescans.online,47.253.192.171,127.0.0.1,localhost,0.0.0.0
 # Redis
 # ------------------------------------------------------------------------------
 REDIS_URL=redis://default:OVSWlRJxTzm5syLZGb5iM3Wq1Rhqw5LY0bYftI5qw1prTI0crMsOFQLZZavIlcqQ@192.169.0.5:6379/0
