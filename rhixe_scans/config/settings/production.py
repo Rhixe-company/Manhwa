@@ -215,3 +215,8 @@ LOGGING = {
 # Your stuff...
 # ------------------------------------------------------------------------------
 PAGINATE_BY = 21
+
+EMAIL_BACKEND = env(
+    "DJANGO_EMAIL_BACKEND",
+    default="django.core.mail.backends.console.EmailBackend",
+)
