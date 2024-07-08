@@ -263,8 +263,8 @@ tags
 dump.rdb
 
 ### Project template
-rhixe_scans/media/
-!rhixe_scans/media/images/
+# rhixe_scans/media/
+# !rhixe_scans/media/images/
 
 .pytest_cache/
 .ipython/
