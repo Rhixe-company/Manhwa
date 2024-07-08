@@ -34,3 +34,4 @@ django-extensions>=3.2.3  # https://github.com/django-extensions/django-extensio
 django-coverage-plugin>=3.1.0  # https://github.com/nedbat/django_coverage_plugin
 pytest-django>=4.8.0  # https://github.com/pytest-dev/pytest-django
 django-browser-reload>=1.13.0
+gunicorn>=22.0.0  # https://github.com/benoitc/gunicorn

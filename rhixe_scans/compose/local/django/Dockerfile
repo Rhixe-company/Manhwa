@@ -1,3 +1,16 @@
+# FROM docker.io/node:20-bookworm-slim as client-builder
+
+# ARG APP_HOME=/app
+# WORKDIR ${APP_HOME}
+
+# COPY ./package.json ${APP_HOME}
+# RUN npm install && npm cache clean --force
+# COPY . ${APP_HOME}
+# # ARG DJANGO_AWS_STORAGE_BUCKET_NAME
+# # ENV DJANGO_AWS_STORAGE_BUCKET_NAME=${DJANGO_AWS_STORAGE_BUCKET_NAME}
+# # ARG DJANGO_AWS_S3_CUSTOM_DOMAIN
+# # ENV DJANGO_AWS_S3_CUSTOM_DOMAIN=${DJANGO_AWS_S3_CUSTOM_DOMAIN}
+# RUN npm run build --omit=dev
 # define an alias for the specific python version used in this file.
 FROM docker.io/python:3.12.3-slim-bookworm as python
 
@@ -7,7 +20,7 @@ FROM python as python-build-stage
 ARG BUILD_ENVIRONMENT=local
 
 # Install apt packages
-RUN apt-get update && apt-get install --no-install-recommends -y \
+RUN apt-get update ; apt-get dist-upgrade -y ; apt-get install --no-install-recommends -y \
   # dependencies for building Python packages
   build-essential \
   # psycopg dependencies
@@ -33,20 +46,12 @@ ENV BUILD_ENV ${BUILD_ENVIRONMENT}
 
 WORKDIR ${APP_HOME}
 
-
-# devcontainer dependencies and utils
-RUN apt-get update && apt-get install --no-install-recommends -y \
-  sudo git bash-completion nano ssh
-
-# Create devcontainer user and add it to sudoers
-RUN groupadd --gid 1000 dev-user \
-  && useradd --uid 1000 --gid dev-user --shell /bin/bash --create-home dev-user \
-  && echo dev-user ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/dev-user \
-  && chmod 0440 /etc/sudoers.d/dev-user
+RUN addgroup --system django \
+  && adduser --system --ingroup django django
 
 
 # Install required system dependencies
-RUN apt-get update && apt-get install --no-install-recommends -y \
+RUN apt-get update ; apt-get dist-upgrade -y ; apt-get install --no-install-recommends -y \
   # psycopg dependencies
   libpq-dev \
   # Translations dependencies
@@ -59,33 +64,64 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 # copy python dependency wheels from python-build-stage
 COPY --from=python-build-stage /usr/src/app/wheels  /wheels/
 
+RUN python -m venv /opt/venv
+
+ENV PATH="/opt/venv/bin:$PATH"
 # use wheels to install python dependencies
 RUN pip install --no-cache-dir --no-index --find-links=/wheels/ /wheels/* \
   && rm -rf /wheels/
 
-COPY ./compose/production/django/entrypoint /entrypoint
+
+COPY --chown=django:django ./compose/production/django/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint
 RUN chmod +x /entrypoint
 
-COPY ./compose/local/django/start /start
+
+COPY --chown=django:django ./compose/local/django/start /start
 RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
-
-
-COPY ./compose/local/django/celery/worker/start /start-celeryworker
+COPY --chown=django:django ./compose/local/django/celery/worker/start /start-celeryworker
 RUN sed -i 's/\r$//g' /start-celeryworker
 RUN chmod +x /start-celeryworker
 
-COPY ./compose/local/django/celery/beat/start /start-celerybeat
+
+COPY --chown=django:django ./compose/local/django/celery/beat/start /start-celerybeat
 RUN sed -i 's/\r$//g' /start-celerybeat
 RUN chmod +x /start-celerybeat
 
-COPY ./compose/local/django/celery/flower/start /start-flower
+
+COPY --chown=django:django ./compose/local/django/celery/flower/start /start-flower
 RUN sed -i 's/\r$//g' /start-flower
 RUN chmod +x /start-flower
 
+COPY --chown=django:django ./compose/local/django/gunicorn-cfg.py /gunicorn-cfg.py
 
 # copy application code to WORKDIR
-COPY . ${APP_HOME}
+# COPY --from=client-builder --chown=django:django ${APP_HOME} ${APP_HOME}
+
+COPY --chown=django:django . ${APP_HOME}
+
+# make django owner of the WORKDIR directory as well.
+RUN chown -R django:django ${APP_HOME}
+
+RUN    mkdir -p /app/static
+RUN   chown -R django:django /app/static
+
+USER django
+
+RUN DATABASE_URL="" \
+  CELERY_BROKER_URL="" \
+  DJANGO_SETTINGS_MODULE="config.settings.test" \
+  python manage.py makemessages -a -e html,txt,py
+
+RUN DATABASE_URL="" \
+  CELERY_BROKER_URL="" \
+  DJANGO_SETTINGS_MODULE="config.settings.test" \
+  python manage.py compilemessages
+
+# RUN DATABASE_URL="" \
+#   CELERY_BROKER_URL="" \
+#   DJANGO_SETTINGS_MODULE="config.settings.test" \
+#   python manage.py collectstatic --noinput --clear
 
 ENTRYPOINT ["/entrypoint"]

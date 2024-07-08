@@ -1,4 +1,3 @@
-rhixe_scans.sqlite3
 ### Python template
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -53,7 +52,7 @@ coverage.xml
 
 # Django stuff:
 staticfiles/
-#static/
+
 # Sphinx documentation
 docs/_build/
 
@@ -70,7 +69,7 @@ celerybeat-schedule
 .venv
 venv/
 ENV/
-../venv/
+
 # Rope project settings
 .ropeproject
 
@@ -264,7 +263,8 @@ tags
 dump.rdb
 
 ### Project template
-# rhixe_scans/media/
+rhixe_scans/media/
+!rhixe_scans/media/images/
 
 .pytest_cache/
 .ipython/
@@ -273,3 +273,5 @@ webpack-stats.json
 .env
 .envs/*
 !.envs/.local/
+dist/
+static/

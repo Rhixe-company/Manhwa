@@ -19,7 +19,10 @@ if READ_DOT_ENV_FILE:
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
-DEBUG = True
+DEBUG = env(
+    "DJANGO_DEBUG",
+    default=False,
+)
 # Local time zone. Choices are
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # though not all of them may be available with every OS.
@@ -372,10 +375,12 @@ if USE_TZ:
     # https://docs.celeryq.dev/en/stable/userguide/configuration.html#std:setting-timezone
     CELERY_TIMEZONE = TIME_ZONE
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html#std:setting-broker_url
-CELERY_BROKER_URL = env("CELERY_BROKER_URL")
-# CELERY_BROKER_URL = (
-#     f'redis://default:{env("REDIS_PASSWORD")}@{env("REDIS_HOST")}:/{env("REDIS_PORT")}'
-# )
+REDIS_URL = f"redis://{env('REDIS_USER', default="default")}:{env('REDIS_PASSWORD', default="")}@{env('REDIS_HOST', default="192.169.0.5")}:{env('REDIS_PORT', default="6379")}/{env('REDIS_DB', default="0")}"
+if REDIS_URL:
+    CELERY_BROKER_URL = REDIS_URL
+else:
+    CELERY_BROKER_URL = env("CELERY_BROKER_URL", default="")
+
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html#std:setting-result_backend
 CELERY_RESULT_BACKEND = "django-db"
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html#result-extended
@@ -478,10 +483,10 @@ WEBPACK_LOADER = {
 # ------------------------------------------------------------------------------
 DATETIME_FORMAT = "M d Y, h:i A"
 CKEDITOR_UPLOAD_PATH = "uploads/"
-CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+CKEDITOR_BASEPATH = "/src/ckeditor/"
 # CKEDITOR_FILENAME_GENERATOR = "config.utils.get_filename"
-CKEDITOR_JQUERY_URL = "{% static 'js/jquery.js' %}"
-CKEDITOR_IMAGE_BACKEND = "pillow"
+CKEDITOR_JQUERY_URL = "https://code.jquery.com/jquery-3.7.1.js"
+CKEDITOR_IMAGE_BACKEND = "Pillow"
 CKEDITOR_CONFIGS = {
     "default": {
         "toolbar": "full",

@@ -1,7 +1,10 @@
-# volumes:
-#   postgres_data: {}
-#   postgres_data_backups: {}
-#   redis_data: {}
+volumes:
+  postgres_data: {}
+  postgres_data_backups: {}
+  redis_data: {}
+  # media: {}
+  static: {}
+
 networks:
   app-network:
     driver: bridge
@@ -19,17 +22,25 @@ services:
       dockerfile: ./compose/local/django/Dockerfile
     image: rhixe/rhixe_scans:django
     container_name: django
+    # user: "django:django"
     depends_on:
-      - postgres
-      - redis
-    volumes:
-      - .:/app:z
-      - ./rhixe_scans/media:/app/rhixe_scans/media
+      redis:
+        condition: service_started
+      redis-slave:
+        condition: service_started
+      postgres:
+        condition: service_started
+      node:
+        condition: service_completed_successfully
     env_file:
       - ./.envs/.local/.django
       - ./.envs/.local/.postgres
-    ports:
-      - "8000:8000"
+    volumes:
+      - .:/app:z
+      - ./rhixe_scans/media:/app/rhixe_scans/media
+      - static:/app/static
+    expose:
+      - 5000
     command: /start
     networks:
       app-network:
@@ -43,25 +54,24 @@ services:
     image: rhixe/rhixe_scans:postgres
     container_name: postgres
     volumes:
-      - ../data/postgresql:/var/lib/postgresql
-      - ../data/backups:/backups
+      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data_backups:/backups
     env_file:
       - ./.envs/.local/.postgres
     networks:
       app-network:
         ipv4_address: 192.169.0.4
 
-  redis: &redis
+  redis:
     restart: always
     build:
       context: .
       dockerfile: ./compose/production/redis/Dockerfile
     image: rhixe/rhixe_scans:redis
     container_name: redis
-
     volumes:
-      - ../data/redis:/data
-    command: redis-server /usr/src/app/redis/redis.conf
+      - redis_data:/data
+
     ports:
       - "6379:6379"
     networks:
@@ -69,15 +79,17 @@ services:
         ipv4_address: 192.169.0.5
 
   redis-slave:
-    <<: *redis
     restart: always
+    build:
+      context: .
+      dockerfile: ./compose/production/redis-slave/Dockerfile
     image: rhixe/rhixe_scans:redis-slave
     container_name: redis-slave
     depends_on:
-      - redis
-    command: redis-server /usr/src/app/redis/redis-slave.conf --replicaof redis 6379
+      redis:
+        condition: service_started
     ports:
-      - "6380:6379"
+      - "6380:6380"
     networks:
       app-network:
         ipv4_address: 192.169.0.10
@@ -87,8 +99,14 @@ services:
     image: rhixe/rhixe_scans:celeryworker
     container_name: celeryworker
     depends_on:
-      - redis
-      - postgres
+      redis:
+        condition: service_started
+      redis-slave:
+        condition: service_started
+      postgres:
+        condition: service_started
+      django:
+        condition: service_started
     ports: []
     command: /start-celeryworker
     networks:
@@ -100,8 +118,14 @@ services:
     image: rhixe/rhixe_scans:celerybeat
     container_name: celerybeat
     depends_on:
-      - redis
-      - postgres
+      redis:
+        condition: service_started
+      redis-slave:
+        condition: service_started
+      postgres:
+        condition: service_started
+      django:
+        condition: service_started
     ports: []
     command: /start-celerybeat
     networks:
@@ -115,9 +139,37 @@ services:
     ports:
       - "5555:5555"
     command: /start-flower
+    depends_on:
+      redis:
+        condition: service_started
+      redis-slave:
+        condition: service_started
+      postgres:
+        condition: service_started
+      django:
+        condition: service_started
     networks:
       app-network:
         ipv4_address: 192.169.0.8
+
+  nginx:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./compose/production/nginx/Dockerfile
+    image: rhixe/rhixe_scans:nginx
+    container_name: nginx
+    depends_on:
+      django:
+        condition: service_started
+    ports:
+      - "80:80"
+    volumes:
+      - ./rhixe_scans/media:/app/media
+      - static:/app/static
+    networks:
+      app-network:
+        ipv4_address: 192.169.0.11
 
   node:
     build:
@@ -125,15 +177,14 @@ services:
       dockerfile: ./compose/local/node/Dockerfile
     image: rhixe/rhixe_scans:node
     container_name: node
-    depends_on:
-      - django
+
     volumes:
       - .:/app:z
       # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
       - /app/node_modules
-    command: npm run dev
-    ports:
-      - "3000:3000"
+    command: npm run build
+    # ports:
+    #   - "3000:3000"
     networks:
       app-network:
         ipv4_address: 192.169.0.9
