@@ -1,7 +1,7 @@
 const sidebar = document.getElementById("sidebar");
 
 if (sidebar) {
-  const toggleSidebarMobile = (sidebar: HTMLElement, sidebarBackdrop: HTMLElement, toggleSidebarMobileHamburger: HTMLElement, toggleSidebarMobileClose: HTMLElement) => {
+  const toggleSidebarMobile = (sidebar, sidebarBackdrop, toggleSidebarMobileHamburger, toggleSidebarMobileClose) => {
     sidebar.classList.add("flex");
     sidebar.classList.toggle("hidden");
     sidebarBackdrop.classList.toggle("hidden");
