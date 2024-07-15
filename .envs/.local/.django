@@ -1,0 +1,37 @@
+# General
+# ------------------------------------------------------------------------------
+USE_DOCKER=yes
+IPYTHONDIR=/app/.ipython
+DJANGO_DEBUG=False
+DJANGO_ALLOWED_HOSTS=www.rhixescans.online,rhixescans.online,47.253.192.171,127.0.0.1,localhost,0.0.0.0
+# Redis
+# ------------------------------------------------------------------------------
+REDIS_URL=redis://default:OVSWlRJxTzm5syLZGb5iM3Wq1Rhqw5LY0bYftI5qw1prTI0crMsOFQLZZavIlcqQ@192.169.0.5:6379/0
+REDIS_PASSWORD=OVSWlRJxTzm5syLZGb5iM3Wq1Rhqw5LY0bYftI5qw1prTI0crMsOFQLZZavIlcqQ
+REDIS_HOST=192.169.0.5
+REDIS_PORT=6379
+REDIS_DB=0
+REDIS_USER=default
+# Celery
+# ------------------------------------------------------------------------------
+CELERY_BROKER_URL=redis://default:OVSWlRJxTzm5syLZGb5iM3Wq1Rhqw5LY0bYftI5qw1prTI0crMsOFQLZZavIlcqQ@192.169.0.5:6379/0
+
+# Flower
+CELERY_FLOWER_USER=PmoGvuSyamLnkkAtIAQGmCsquUiGKCYH
+CELERY_FLOWER_PASSWORD=iS40c0v7Gxoslmbu6bSfD1iHikT1iMkhLfwebdNSTcbLz7qwtbUBZWK5nHf4JuBh
+
+# Recaptcha
+RECAPTCHA_PUBLIC_KEY=6LeHeQkqAAAAAPIfRGn6IjmgiXSN7ZoXN6CB9MG5
+RECAPTCHA_PRIVATE_KEY=6LeHeQkqAAAAAG9R819xsr8su4UXDD6yWMubVqR5
+
+# Email
+# ------------------------------------------------------------------------------
+DJANGO_SERVER_EMAIL=rhixecompany@gmail.com
+
+DJANGO_DEFAULT_FROM_EMAIL=noreply@rhixescans.company
+DJANGO_EMAIL_SUBJECT_PREFIX=Read Free High Quality Comics here!
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=465
+EMAIL_HOST_USER=rhixecompany@gmail.com
+EMAIL_HOST_PASSWORD=oojXLvn3bS
+DJANGO_EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend

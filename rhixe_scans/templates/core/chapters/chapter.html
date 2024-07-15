@@ -1,0 +1,10 @@
+{% extends "base.html" %} {% load static i18n %}
+
+<!-- Add chapter Drawer -->
+{% block title %} {% translate chapter.name %} {% endblock title %}
+<!-- Add chapter Drawer -->
+{% block content %}
+<section class="mt-4">{% include 'partials/chapter/card.html' %}</section>
+<section class="mb-4 mt-4">{% include 'partials/chapter/comments.html' %}</section>
+
+{% endblock content %}

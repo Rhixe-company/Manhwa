@@ -1,26 +1,3 @@
-# byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-
-# tests and coverage
-*.pytest_cache
-.coverage
-
-# database & logs
-*.db
-*.sqlite3
-*.log
-
-# venv
-env
-venv
-
-# other
-.DS_Store
-
-# javascript
-package-lock.json
-.vscode/
 ### Python template
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -92,7 +69,7 @@ celerybeat-schedule
 .venv
 venv/
 ENV/
-myvenv/
+
 # Rope project settings
 .ropeproject
 
@@ -286,8 +263,9 @@ tags
 dump.rdb
 
 ### Project template
-# rhixe_scans/media/
-# rhixe_scans/rhixe_scans/media/
+rhixe_scans/media/
+!rhixe_scans/media/images/
+
 .pytest_cache/
 .ipython/
 rhixe_scans/static/webpack_bundles/
@@ -295,4 +273,3 @@ webpack-stats.json
 .env
 .envs/*
 !.envs/.local/
-data/
