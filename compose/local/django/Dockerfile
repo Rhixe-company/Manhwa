@@ -12,7 +12,7 @@
 # # ENV DJANGO_AWS_S3_CUSTOM_DOMAIN=${DJANGO_AWS_S3_CUSTOM_DOMAIN}
 # RUN npm run build --omit=dev
 # define an alias for the specific python version used in this file.
-FROM docker.io/python:3.12.3-slim-bookworm as python
+FROM docker.io/python:3.12.4-slim-bookworm as python
 
 # Python build stage
 FROM python as python-build-stage
