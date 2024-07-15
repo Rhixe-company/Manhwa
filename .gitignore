@@ -264,7 +264,6 @@ dump.rdb
 
 ### Project template
 rhixe_scans/media/
-!rhixe_scans/media/images/
 
 .pytest_cache/
 .ipython/
@@ -273,3 +272,4 @@ webpack-stats.json
 .env
 .envs/*
 !.envs/.local/
+!rhixe_scans/media/images/
