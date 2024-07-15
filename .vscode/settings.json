@@ -22,12 +22,12 @@
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "files.associations": {
-    "./rhixe_scans/rhixe_scans/templates/*.html": "html",
-    "./rhixe_scans/rhixe_scans/templates/**/**/*.html": "django-html",
-    "./rhixe_scans/rhixe_scans/templates/**/*.html": "django-html",
-    "./rhixe_scans/rhixe_scans/templates/**/**/*": "django-txt",
-    "./rhixe_scans/rhixe_scans/templates/**/*": "django-txt",
-    "./rhixe_scans/requirements/*.txt": "pip-requirements"
+    "./rhixe_scans/templates/*.html": "html",
+    "./rhixe_scans/templates/**/**/*.html": "django-html",
+    "./rhixe_scans/templates/**/*.html": "django-html",
+    "./rhixe_scans/templates/**/**/*": "django-txt",
+    "./rhixe_scans/templates/**/*": "django-txt",
+    "./requirements/*.txt": "pip-requirements"
   },
   "[django-html]": {
     "editor.formatOnSave": true

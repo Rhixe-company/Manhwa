@@ -189,23 +189,23 @@ class UserSignupForm(SignupForm):
     #     ),
     # )
     captcha = ReCaptchaField(
-        # widget=ReCaptchaV2Checkbox(
-        #     attrs={
-        #         "data-theme": "dark",
-        #         # "data-size": "compact",
-        #     }
-        # )
+        widget=ReCaptchaV2Checkbox(
+            attrs={
+                "data-theme": "dark",
+                # "data-size": "full",
+            }
+        )
     )
     forgot_txt = _("Terms and Conditions")
     remember = forms.BooleanField(
-        label="Terms",
+        label="I accept the",
         required=True,
         help_text=mark_safe(
-            f"<label for='terms' class='font-medium text-gray-900 dark:text-white'   > I accept the <a class='text-primary-700 hover:underline dark:text-primary-500' href='/#/'>{forgot_txt}</a></label>"
+            f"<a class='text-primary-700 hover:underline dark:text-primary-500' href='/'>{forgot_txt}</a>"
         ),
         widget=forms.CheckboxInput(
             attrs={
-                "class": "form-checkbox",
+                "class": "form-radioinput",
             }
         ),
     )
@@ -297,10 +297,10 @@ class UserSignupForm(SignupForm):
                 "first_name",
                 "last_name",
                 "images",
-                "terms",
-                "captcha",
+                "remember",
                 "password1",
                 "password2",
+                "captcha",
             ],
         )
 
@@ -331,12 +331,12 @@ class MyCustomLoginForm(LoginForm):
     # )
 
     captcha = ReCaptchaField(
-        # widget=ReCaptchaV2Checkbox(
-        #     attrs={
-        #         "data-theme": "dark",
-        #         # "data-size": "compact",
-        #     }
-        # )
+        widget=ReCaptchaV2Checkbox(
+            attrs={
+                "data-theme": "dark",
+                # "data-size": "compact",
+            }
+        )
     )
 
     password = forms.CharField(
@@ -351,12 +351,13 @@ class MyCustomLoginForm(LoginForm):
         ),
         help_text=password_validation.password_validators_help_text_html(),
     )
+
     remember = forms.BooleanField(
-        label=_("Remember Me"),
+        label=_("Remember me"),
         required=True,
         widget=forms.CheckboxInput(
             attrs={
-                "class": "form-checkbox",
+                "class": "form-radioinput",
             }
         ),
     )
@@ -420,6 +421,42 @@ class MyCustomSetPasswordForm(SetPasswordForm):
 
 
 class MyCustomResetPasswordForm(ResetPasswordForm):
+    email = forms.EmailField(
+        label=_("Email"),
+        widget=forms.EmailInput(
+            attrs={
+                "class": "form-charinput",
+                "hx-post": reverse_lazy("users:check-email"),
+                "hx-trigger": "keyup[target.value.length    >   6]    changed delay:3s",
+                "hx-swap": "afterend",
+                "hx-target": "#id_email",
+                "placeholder": _("name@rhixe.company"),
+                "autocomplete": "email",
+            }
+        ),
+    )
+    captcha = ReCaptchaField(
+        widget=ReCaptchaV2Checkbox(
+            attrs={
+                "data-theme": "dark",
+                # "data-size": "compact",
+            }
+        )
+    )
+
+    forgot_txt = _("Terms and Conditions")
+    remember = forms.BooleanField(
+        label="I accept the",
+        required=True,
+        help_text=mark_safe(
+            f"<a class='text-primary-700 hover:underline dark:text-primary-500' href='/'>{forgot_txt}</a>"
+        ),
+        widget=forms.CheckboxInput(
+            attrs={
+                "class": "form-radioinput",
+            }
+        ),
+    )
 
     def save(self, request):
 

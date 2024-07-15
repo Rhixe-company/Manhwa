@@ -398,8 +398,8 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD = "username"
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 # https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_ADAPTER = "rhixe_scans.users.adapters.AccountAdapter"
-# ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
-ACCOUNT_DEFAULT_HTTP_PROTOCOL = "http"
+# # ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
+# ACCOUNT_DEFAULT_HTTP_PROTOCOL = "http"
 # https://docs.allauth.org/en/latest/account/forms.html
 ACCOUNT_FORMS = {
     "signup": "rhixe_scans.users.forms.UserSignupForm",

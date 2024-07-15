@@ -40,3 +40,6 @@ django-ckeditor-5
 black>=24.4.2
 qrcode>=7.0.0
 olefile>=0.47
+django-admin-sortable2
+django-formtools
+django-formset-js-improved
