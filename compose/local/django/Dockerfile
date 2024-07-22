@@ -12,10 +12,10 @@
 # # ENV DJANGO_AWS_S3_CUSTOM_DOMAIN=${DJANGO_AWS_S3_CUSTOM_DOMAIN}
 # RUN npm run build --omit=dev
 # define an alias for the specific python version used in this file.
-FROM docker.io/python:3.12.3-slim-bookworm as python
+FROM docker.io/python:3.12.4-slim-bookworm AS python
 
 # Python build stage
-FROM python as python-build-stage
+FROM python AS python-build-stage
 
 ARG BUILD_ENVIRONMENT=local
 
@@ -35,20 +35,25 @@ RUN pip wheel --wheel-dir /usr/src/app/wheels  \
 
 
 # Python 'run' stage
-FROM python as python-run-stage
+FROM python AS python-run-stage
 
 ARG BUILD_ENVIRONMENT=local
-ARG APP_HOME=/app
+ARG APP_HOME=/home/bot/app
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV BUILD_ENV ${BUILD_ENVIRONMENT}
 
+
+
+# RUN addgroup --system django \
+#   && adduser --system --ingroup django django
+
+RUN useradd --user-group --create-home --shell /bin/bash bot
+
 WORKDIR ${APP_HOME}
 
-RUN addgroup --system django \
-  && adduser --system --ingroup django django
-
+ENV HOME=${APP_HOME}
 
 # Install required system dependencies
 RUN apt-get update ; apt-get dist-upgrade -y ; apt-get install --no-install-recommends -y \
@@ -62,57 +67,64 @@ RUN apt-get update ; apt-get dist-upgrade -y ; apt-get install --no-install-reco
 
 # All absolute dir copies ignore workdir instruction. All relative dir copies are wrt to the workdir instruction
 # copy python dependency wheels from python-build-stage
+
 COPY --from=python-build-stage /usr/src/app/wheels  /wheels/
 
-RUN python -m venv /opt/venv
+RUN python -m venv /home/bot/venv
 
-ENV PATH="/opt/venv/bin:$PATH"
+ENV PATH="/home/bot/venv/bin:$PATH"
+# RUN python -m pip install -U pip
+
+
 # use wheels to install python dependencies
-RUN pip install --no-cache-dir --no-index --find-links=/wheels/ /wheels/* \
+RUN python -m pip install -U pip --no-cache-dir --no-index --find-links=/wheels/ /wheels/* \
   && rm -rf /wheels/
 
 
-COPY --chown=django:django ./compose/production/django/entrypoint /entrypoint
-RUN sed -i 's/\r$//g' /entrypoint
-RUN chmod +x /entrypoint
+COPY --chown=bot:bot ./compose/local/django/entrypoint /home/bot/entrypoint
+RUN sed -i 's/\r$//g' /home/bot/entrypoint
+RUN chmod +x /home/bot/entrypoint
 
 
-COPY --chown=django:django ./compose/local/django/start /start
-RUN sed -i 's/\r$//g' /start
-RUN chmod +x /start
-COPY --chown=django:django ./compose/local/django/celery/worker/start /start-celeryworker
-RUN sed -i 's/\r$//g' /start-celeryworker
-RUN chmod +x /start-celeryworker
+COPY --chown=bot:bot ./compose/local/django/start /home/bot/start
+RUN sed -i 's/\r$//g' /home/bot/start
+RUN chmod +x /home/bot/start
+
+COPY --chown=bot:bot ./compose/local/django/celery/worker/start /home/bot/start-celeryworker
+RUN sed -i 's/\r$//g' /home/bot/start-celeryworker
+RUN chmod +x /home/bot/start-celeryworker
 
 
-COPY --chown=django:django ./compose/local/django/celery/beat/start /start-celerybeat
-RUN sed -i 's/\r$//g' /start-celerybeat
-RUN chmod +x /start-celerybeat
+COPY --chown=bot:bot ./compose/local/django/celery/beat/start /home/bot/start-celerybeat
+RUN sed -i 's/\r$//g' /home/bot/start-celerybeat
+RUN chmod +x /home/bot/start-celerybeat
 
 
-COPY --chown=django:django ./compose/local/django/celery/flower/start /start-flower
-RUN sed -i 's/\r$//g' /start-flower
-RUN chmod +x /start-flower
+COPY --chown=bot:bot ./compose/local/django/celery/flower/start /home/bot/start-flower
+RUN sed -i 's/\r$//g' /home/bot/start-flower
+RUN chmod +x /home/bot/start-flower
 
-COPY --chown=django:django ./compose/local/django/gunicorn-cfg.py /gunicorn-cfg.py
+COPY --chown=bot:bot ./compose/local/django/gunicorn-cfg.py /home/bot/gunicorn-cfg.py
 
 # copy application code to WORKDIR
-# COPY --from=client-builder --chown=django:django ${APP_HOME} ${APP_HOME}
+# COPY --from=client-builder --chown=bot:bot ${APP_HOME} ${APP_HOME}
 
-COPY --chown=django:django . ${APP_HOME}
+
+
+RUN    mkdir -p $HOME/staticfiles
+RUN   chown -R bot:bot $HOME/staticfiles
+
+COPY --chown=bot:bot . $HOME
 
 # make django owner of the WORKDIR directory as well.
-RUN chown -R django:django ${APP_HOME}
+RUN chown -R bot:bot $HOME
 
-RUN    mkdir -p /app/static
-RUN   chown -R django:django /app/static
-
-USER django
+USER bot
 
 RUN DATABASE_URL="" \
   CELERY_BROKER_URL="" \
   DJANGO_SETTINGS_MODULE="config.settings.test" \
-  python manage.py makemessages -a -e html,txt,py
+  python manage.py makemessages -a -e html,txt,py,js,css
 
 RUN DATABASE_URL="" \
   CELERY_BROKER_URL="" \
@@ -124,4 +136,4 @@ RUN DATABASE_URL="" \
 #   DJANGO_SETTINGS_MODULE="config.settings.test" \
 #   python manage.py collectstatic --noinput --clear
 
-ENTRYPOINT ["/entrypoint"]
+ENTRYPOINT ["/home/bot/entrypoint"]

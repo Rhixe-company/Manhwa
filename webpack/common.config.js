@@ -2,17 +2,18 @@ const path = require("path");
 const BundleTracker = require("webpack-bundle-tracker");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const webpack = require("webpack");
-const WindiCSSWebpackPlugin = require("windicss-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+const { SourceMapDevToolPlugin } = require("webpack");
 
 module.exports = {
-  target: ["web"],
+  target: ["web", "es5"],
   context: path.join(__dirname, "../"),
   entry: {
     index: path.resolve(__dirname, "../", "src", "index"),
     vendors: path.resolve(__dirname, "../", "src", "vendors"),
     chapters: path.resolve(__dirname, "../", "src", "chapters"),
     search: path.resolve(__dirname, "../", "src", "search"),
-    ckeditor: path.resolve(__dirname, "../", "src", "ckeditor"),
 
     // modal: path.resolve(__dirname, "../", "src", "modal"),
     // drawer: path.resolve(__dirname, "../", "src", "drawer"),
@@ -36,14 +37,28 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "css/[name].[contenthash].css",
     }),
-    new WindiCSSWebpackPlugin(),
+    new SourceMapDevToolPlugin({
+      publicPath: "/static/webpack_bundles/",
+      filename: "[file].map",
+    }),
   ],
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: "ts-loader",
-        exclude: /node_modules/,
+        use: [
+          {
+            loader: "ts-loader",
+            options: {
+              transpileOnly: true,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.jsx?$/,
+        enforce: "pre",
+        use: ["source-map-loader"],
       },
       {
         test: /\.jsx?$/,
@@ -55,6 +70,7 @@ module.exports = {
           },
         },
       },
+
       {
         test: /\.s?css$/i,
         use: [
@@ -83,32 +99,19 @@ module.exports = {
   },
   optimization: {
     minimize: true,
-    splitChunks: {
-      chunks: "async",
-      minSize: 20000000,
-      minRemainingSize: 0,
-      minChunks: 1,
-      maxAsyncRequests: 60,
-      maxInitialRequests: 60,
-      enforceSizeThreshold: 50000000,
-      // cacheGroups: {
-      //   defaultVendors: {
-      //     filename: "js/[name]-[contenthash].js",
-      //     test: /[\\/]node_modules[\\/]/,
-      //     name: "ven",
-      //     chunks: "all",
-      //     priority: -10,
-      //     reuseExistingChunk: true,
-      //   },
-      //   commons: {
-      //     filename: "js/[name]-[contenthash].js",
-      //     test: /[\\/]node_modules[\\/]/,
-      //     name: "vendor",
-      //     chunks: "all",
-      //     priority: -10,
-      //     reuseExistingChunk: true,
-      //   },
-      // },
-    },
+    minimizer: [
+      // For webpack@5 you can use the `...` syntax to extend existing minimizers (i.e. `terser-webpack-plugin`), uncomment the next line
+      // `...`,
+      new CssMinimizerPlugin(),
+      new TerserPlugin({
+        include: /\.min\.(css|js)$/,
+        extractComments: false,
+        terserOptions: {
+          format: {
+            comments: false,
+          },
+        },
+      }),
+    ],
   },
 };

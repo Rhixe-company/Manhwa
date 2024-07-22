@@ -38,6 +38,10 @@ celery-beat:
 
 celery-worker:
 	$(PYTHON)  -m celery -A config.celery_app worker -Q normal -l info
+dump:
+	$(PYTHON)  ./manage.py dumpdata --exclude auth.permission --exclude contenttypes --indent 2 --format json > db.json
+load:
+	$(PYTHON) ./manage.py  loaddata db.json
 
 
 dev:

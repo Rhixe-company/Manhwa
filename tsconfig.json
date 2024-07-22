@@ -2,16 +2,24 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Default",
   "compilerOptions": {
-    "outDir": "./dist/webpack_bundles/js",
+    "lib": [
+      "dom",
+      "es2015"
+    ],
+    "outDir": "./dist/webpack_bundles/js/cjs",
+    // "rootDir": "./src/",
     "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
     "noImplicitAny": true,
-    "module": "CommonJS",
-    "target": "ES6",
+    "module": "commonjs",
+    "target": "es5",
     "jsx": "react",
     "allowJs": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "strict": true,
+    "forceConsistentCasingInFileNames": true,
     "typeRoots": [
       "./node_modules/@types"
     ]
@@ -21,7 +29,7 @@
     "./src/types"
   ],
   "exclude": [
-    "**/dist/**",
-    "**/node_modules/**"
+    "dist",
+    "node_modules"
   ]
 }

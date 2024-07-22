@@ -48,12 +48,12 @@ class ImagesColumn(tables.Column):
         )
 
 
-class Image_urlsColumn(tables.Column):
-    def render(self, value):
-        return format_html(
-            '<div class=" flex items-center p-2 mr-6 space-x-3 "><img class="w-10 h-10 rounded-full"     src="{}" /></div>',
-            value,
-        )
+# class Image_urlsColumn(tables.Column):
+#     def render(self, value):
+#         return format_html(
+#             '<div class=" flex items-center p-2 mr-6 space-x-3 "><img class="w-10 h-10 rounded-full"     src="{}" /></div>',
+#             value,
+#         )
 
 
 class TitleColumn(tables.Column):
@@ -68,7 +68,7 @@ class ChapterTable(tables.Table):
     check = MaterializeCssCheckboxColumn(accessor="pk", orderable=False)
     name = TitleColumn(linkify=True)
     numPages = tables.Column()
-    comic = Image_urlsColumn(accessor="comic__image_urls", linkify=True)
+    comic = ImagesColumn(accessor="comic__image_urls", linkify=True)
     update = tables.TemplateColumn(
         template_name="partials/chapters/update_button.html", orderable=False
     )
@@ -109,8 +109,8 @@ class ComicTable(tables.Table):
         template_name="partials/comics/delete_button.html", orderable=False
     )
     title = TitleColumn(linkify=True)
-    image_urls = Image_urlsColumn(accessor="image_urls", linkify=True)
-    # images = Image_urlsColumn(accessor="images", linkify=True)
+    # image_urls = Image_urlsColumn(accessor="image_urls", linkify=True)
+    images = ImagesColumn(accessor="images", linkify=True)
     status = tables.Column()
     category = tables.Column()
     # author = tables.Column()
@@ -136,7 +136,7 @@ class ComicTable(tables.Table):
         sequence = (
             "check",
             "title",
-            "image_urls",
+            "images",
             "category",
             # "artist",
             # "author",
@@ -148,7 +148,7 @@ class ComicTable(tables.Table):
         fields = (
             "check",
             "title",
-            "image_urls",
+            "images",
             "category",
             # "artist",
             # "author",
@@ -165,11 +165,75 @@ class ComicTable(tables.Table):
         return table
 
 
+class SearchTable(tables.Table):
+    # id = MaterializeCssCheckboxColumn(accessor="pk", orderable=False)
+    check = MaterializeCssCheckboxColumn(accessor="pk")
+
+    title = TitleColumn(linkify=True)
+    # image_urls = Image_urlsColumn(accessor="image_urls", linkify=True)
+    images = ImagesColumn(accessor="images", linkify=True)
+    status = tables.Column()
+    rating = tables.Column()
+    category = tables.Column()
+    author = tables.Column()
+    artist = tables.Column()
+    created_at = tables.DateColumn(format="M d Y")
+    updated_at = tables.DateTimeColumn(format=settings.DATETIME_FORMAT)
+    genres = tables.ManyToManyColumn()
+
+    class Meta:
+        model = Comic
+        # template_name = "django_tables2/semantic.html"
+        # template_name = "tables/bootstrap_htmx.html"
+        attrs = {
+            "th": {
+                "_ordering": {
+                    "orderable": "sortable",  # Instead of `orderable`
+                    "ascending": "ascend",  # Instead of `asc`
+                    "descending": "descend",  # Instead of `desc`
+                }
+            },
+        }
+        row_attrs = {"data-id": lambda record: record.pk}
+        sequence = (
+            "check",
+            "title",
+            "images",
+            "category",
+            "artist",
+            "author",
+            "status",
+            "rating",
+            "created_at",
+            "genres",
+            "updated_at",
+        )
+        fields = (
+            "check",
+            "title",
+            "images",
+            "category",
+            "artist",
+            "author",
+            "status",
+            "rating",
+            "created_at",
+            "genres",
+            "updated_at",
+        )
+
+    @classmethod
+    def render_paginated_table(cls, request):
+        table = cls(data=Comic.objects.all())
+        table.paginate(page=request.GET.get("page", 1), per_page=settings.PAGINATE_BY)
+        return table
+
+
 class PanelTable(tables.Table):
     check = MaterializeCssCheckboxColumn(accessor="pk")
-    images = Image_urlsColumn()
-    comic = Image_urlsColumn(accessor="comic__image_urls")
-    chapter = Image_urlsColumn(accessor="chapter__name")
+    images = ImagesColumn()
+    comic = ImagesColumn(accessor="comic__image_urls")
+    chapter = ImagesColumn(accessor="chapter__name")
 
     class Meta:
         model = Panel

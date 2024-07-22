@@ -5,8 +5,8 @@ import "highlight.js/styles/devibeans.css";
 import "htmx.org";
 import _hyperscript from "hyperscript.org";
 import Sortable from "sortablejs";
-import { Carousel, Input, Modal, Ripple, initTWE } from "tw-elements";
-import "./modules";
+import { Carousel, initTWE, Input, Modal, Ripple } from "tw-elements";
+
 const htmx = require("htmx.org");
 window.Alpine = Alpine;
 window.htmx = htmx;

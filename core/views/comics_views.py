@@ -1,7 +1,7 @@
 from core.decorators import admin_only, user_only
 from core.forms import ComicForm
-from core.models import Comic, UserComics, Chapter
-from core.tables import ComicTable
+from core.models import Comic, UserComics
+from core.tables import ComicTable, SearchTable
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -13,17 +13,15 @@ from render_block import render_block_to_string
 from core.filters import ComicFilter, SearchFilter
 from django_filters.views import FilterView
 from django_tables2.views import SingleTableMixin
-from django_tables2.export import ExportMixin
 from django_tables2.export.export import TableExport
 from django.conf import settings
 from django_tables2 import RequestConfig
-from scraper.tasks import my_task
+from crawler.tasks import my_task
 from django.utils import timezone
 from celery_progress.views import get_progress
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
-from celery.result import AsyncResult
-from django.db.models import F, Count, Q
+from django.db.models import Q
 
 
 class TaskStatus(LoginRequiredMixin, View):
@@ -72,14 +70,12 @@ def comic_list(request):
             response = HttpResponse(html)
             return trigger_client_event(response, "comic_added")
             # return HttpResponseClientRefresh()
-
         else:
             context = {"form": form}
             html = render_block_to_string(
                 "partials/comics/create.html", "Comicscreate", context
             )
             response = HttpResponse(html)
-
             # return HttpResponseClientRefresh()
             return response
 
@@ -108,11 +104,9 @@ def comic_list(request):
 
 
 class ComicSearchView(SingleTableMixin, FilterView):
-    table_class = ComicTable
+    table_class = SearchTable
     model = Comic
-
     template_name = "core/views/search.html"
-
     filterset_class = SearchFilter
 
     def get_template_names(self):
@@ -131,9 +125,8 @@ def index(request):
     query = Q(title__icontains=startswith)
     comics = Comic.objects.filter(query)
     myFilter = ComicFilter(request.GET, queryset=comics)
-    comics = myFilter.qs
-    paginator = Paginator(comics, settings.PAGINATE_BY)
-
+    newcomics = myFilter.qs
+    paginator = Paginator(newcomics, settings.PAGINATE_BY)
     page_obj = paginator.get_page(page_number)
     context = {
         "comics": page_obj,
@@ -149,7 +142,7 @@ def index(request):
         "myFilter": myFilter,
     }
     if request.htmx:
-        return render(request, "partials/pages/grid.html", context)
+        return render(request, "partials/views/grid.html", context)
 
     return render(request, "core/views/index.html", context)
 

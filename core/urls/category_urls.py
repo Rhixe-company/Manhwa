@@ -13,6 +13,11 @@ urlpatterns = [
         category_views.CategoryUpdateView.as_view(),
         name="edit_category",
     ),
+    path(
+        "<int:pk>/delete/",
+        category_views.category_delete,
+        name="delete_category",
+    ),
 ]
 
 htmx_urlpatterns = []

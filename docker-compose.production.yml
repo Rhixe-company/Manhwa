@@ -1,9 +1,9 @@
-volumes:
-  postgres_data: {}
-  postgres_data_backups: {}
-  traefik: {}
-  static: {}
-  redis_data: {}
+# volumes:
+#   postgres_data: {}
+#   postgres_data_backups: {}
+#   traefik: {}
+#   # static: {}
+#   redis_data: {}
 
 networks:
   app-network:
@@ -36,13 +36,13 @@ services:
       node:
         condition: service_completed_successfully
     volumes:
-      - .:/app:z
-      - ./rhixe_scans/media:/app/rhixe_scans/media
-      - static:/app/staticfiles
+      - .:/home/bot/app
+      - ./rhixe_scans/media:/home/bot/app/rhixe_scans/media
+      - ./staticfiles:/home/bot/app/staticfiles
     env_file:
       - ./.envs/.production/.django
       - ./.envs/.production/.postgres
-    command: /start
+    command: /home/bot/start
     networks:
       app-network:
         ipv4_address: 192.169.0.3
@@ -54,8 +54,8 @@ services:
     image: rhixe/rhixe_scans:postgres
     container_name: postgres
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
-      - postgres_data_backups:/backups
+      - ./data/postgres_data:/var/lib/postgresql
+      - ./data/postgres_data_backups:/backups
 
     env_file:
       - ./.envs/.production/.postgres
@@ -72,7 +72,7 @@ services:
     depends_on:
       - django
     volumes:
-      - traefik:/etc/traefik/acme
+      - ./data/traefik:/etc/traefik/acme
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
@@ -89,7 +89,7 @@ services:
     image: rhixe/rhixe_scans:redis
     container_name: redis
     volumes:
-      - redis_data:/data
+      - ./data/redis_data:/data
 
     ports:
       - "6379:6379"
@@ -104,6 +104,8 @@ services:
       dockerfile: ./compose/production/redis-slave/Dockerfile
     image: rhixe/rhixe_scans:redis-slave
     container_name: redis-slave
+    volumes:
+      - ./data/redis_data:/data
     depends_on:
       redis:
         condition: service_started
@@ -126,7 +128,7 @@ services:
         condition: service_started
       django:
         condition: service_started
-    command: /start-celeryworker
+    command: /home/bot/start-celeryworker
     env_file:
       - ./.envs/.production/.django
       - ./.envs/.production/.postgres
@@ -137,7 +139,7 @@ services:
   celerybeat:
     <<: *django
     image: rhixe/rhixe_scans:celerybeat
-    command: /start-celerybeat
+    command: /home/bot/start-celerybeat
     container_name: celerybeat
     depends_on:
       redis:
@@ -159,7 +161,7 @@ services:
     <<: *django
     image: rhixe/rhixe_scans:flower
 
-    command: /start-flower
+    command: /home/bot/start-flower
     container_name: flower
     env_file:
       - ./.envs/.production/.django
@@ -188,8 +190,8 @@ services:
       django:
         condition: service_started
     volumes:
-      - ./rhixe_scans/media:/app/media
-      - static:/app/static
+      - ./rhixe_scans/media:/home/bot/app/media
+      - ./staticfiles:/home/bot/app/staticfiles
     networks:
       app-network:
         ipv4_address: 192.169.0.11
@@ -202,9 +204,9 @@ services:
     container_name: node
 
     volumes:
-      - .:/app:z
+      - .:/home/bot/app
       # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
-      - /app/node_modules
+      - /home/bot/app/node_modules
     command: npm run build
     # ports:
     #   - "3000:3000"

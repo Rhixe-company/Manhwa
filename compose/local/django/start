@@ -4,8 +4,8 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-python /app/manage.py makemigrations
-python /app/manage.py migrate
-python /app/manage.py collectstatic --noinput
+# python manage.py makemigrations
+python manage.py migrate
+python manage.py collectstatic --noinput --clear
 # exec python manage.py runserver_plus 0.0.0.0:5000
-exec /opt/venv/bin/gunicorn --config /gunicorn-cfg.py config.wsgi --chdir=/app
+exec gunicorn --config /home/bot/gunicorn-cfg.py config.wsgi --chdir=/home/bot/app

@@ -7,15 +7,29 @@ $(document).ready(function () {
   $("#id_category").select2({
     closeOnSelect: true,
     placeholder: "Select a category",
-    multiple: true,
-    // amdLanguageBase: "select2/i18n/",
+    multiple: false,
+    amdLanguageBase: "select2/i18n/",
     // theme: "classic",
   });
   $("#id_genres").select2({
-    closeOnSelect: true,
+    closeOnSelect: false,
     placeholder: "Select a genre",
     multiple: true,
-    // amdLanguageBase: "select2/i18n/",
+    amdLanguageBase: "select2/i18n/",
+    // theme: "classic",
+  });
+  $("#id_author").select2({
+    closeOnSelect: true,
+    placeholder: "Select an author",
+    multiple: false,
+    amdLanguageBase: "select2/i18n/",
+    // theme: "classic",
+  });
+  $("#id_artist").select2({
+    closeOnSelect: true,
+    placeholder: "Select a artist",
+    multiple: false,
+    amdLanguageBase: "select2/i18n/",
     // theme: "classic",
   });
 });

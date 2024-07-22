@@ -21,7 +21,7 @@ def user_image_location(instance, filename):
 
 
 ext_validator = FileExtensionValidator(
-    ["ico", "png", "jpg", "svg", "jpeg", "gif", "webp", "ttf", "eot", "woff", "woff2"]
+    ["ico", "jpg", "svg", "jpeg", "png", "gif", "bmp", "webp", "tiff"]
 )
 
 

@@ -47,7 +47,7 @@ class ComicAdminConfig(admin.ModelAdmin):
     ordering = ("-updated_at",)
     list_display = (
         "title",
-        "image_urls",
+        "images",
         "slug",
     )
     prepopulated_fields = {"slug": ("title",)}

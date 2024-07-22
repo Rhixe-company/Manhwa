@@ -1,9 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400..700;1,400..700&display=swap");
 @tailwind base;
 @tailwind components;
-
-@tailwind utilities;
-@tailwind variants;
-@tailwind screens;
 @import "select";
 @import "style";
+@tailwind utilities;
+// @tailwind variants;
+// @tailwind screens;
+// a.active {
+//   @apply border-primary-400 text-gray-800   dark:text-white/50 dark:hover:bg-neutral-700/60;
+// }
+
+body {
+  box-sizing: border-box;
+  @apply m-0 items-center justify-between bg-gray-200 p-0 font-sans text-gray-800 dark:bg-gray-800 dark:text-gray-200;
+}

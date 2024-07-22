@@ -12,10 +12,10 @@ class NewManager(models.QuerySet):
 
     def get_topcomics(self):
         not_monthly_created = ~Q(
-            created_at__gt=timezone.now() - timezone.timedelta(days=31)
-        ) & Q(rating__gte=10.0)
+            created_at__gt=timezone.now() - timezone.timedelta(days=186)
+        ) & Q(rating__gte=9.9)
 
-        return self.filter(not_monthly_created).order_by("-updated_at")
+        return self.filter(not_monthly_created).order_by("-created_at")[0:3]
 
     def get_featuredcomics(self):
         yearly_created = ~Q(

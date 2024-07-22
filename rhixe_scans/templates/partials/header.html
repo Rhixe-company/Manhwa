@@ -27,7 +27,7 @@
         <a href='{% url "index" %}' class="ml-2 flex md:mr-24">
           <img src="{% static 'images/logos/logo_trans.svg'%}" alt="logo" class="mr-3 h-8" />
         </a>
-        <form action="#" method="GET" class="hidden lg:block lg:pl-3.5">
+        <form action='{% url "index" %}' method="GET" class="hidden lg:block lg:pl-3.5">
           <label for="topbar-search" class="sr-only">Search</label>
           <div class="relative mt-1 lg:w-96">
             <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -324,7 +324,7 @@
             </div>
             <ul class="py-1" role="none">
               <li>
-                <a href="{% url 'comics:search' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem"
+                <a href="{% url 'index' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem"
                   >Dashboard</a
                 >
               </li>

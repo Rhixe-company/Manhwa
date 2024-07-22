@@ -1,5 +1,6 @@
 # ruff: noqa: E501
 from .base import *  # noqa: F403
+
 from .base import INSTALLED_APPS
 from .base import env
 
@@ -9,32 +10,7 @@ from .base import env
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["rhixescans.online"])
-# ALLOWED_HOSTS = ["*"]
-# DATABASES
-# ------------------------------------------------------------------------------
-# DATABASES = {"default": env.db("DATABASE_URL")}
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "rhixe_scans.sqlite3",
-#         "USER": "",
-#         "PASSWORD": "",
-#         "HOST": "",
-#         "PORT": "",
-#     }
-# }
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("POSTGRES_DB"),
-        "USER": env("POSTGRES_USER"),
-        "PASSWORD": env("POSTGRES_PASSWORD"),
-        "HOST": env("POSTGRES_HOST"),
-        "PORT": env("POSTGRES_PORT"),
-    }
-}
-DATABASES["default"]["ATOMIC_REQUESTS"] = True
-DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)
+
 
 # CACHES
 # ------------------------------------------------------------------------------
@@ -59,8 +35,12 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)
 # https://docs.djangoproject.com/en/dev/ref/settings/#session-cookie-secure
 SESSION_COOKIE_SECURE = True
+# https://docs.djangoproject.com/en/dev/ref/settings/#session-cookie-name
+SESSION_COOKIE_NAME = "__Secure-sessionid"
 # https://docs.djangoproject.com/en/dev/ref/settings/#csrf-cookie-secure
 CSRF_COOKIE_SECURE = True
+# https://docs.djangoproject.com/en/dev/ref/settings/#csrf-cookie-name
+CSRF_COOKIE_NAME = "__Secure-csrftoken"
 # https://docs.djangoproject.com/en/dev/topics/security/#ssl-https
 # https://docs.djangoproject.com/en/dev/ref/settings/#secure-hsts-seconds
 # TODO: set this to 60 seconds first and then to 518400 once you prove the former works
@@ -78,59 +58,20 @@ SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
     default=True,
 )
 
-# # STORAGES
-# # ------------------------------------------------------------------------------
-# # https://django-storages.readthedocs.io/en/latest/#installation
-# INSTALLED_APPS += ["storages"]
-# # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings
-# AWS_ACCESS_KEY_ID = env("DJANGO_AWS_ACCESS_KEY_ID")
-# # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings
-# AWS_SECRET_ACCESS_KEY = env("DJANGO_AWS_SECRET_ACCESS_KEY")
-# # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings
-# AWS_STORAGE_BUCKET_NAME = env("DJANGO_AWS_STORAGE_BUCKET_NAME")
-# # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings
-# AWS_QUERYSTRING_AUTH = False
-# # DO NOT change these unless you know what you're doing.
-# _AWS_EXPIRY = 60 * 60 * 24 * 7
-# # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings
-# AWS_S3_OBJECT_PARAMETERS = {
-#     "CacheControl": f"max-age={_AWS_EXPIRY}, s-maxage={_AWS_EXPIRY}, must-revalidate",
-# }
-# # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings
-# AWS_S3_MAX_MEMORY_SIZE = env.int(
-#     "DJANGO_AWS_S3_MAX_MEMORY_SIZE",
-#     default=100_000_000,  # 100MB
-# )
-# # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings
-# AWS_S3_REGION_NAME = env("DJANGO_AWS_S3_REGION_NAME", default=None)
-# # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#cloudfront
-# AWS_S3_CUSTOM_DOMAIN = env("DJANGO_AWS_S3_CUSTOM_DOMAIN", default=None)
-# aws_s3_domain = AWS_S3_CUSTOM_DOMAIN or f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
-# # STATIC & MEDIA
-# # ------------------------
-# STORAGES = {
-#     "default": {
-#         "BACKEND": "storages.backends.s3.S3Storage",
-#         "OPTIONS": {
-#             "location": "media",
-#             "file_overwrite": False,
-#         },
-#     },
-#     "staticfiles": {
-#         "BACKEND": "storages.backends.s3.S3Storage",
-#         "OPTIONS": {
-#             "location": "static",
-#             "default_acl": "public-read",
-#         },
-#     },
-# }
-# MEDIA_URL = f"https://{aws_s3_domain}/media/"
-# COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
-# STATIC_URL = f"https://{aws_s3_domain}/static/"
+# STATIC & MEDIA
+# ------------------------
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 # EMAIL
 # ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
 DEFAULT_FROM_EMAIL = env(
     "DJANGO_DEFAULT_FROM_EMAIL",
     default="noreply@rhixescans.online",
@@ -152,30 +93,23 @@ EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="rhixecompany@gmail.com")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="ghj")
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
-
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-timeout
+EMAIL_TIMEOUT = 5
 # ADMIN
 # ------------------------------------------------------------------------------
 # Django Admin URL regex.
 ADMIN_URL = env("DJANGO_ADMIN_URL")
 
-# # Anymail
-# # ------------------------------------------------------------------------------
-# # https://anymail.readthedocs.io/en/stable/installation/#installing-anymail
-# INSTALLED_APPS += ["anymail"]
-# # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-# # https://anymail.readthedocs.io/en/stable/installation/#anymail-settings-reference
-# # https://anymail.readthedocs.io/en/stable/esps/mailgun/
-# EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
-# ANYMAIL = {
-#     "MAILGUN_API_KEY": env("MAILGUN_API_KEY"),
-#     "MAILGUN_SENDER_DOMAIN": env("MAILGUN_DOMAIN"),
-#     "MAILGUN_API_URL": env("MAILGUN_API_URL", default="https://api.mailgun.net/v3"),
-# }
+# Anymail
+# ------------------------------------------------------------------------------
+# https://anymail.readthedocs.io/en/stable/installation/#installing-anymail
+INSTALLED_APPS += ["anymail"]
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
+# https://anymail.readthedocs.io/en/stable/installation/#anymail-settings-reference
+# https://anymail.readthedocs.io/en/stable/esps
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+ANYMAIL = {}
 
-# # Collectfast
-# # ------------------------------------------------------------------------------
-# # https://github.com/antonagestam/collectfast#installation
-# INSTALLED_APPS = ["collectfast", *INSTALLED_APPS]
 
 # LOGGING
 # ------------------------------------------------------------------------------
@@ -224,9 +158,204 @@ LOGGING = {
 
 # Your stuff...
 # ------------------------------------------------------------------------------
-PAGINATE_BY = 21
+# DATABASES
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#databases
+if (
+    env("POSTGRES_ENGINE", default="django.db.backends.sqlite3")
+    == "django.db.backends.postgresql"
+):
+    DATABASES = {
+        "default": {
+            "ENGINE": env("POSTGRES_ENGINE"),
+            "NAME": env("POSTGRES_DB"),
+            "USER": env("POSTGRES_USER"),
+            "PASSWORD": env("POSTGRES_PASSWORD"),
+            "HOST": env("POSTGRES_HOST"),
+            "PORT": env("POSTGRES_PORT"),
+        }
+    }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "rhixe_scans.sqlite3",
+            "USER": "",
+            "PASSWORD": "",
+            "HOST": "",
+            "PORT": "",
+        }
+    }
+DATABASES["default"]["ATOMIC_REQUESTS"] = True
+DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)
 
-EMAIL_BACKEND = env(
-    "DJANGO_EMAIL_BACKEND",
-    default="django.core.mail.backends.console.EmailBackend",
-)
+DATETIME_FORMAT = "M d Y, h:i A"
+
+customColorPalette = [
+    {"color": "hsl(4, 90%, 58%)", "label": "Red"},
+    {"color": "hsl(340, 82%, 52%)", "label": "Pink"},
+    {"color": "hsl(291, 64%, 42%)", "label": "Purple"},
+    {"color": "hsl(262, 52%, 47%)", "label": "Deep Purple"},
+    {"color": "hsl(231, 48%, 48%)", "label": "Indigo"},
+    {"color": "hsl(207, 90%, 54%)", "label": "Blue"},
+]
+
+CKEDITOR_5_ALLOW_ALL_FILE_TYPES = True
+CKEDITOR_5_UPLOAD_FILE_TYPES = [
+    "ico",
+    "jpg",
+    "svg",
+    "jpeg",
+    "png",
+    "gif",
+    "bmp",
+    "webp",
+    "tiff",
+]
+# CKEDITOR_5_CUSTOM_CSS = str(BASE_DIR / "src/sass/index.scss"),
+CKEDITOR_5_FILE_STORAGE = "config.utils.CustomStorage"
+# Define a constant in settings.py to specify the custom upload file view
+CK_EDITOR_5_UPLOAD_FILE_VIEW_NAME = "custom_upload_file"
+CKEDITOR_5_CONFIGS = {
+    "default": {
+        "toolbar": [
+            "heading",
+            "|",
+            "bold",
+            "italic",
+            "link",
+            "bulletedList",
+            "numberedList",
+            "blockQuote",
+            "imageUpload",
+        ],
+    },
+    "comment": {
+        "language": {"ui": "en", "content": "en"},
+        "toolbar": [
+            "heading",
+            "|",
+            "bold",
+            "italic",
+            "link",
+            "bulletedList",
+            "numberedList",
+            "blockQuote",
+        ],
+    },
+    "extends": {
+        "language": "en",
+        "enterMode": "2",
+        "shiftEnterMode": "1",
+        "blockToolbar": [
+            "paragraph",
+            "heading1",
+            "heading2",
+            "heading3",
+            "|",
+            "bulletedList",
+            "numberedList",
+            "|",
+            "blockQuote",
+        ],
+        "toolbar": [
+            "bold",
+            "italic",
+            "underline",
+            "strikethrough",
+            "code",
+            "highlight",
+            "|",
+            "bulletedList",
+            "outdent",
+            "indent",
+            "blockQuote",
+            "insertImage",
+            "fontSize",
+            "fontColor",
+            "fontBackgroundColor",
+            "removeFormat",
+            "insertTable",
+        ],
+        "image": {
+            "toolbar": [
+                "imageTextAlternative",
+                "|",
+                "imageStyle:alignLeft",
+                "imageStyle:alignRight",
+                "imageStyle:alignCenter",
+                "imageStyle:side",
+                "|",
+                "toggleImageCaption",
+                "|",
+            ],
+            "styles": [
+                "full",
+                "side",
+                "alignLeft",
+                "alignRight",
+                "alignCenter",
+            ],
+        },
+        "table": {
+            "contentToolbar": [
+                "tableColumn",
+                "tableRow",
+                "mergeTableCells",
+                "tableProperties",
+                "tableCellProperties",
+            ],
+            "tableProperties": {
+                "borderColors": customColorPalette,
+                "backgroundColors": customColorPalette,
+            },
+            "tableCellProperties": {
+                "borderColors": customColorPalette,
+                "backgroundColors": customColorPalette,
+            },
+        },
+        "heading": {
+            "options": [
+                {
+                    "model": "paragraph",
+                    "title": "Paragraph",
+                    "class": "ck-heading_paragraph",
+                },
+                {
+                    "model": "heading1",
+                    "view": "h1",
+                    "title": "Heading 1",
+                    "class": "ck-heading_heading1",
+                },
+                {
+                    "model": "heading2",
+                    "view": "h2",
+                    "title": "Heading 2",
+                    "class": "ck-heading_heading2",
+                },
+                {
+                    "model": "heading3",
+                    "view": "h3",
+                    "title": "Heading 3",
+                    "class": "ck-heading_heading3",
+                },
+            ]
+        },
+    },
+    "list": {
+        "properties": {
+            "styles": True,
+            "startIndex": True,
+            "reversed": True,
+        }
+    },
+    "htmlSupport": {
+        "allow": [{"name": "/.*/", "attributes": True, "classes": True, "styles": True}]
+    },
+}
+
+
+RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY", default="hg")
+RECAPTCHA_PRIVATE_KEY = env("RECAPTCHA_PRIVATE_KEY", default="hg")
+
+PAGINATE_BY = 21

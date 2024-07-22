@@ -11,7 +11,7 @@ from .base import env
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = env(
     "DJANGO_SECRET_KEY",
-    default="ZiyIOeaXPug6VsWczPfDcIjaHwvl8GWSmZNC8sIsqgIFLpxMJ6umFuk4EqUBPNUV",
+    default="qFBH5xGosHYeOQdgke7bAdWqyHFrYv61UZbsBfziYtP4v7kstBVYfm95uVmsLThg",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#test-runner
 TEST_RUNNER = "django.test.runner.DiscoverRunner"
@@ -25,9 +25,7 @@ PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
 EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
-DATABASES = {"default": env.db("DATABASE_URL")}
 
-DATABASES["default"]["ATOMIC_REQUESTS"] = True
 # DEBUGGING FOR TEMPLATES
 # ------------------------------------------------------------------------------
 TEMPLATES[0]["OPTIONS"]["debug"] = True  # type: ignore[index]
@@ -43,3 +41,7 @@ WEBPACK_LOADER["DEFAULT"][
 ] = "webpack_loader.loaders.FakeWebpackLoader"  # noqa: F405
 # Your stuff...
 # ------------------------------------------------------------------------------
+
+DATABASES = {"default": env.db("DATABASE_URL")}
+
+DATABASES["default"]["ATOMIC_REQUESTS"] = True

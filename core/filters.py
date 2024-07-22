@@ -1,6 +1,6 @@
 import django_filters
 from django import forms
-from core.models import Comic, Genre, Chapter, Category
+from core.models import Comic, Genre, Chapter, Category, Author, Artist
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -71,8 +71,17 @@ class SearchFilter(django_filters.FilterSet):
         label="Rating",
     )
 
-    category = django_filters.ModelMultipleChoiceFilter(queryset=Category.objects.all())
+    category = django_filters.ModelMultipleChoiceFilter(
+        lookup_expr="exact", queryset=Category.objects.all()
+    )
+    author = django_filters.ModelMultipleChoiceFilter(
+        lookup_expr="exact", queryset=Author.objects.all()
+    )
+    artist = django_filters.ModelMultipleChoiceFilter(
+        lookup_expr="exact", queryset=Artist.objects.all()
+    )
     genres = django_filters.ModelMultipleChoiceFilter(
+        lookup_expr="exact",
         queryset=Genre.objects.all(),
         # widget=forms.CheckboxSelectMultiple(),
     )
@@ -92,6 +101,8 @@ class SearchFilter(django_filters.FilterSet):
             "title",
             "rating",
             "category",
+            "author",
+            "artist",
             "genres",
         )
 

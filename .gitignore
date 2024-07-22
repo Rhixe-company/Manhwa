@@ -267,9 +267,10 @@ rhixe_scans/media/
 
 .pytest_cache/
 .ipython/
-rhixe_scans/static/webpack_bundles/
+dist/webpack_bundles/
 webpack-stats.json
 .env
 .envs/*
 !.envs/.local/
 !rhixe_scans/media/images/
+data/

@@ -1,19 +1,84 @@
-{% extends "base.html" %} {% load static i18n widget_tweaks component_tags %}
+{% extends "base.html" %} {% load static i18n %}
 <!-- Modal footer -->
-{% block title %}{{category.name}}{% endblock title %}
+{% block title %}{% trans category.name %}{% endblock title %}
 <!-- content -->
 {% block content %}
-<div>
-  <div class="flex p-2">
-    <span class="pe-2">Category name:</span>
-    <h3 class="text-2xl font-bold">{{category.name|title}}</h3>
-  </div>
-  <div class="m-2 grid w-auto grid-cols-3 grid-rows-4 gap-2">{% component "card" comics=category.comic_category.all %} {% endcomponent %}</div>
 
-  <div>
-    <a href="{% url 'category:edit_category' category.pk %}" role="button" class="w-100 btn btn-primary mb-2">Edit Category Comics</a>
-    <a href="{% url 'category:list' %}" role="button" class="w-100 btn btn-secondary">All Category </a>
+<section class="p-4">
+  <div class="w-full max-w-full space-y-4 rounded-lg bg-white p-3 shadow dark:bg-gray-800 sm:p-4">
+    {% if category %}
+    <div class="w-full max-w-full rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800">
+      {% if request.user.is_authenticated and request.user.is_superuser %}
+      <div class="flex justify-end px-4 pt-4">
+        <button
+          id="dropdownButton"
+          data-dropdown-toggle="dropdown"
+          class="inline-block rounded-lg p-1.5 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+          type="button"
+        >
+          <span class="sr-only">Open dropdown</span>
+          <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
+            <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
+          </svg>
+        </button>
+        <!-- Dropdown menu -->
+        <div id="dropdown" class="z-10 hidden w-44 list-none divide-y divide-gray-100 rounded-lg bg-white text-base shadow dark:bg-gray-700">
+          <ul class="py-2" aria-labelledby="dropdownButton">
+            <li>
+              <a href="{% url 'category:edit_category' category.pk %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
+                >Edit</a
+              >
+            </li>
+            <li>
+              <a href="{% url 'category:delete_category' category.pk %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
+                >Delete</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="flex flex-col items-center pb-10">
+        <h5 class="mb-1 text-xl font-medium">{{ category.name|title }}</h5>
+      </div>
+    </div>
+    {% endif %}
   </div>
-</div>
-<!-- end -->
-{% component_js_dependencies %} {% endblock content %}
+  <div class="mt-3 w-full max-w-full space-y-4 rounded-lg bg-white p-3 shadow dark:bg-gray-800 sm:p-4">
+    {% for comic in category.comic_category.all %}
+    <div class="grid grid-flow-col grid-cols-2 gap-4 border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800">
+      <div>
+        <a href="{{comic.get_absolute_url}}">
+          <img class="w-76 h-25 object-none" src="{{comic.images.url}}" alt="{{comic.title|title}}" />
+        </a>
+      </div>
+
+      <div class="grid grid-flow-col grid-rows-2 gap-4">
+        <div>
+          <div>
+            <h4><a href="{{comic.get_absolute_url}}">{{comic.title|title}}</a></h4>
+          </div>
+        </div>
+        {% if comic.chapter_comic.all %}
+        <div>
+          <ul>
+            {% with comic.chapter_comic.first as first_chapter %}
+            <li>
+              <a href="{{first_chapter.get_absolute_url}}"> {{first_chapter.name}}</a>
+            </li>
+            {% endwith %} {% with comic.chapter_comic.last as last_chapter %}
+            <li>
+              <a href="{{last_chapter.get_absolute_url}}"> {{last_chapter.name}}</a>
+            </li>
+            {% endwith %}
+          </ul>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock content %}

@@ -6,6 +6,11 @@ from django.contrib import messages
 from django.views.generic.detail import SingleObjectMixin
 from core.forms import CategoryComicFormset
 from django.urls import reverse
+from core.decorators import admin_only, user_only
+from django_htmx.http import HttpResponseClientRefresh
+from django.views.decorators.http import require_http_methods
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 
 class CategoryListView(ListView):
@@ -55,3 +60,16 @@ class CategoryUpdateView(SingleObjectMixin, LoginRequiredMixin, FormView):
 
     def get_success_url(self):
         return reverse("category:detail", kwargs={"pk": self.object.pk})
+
+
+@require_http_methods(["DELETE"])
+@user_only
+@admin_only
+@login_required
+def category_delete(request, pk):
+    if Category.objects.filter(id=pk).exists():
+        cat = get_object_or_404(Category, id=pk)
+
+        cat.delete()
+
+        return HttpResponseClientRefresh()

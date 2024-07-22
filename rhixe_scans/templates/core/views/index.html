@@ -5,143 +5,56 @@
 {% block content %}
 
 <div class="p-4">
-  {% if topcomics %}
-  <div>
-    <h3 class="mb-4 text-2xl font-bold leading-none tracking-tight text-gray-900 dark:text-white md:text-3xl lg:text-4xl">Top Comics</h3>
+  {% comment %}
+  <div x-data="{currentTab : 'Home'}">
+    <!--Tabs navigation-->
+    <ul class="mb-5 flex list-none flex-row flex-wrap border-b-0 ps-0" role="tablist" data-twe-nav-ref>
+      {% with 'Home Profile Messages' as tablist %} {% include 'partials/views/tab.html' with tabs=tablist.split %} {% endwith %} {% include 'partials/views/tab.html' %}
+    </ul>
 
-    {% component "carousel" comics=topcomics %} {% endcomponent %}
-  </div>
-  {% endif %} {% if featuredcomics %}
-  <div class="mb-4 mt-4">
-    <h3 class="mb-4 text-2xl font-bold leading-none tracking-tight text-gray-900 dark:text-white md:text-3xl lg:text-4xl">Featured Comics</h3>
-    <div class="grid grid-cols-2 gap-2">
-      {% for comic in featuredcomics %}
-      <div class="card card-compact w-auto border border-gray-400 bg-base-100 p-2 shadow-xl">
-        <figure>
-          <a href="{{comic.get_absolute_url}}">
-            {% if comic.images and comic.images != "/images/placeholder.png" %}
-            <img src="{{comic.images.url}}" alt="Shoes" />
-            {% else %}
-            <img src="{{comic.image_urls}}" alt="Shoes" />
-            {% endif %}
-          </a>
-        </figure>
-        <div class="card-body">
-          <h4 class="card-title">
-            <a href="{{comic.get_absolute_url}}">{{comic.title|title}} </a>
-          </h4>
-          <p>
-            Type:
-            <a href="{{comic.category.get_absolute_url}}">{{comic.category.name}}</a>
-          </p>
-
-          <p>Status: {{comic.get_status_display}}</p>
-          <div class="flex items-center gap-1">
-            <span class="fa fa-star {% if comic.rating > 5.5 %} checked {% endif %} text-yellow-300"></span>
-            <span class="fa fa-star {% if comic.rating > 6.5 %} checked {% endif %} text-yellow-300"></span>
-            <span class="fa fa-star {% if comic.rating > 7.5 %} checked {% endif %} text-yellow-300"></span>
-            <span class="fa fa-star {% if comic.rating > 8.5 %} checked {% endif %} text-yellow-300"></span>
-            <span class="fa fa-star {% if comic.rating > 9.5 %} checked {% endif %} text-yellow-300"></span>
-            <p class="text-sm font-medium leading-none text-gray-500 dark:text-gray-400">{{comic.rating}}</p>
-          </div>
-        </div>
+    <!--Tabs content-->
+    <div class="mb-6">
+      <div
+        x-show="currentTab == 'Home'"
+        class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
+        id="tabs-home"
+        role="tabpanel"
+        aria-labelledby="tabs-home-tab"
+        data-twe-tab-active
+      >
+        Tab 1 content
       </div>
-      {% endfor %}
+      <div
+        x-show="currentTab == 'Profile'"
+        class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
+        id="tabs-profile"
+        role="tabpanel"
+        aria-labelledby="tabs-profile-tab"
+        data-twe-tab-active
+      >
+        Tab 2 content
+      </div>
+      <div
+        x-show="currentTab == 'Messages'"
+        class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
+        id="tabs-messages"
+        role="tabpanel"
+        aria-labelledby="tabs-profile-tab"
+        data-twe-tab-active
+      >
+        Tab 3 content
+      </div>
     </div>
   </div>
-  {% endif %} {% if comics %}
-  <div class="mb-4 mt-4" id="comics-grid">
-    <h3 class="mb-4 text-2xl font-bold leading-none tracking-tight text-gray-900 dark:text-white md:text-3xl lg:text-4xl">Recent Updates</h3>
-    <div class="m-2 grid w-auto grid-cols-3 grid-rows-4 gap-2">{% component "card" comics=comics %} {% endcomponent %}</div>
-  </div>
+  <br />
+  {% endcomment %} {% include 'partials/views/carousel.html' %}
 
-  {% endif %}
+  <br />
 
-  <!-- e -->
-  {% if comics and pagecount > 1 %}
-  <nav class="flex flex-row items-center justify-between space-y-0 p-4" aria-label="Table navigation">
-    <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
-      Showing
-      <span class="font-semibold text-gray-900 dark:text-white">{{page.current}}</span>
-      of
-      <span class="font-semibold text-gray-900 dark:text-white">{{pagecount}}</span>
-    </span>
-    <ul class="inline-flex items-stretch -space-x-px">
-      {% if page.has_previous %}
-      <li>
-        <a
-          href="?page={{ comics.previous_page_number }}"
-          class="ml-0 flex h-full items-center justify-center rounded-l-lg border border-gray-300 bg-white px-3 py-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-        >
-          <span class="sr-only">Previous</span>
-          <svg class="h-5 w-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-          </svg>
-        </a>
-      </li>
-      {% else %}
-      <li>
-        <a
-          class="ml-0 flex h-full items-center justify-center rounded-l-lg border border-gray-300 bg-white px-3 py-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-        >
-          <span class="sr-only">Previous</span>
-          <svg class="h-5 w-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-          </svg>
-        </a>
-      </li>
-      {% endif %}
-      <!-- if -->
-      {% for page_number in comics.paginator.get_elided_page_range %}
-      <!-- page number -->
-      {% if page_number == comics.paginator.ELLIPSIS %}
-      <li>
-        <a
-          class="flex items-center justify-center border border-gray-300 bg-white px-3 py-2 text-sm leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-        >
-          {{page_number}}
-        </a>
-      </li>
-      {% else %}
-      <li>
-        <a
-          aria-current="page"
-          class="{% if page_number == comics.number %} {% else %} {% endif %} z-10 flex flex items-center items-center justify-center justify-center border border border-gray-300 border-primary-300 bg-primary-50 bg-white px-3 px-3 py-2 py-2 text-sm text-sm leading-tight leading-tight text-gray-500 text-primary-600 hover:bg-gray-100 hover:bg-primary-100 hover:text-gray-700 hover:text-primary-700 dark:border-gray-700 dark:border-gray-700 dark:bg-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white"
-          href="?page={{page_number }}"
-        >
-          {{page_number}}
-        </a>
-      </li>
-      {% endif %}
-      <!-- fgh -->
-      {% endfor %}
-      <!-- as -->
-      {% if page.has_next %}
-      <li>
-        <a
-          href="?page={{ comics.next_page_number }}"
-          class="flex h-full items-center justify-center rounded-r-lg border border-gray-300 bg-white px-3 py-1.5 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-        >
-          <span class="sr-only">Next</span>
-          <svg class="h-5 w-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-          </svg>
-        </a>
-      </li>
-      {% else %}
-      <li>
-        <a
-          class="flex h-full items-center justify-center rounded-r-lg border border-gray-300 bg-white px-3 py-1.5 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-        >
-          <span class="sr-only">Next</span>
-          <svg class="h-5 w-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-          </svg>
-        </a>
-      </li>
-      {% endif %}
-    </ul>
-  </nav>
-  {% endif %}
+  <br />
+  {% include 'partials/views/hero.html' %}
+  <br />
+  {% include 'partials/views/grid.html' %}
 </div>
+<!-- ensl -->
 {% endblock content %}

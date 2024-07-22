@@ -1,5 +1,6 @@
 # General
 # ------------------------------------------------------------------------------
+DJANGO_READ_DOT_ENV_FILE=False
 USE_DOCKER=yes
 IPYTHONDIR=/app/.ipython
 DJANGO_DEBUG=False
