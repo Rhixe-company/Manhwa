@@ -1,4 +1,4 @@
-FROM docker.io/node:22.5-bookworm-slim
+FROM docker.io/node:22.6-bookworm-slim
 
 RUN useradd --user-group --create-home --shell /bin/false bot &&\
     npm install --global npm@latest
